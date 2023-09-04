@@ -1,0 +1,51 @@
+baseURL = "http://example.org/"
+languageCode = "en-gb"
+title = "Nick McCleery"
+theme = 'archie'
+pygmentsstyle = "paraiso-dark"
+pygmentscodefences = true
+
+[markup]
+[markup.goldmark]
+[markup.goldmark.renderer]
+unsafe = true
+
+
+[params]
+mode = "dark"
+useCDN = false
+subtitle = "Notes that don't fit anywhere else."
+mathjax = true
+katex = true
+customcss = ["css/overrides.css"]
+
+[[params.social]]
+name = "LinkedIn"
+icon = "linkedin"
+url = "https://www.linkedin.com/in/nick-mccleery/"
+
+[[params.social]]
+name = "Twitter"
+icon = "twitter"
+url = "https://twitter.com/nick_mccleery"
+
+[[params.social]]
+name = "GitHub"
+icon = "github"
+url = "https://github.com/nickmccleery"
+
+
+[[menu.main]]
+name = "Home"
+url = "/"
+weight = 1
+
+[[menu.main]]
+name = "Blog"
+url = "/posts"
+weight = 2
+
+[[menu.main]]
+name = "About"
+url = "/about"
+weight = 3

@@ -1,0 +1,123 @@
+@import url("https://fonts.googleapis.com/css?family=Space+Mono&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Space+Grotesk&display=swap");
+
+:root {
+  --green: #00f681;
+  --blue: #337bde;
+  --pink: #ff0099;
+  --orange: #f8b500;
+  --grey: #737679;
+  --darkgrey: #171c23;
+  --offblack: #0f1219;
+  --darkMaincolor: var(--green);
+  --bordercl: var(--grey);
+}
+
+html {
+  color: #232333;
+  font-family: "Space Grotesk", monospace;
+  font-size: 15px;
+  line-height: 1.6em;
+}
+
+p {
+  font-family: "Space Grotesk", sans-serif;
+  line-height: 1.5;
+}
+
+body {
+  color: white;
+  background-color: var(--offblack);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Space Mono", sans-serif;
+}
+
+h1 {
+  font-size: 1.3rem;
+  margin-top: 2em;
+}
+
+h2 {
+  font-size: 1.2rem;
+  margin-top: 2em;
+}
+
+h3,
+h4,
+h5,
+h6 {
+  font-size: 1.1rem;
+  margin-top: 2em;
+}
+
+code {
+  font-family: "Space Mono", monospace, sans-serif;
+  background-color: var(--darkgrey);
+  color: var(--pink);
+  text-decoration: bold;
+  padding: 0.1em 0.2em;
+}
+
+ul {
+  list-style: circle;
+  padding-left: 2ch;
+}
+ul li {
+  text-indent: 0;
+}
+ul > li::before {
+  content: "";
+  font-weight: bold;
+}
+
+::-moz-selection {
+  background: blue;
+  color: #fff;
+  text-shadow: none;
+}
+
+::selection {
+  background: var(--green);
+  color: vaR(--offblack);
+  text-shadow: none;
+}
+
+hr {
+  border: 0;
+  border-top: 2px dashed var(--bordercl);
+  margin: 1em 0;
+}
+
+footer {
+  display: flex;
+  align-items: center;
+  border-top: 2px dashed var(--bordercl);
+  padding: 2rem 0rem;
+  margin-top: 2rem;
+  color: var(--grey);
+}
+
+footer a {
+  border-bottom: none;
+  font-weight: bold;
+}
+
+img {
+  border: 0px;
+  max-width: 100%;
+}
+
+img[src$="#rounded"] {
+  border-radius: 10px;
+}
+
+.description {
+  margin-bottom: 15px !important;
+}
