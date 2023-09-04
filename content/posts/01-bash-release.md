@@ -3,6 +3,7 @@ title: Bashing it out
 description: A quick script to shave repetitive tasks off a GitLab Flow style branch model.
 date: 2023-09-03
 draft: false
+images: [/images/blog/01/GitFlow.drawio.png]
 tags: [software, development, git]
 ---
 
