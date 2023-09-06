@@ -26,10 +26,19 @@ The short version is:
 - 2021 - Current: [Anneal](https://www.getanneal.com), Founder
 - 2021 - 2022: [Quant Insight](https://quant-insight.com/), Part-Time Consultant
 - 2019 - 2021: [Quant Insight](https://quant-insight.com/), Lead Developer / Back-End Engineer
+- 2019 - 2019: ECG tech start-up, Senior Algorithm Engineer
 - 2017 - 2019: Force India/Racing Point F1: Vehicle Science Engineer
 - 2016 - 2017: Force India/Racing Point F1: Junior Strategy & Performance Engineer
 - 2014 - 2016: [Mercedes AMG HPP](https://www.mercedes-amg-hpp.com/), Mechanical Engineer, Graduate
 - 2012 - 2013: [Mercedes AMG HPP](https://www.mercedes-amg-hpp.com/), Performance Development Engineer, Intern
+
+## Academic Stuff
+
+I studied Mechanical Engineering at [QUB](https://www.qub.ac.uk/).
+
+I hold a first class honours degree, and was awarded an [Institution of Mechanical Engineers](https://www.imeche.org/) prize for work on battery management systems.
+
+You can read the associated report [here](/2014-NMcCleery-BMSProtocol.pdf). Please don't point out how many times it contains the word 'batter' when I meant to write 'battery'.
 
 # Personal Interests
 
