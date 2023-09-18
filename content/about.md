@@ -13,7 +13,7 @@ I like working on things that are hard and that bridge disciplines.
 
 The work I enjoy most is probably best described as 'data-driven engineering'—to half pinch the title of [Steven Brunton's](https://twitter.com/eigensteve) book, [Data Driven Science and Engineering](https://www.cambridge.org/core/books/datadriven-science-and-engineering/77D52B171B60A496EAFE4DB662ADC36E).
 
-This typically means combining mechanical engineering with software development and/or data science, and has largely been in the context of F1 vehicle dynamics and powertrain development, but I've also had great experiences building DSP and financial modelling tech.
+This typically means combining mechanical engineering with software development and/or data analysis and reporting, and has largely been in the context of F1 vehicle dynamics and powertrain development, but I've also had great experiences building DSP and financial modelling tech.
 
 I like thermofluids, dynamics, optimisation, control, data visualisation—that sort of thing. I also enjoy things like cloud architecture and database design, and get fairly worked up about how work is approached, how problems are tackled, how information is shared etc.
 
