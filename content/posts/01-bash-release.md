@@ -9,36 +9,56 @@ tags: [software, development, git]
 
 # Background
 
-The branching strategy we use at [Anneal](https://www.getanneal.com) is something I've arrived at after a few years of iteration across projects.
+The branching strategy we use at [Anneal](https://www.getanneal.com) is something I've arrived at after a few years of
+iteration across projects.
 
-It follows a similar pattern to [GitLab Flow](https://docs.gitlab.cn/14.0/ee/topics/gitlab_flow.html), but isn't quite the same. Like GitLab Flow, we have both environment and feature branches, and things are merge based—so rebasing isn't something that's an overly routine part of the workflow. However, the branch setup differs a little bit, particularly in how it relates to deployed application environments.
+It follows a similar pattern to [GitLab Flow](https://docs.gitlab.cn/14.0/ee/topics/gitlab_flow.html), but isn't quite
+the same. Like GitLab Flow, we have both environment and feature branches, and things are merge based—so rebasing isn't
+something that's an overly routine part of the workflow. However, the branch setup differs a little bit, particularly in
+how it relates to deployed application environments.
 
-For context, we generally work with GitLab, hence we refer to _merge requests_ rather than _pull requests_, and the basic setup is as follows:
+For context, we generally work with GitLab, hence we refer to _merge requests_ rather than _pull requests_, and the
+basic setup is as follows:
 
-- We run three deployed environments for each project, and have three corresponding protected branches: `development`, `staging`, and `production`.
-  - The `development` environment exists primarily to improve the developer experience when working with Lambda, SQS, and other AWS services that are a pain to develop around and/or test locally.
-- The effective master branch is `development`. It's the default branch for all projects, and all feature branches branch off it.
-- On merging into `development` or `staging`, we unlock the deployment oriented jobs in our pipeline, and they handle the relevant build/deploy work.
-- For `production`, things are driven by tags. To run a production release, we create a release branch from `staging`, then raise a merge request to merge that into `production`. Once that merge has been accepted, taging `production` with the relevant version number triggers the deployment job(s).
+- We run three deployed environments for each project, and have three corresponding protected branches: `development`,
+  `staging`, and `production`.
+  - The `development` environment exists primarily to improve the developer experience when working with Lambda, SQS,
+    and other AWS services that are a pain to develop around and/or test locally.
+- The effective master branch is `development`. It's the default branch for all projects, and all feature branches
+  branch off it.
+- On merging into `development` or `staging`, we unlock the deployment oriented jobs in our pipeline, and they handle
+  the relevant build/deploy work.
+- For `production`, things are driven by tags. To run a production release, we create a release branch from `staging`,
+  then raise a merge request to merge that into `production`. Once that merge has been accepted, taging `production`
+  with the relevant version number triggers the deployment job(s).
 
-New development work is handled with feature branches, and if we really feeel the need to run with hotfix branches, that is also possible.
+New development work is handled with feature branches, and if we really feeel the need to run with hotfix branches, that
+is also possible.
 
 The broad system looks something like this:
 
 ![Git Branch Strategy](/images/blog/01/GitFlow.drawio.png#rounded)  
 _Our git branch strategy._
 
-Obviously this doesn't include any detail about how we deploy infrastructure, which has some overlap... but here the focus is how we handle application updates.
+Obviously this doesn't include any detail about how we deploy infrastructure, which has some overlap... but here the
+focus is how we handle application updates.
 
 # Changelog
 
-I've kept a [changelog](https://keepachangelog.com/) for every project I've worked on since I first came across one. Beyond providing an easy to skim record of changes, we also include links to relevant tickets and documentation.
+I've kept a [changelog](https://keepachangelog.com/) for every project I've worked on since I first came across one.
+Beyond providing an easy to skim record of changes, we also include links to relevant tickets and documentation.
 
-Beyond this, however, they have proved an incredibly useful mechanism for managing any misplaced concerns about the pace of development. As someone who wants to do high quality engineering work as quickly as possible, I routinely stress about release cadence, timelines, and general pace of progress. Being able to pull up a single document that lays out what work has been completed, and on what timeline, is a very straightforward way of keeping that stress in perspective.
+Beyond this, however, they have proved an incredibly useful mechanism for managing any misplaced concerns about the pace
+of development. As someone who wants to do high quality engineering work as quickly as possible, I routinely stress
+about release cadence, timelines, and general pace of progress. Being able to pull up a single document that lays out
+what work has been completed, and on what timeline, is a very straightforward way of keeping that stress in perspective.
 
 ## The problem with CHANGELOG.md
 
-The only downside we face with keeping a changelog, aside from the odd requirement to nudge colleagues to update the thing as part of the review process (see below), is that we make changes to the `CHANGELOG.md` file quite late in the process—immedately prior to merging to the `production` branch. This means that changes here are not replicated in our `staging` or `development` branches without some manual intervention.
+The only downside we face with keeping a changelog, aside from the odd requirement to nudge colleagues to update the
+thing as part of the review process (see below), is that we make changes to the `CHANGELOG.md` file quite late in the
+process—immedately prior to merging to the `production` branch. This means that changes here are not replicated in our
+`staging` or `development` branches without some manual intervention.
 
 ![Bernie's Changelog](/images/blog/01/changelog.jpg)  
 _How we nudge colleagues to keep on top of things._
@@ -52,11 +72,14 @@ For context, when we release to `production` from `staging`, the process that's 
 4. Once that merge request has been accepted, tag `production` with the `X.Y.Z` version number.
 5. Wait for deployment to complete.
 
-After this, we raise two merge requests: one to merge `production` into `development`, and one to merge `production` into `staging`.
+After this, we raise two merge requests: one to merge `production` into `development`, and one to merge `production`
+into `staging`.
 
-These serve to keep the changelog in sync across branches, making sure `development` and `staging` are up-to-date, and have captured the changes we maed to `CHANGELOG.md` on our `production-release/vX.Y.Z` branch.
+These serve to keep the changelog in sync across branches, making sure `development` and `staging` are up-to-date, and
+have captured the changes we maed to `CHANGELOG.md` on our `production-release/vX.Y.Z` branch.
 
-However, this process is pretty clunky in GitLab. It takes a few minutes per branch, and it's easy to forget. When you might be doing this a couple of times a day, it gets quite frustrating.
+However, this process is pretty clunky in GitLab. It takes a few minutes per branch, and it's easy to forget. When you
+might be doing this a couple of times a day, it gets quite frustrating.
 
 # Bash script to the rescue
 
@@ -64,9 +87,11 @@ Thankfully, GitLab have a nicely documented API we can lean on to take some of t
 
 Our basic requirements are:
 
-- We need a [personal access token](https://docs.gitlab.com/ee/user/profile/personal_access_tokens.html). We can set this up in the GitLab console, then save it off as an environment variable.
+- We need a [personal access token](https://docs.gitlab.com/ee/user/profile/personal_access_tokens.html). We can set
+  this up in the GitLab console, then save it off as an environment variable.
 - We need the ID of the project in question. On your project overview page, this is visible below the project name.
-- We need to know what endpoint to hit, and what data to send. For that, we can check the [merge requests](https://docs.gitlab.com/ee/api/merge_requests.html) section of the docs.
+- We need to know what endpoint to hit, and what data to send. For that, we can check the
+  [merge requests](https://docs.gitlab.com/ee/api/merge_requests.html) section of the docs.
 
 Once we've pulled all that together, we can set about doing what we want:
 
@@ -122,7 +147,9 @@ echo -e "----------"
 
 ```
 
-I keep a version of this file in the root of each project repo. Once I've updated the changelog on `production-release/vX.Y.Z`, and merged that into `production`, it's as simple as hopping into the terminal, running `./post_release.sh`, and letting the script do its thing.
+I keep a version of this file in the root of each project repo. Once I've updated the changelog on
+`production-release/vX.Y.Z`, and merged that into `production`, it's as simple as hopping into the terminal, running
+`./post_release.sh`, and letting the script do its thing.
 
 Note that if you're creating this file from scratch, you'll need to make it executable with `chmod +x post_release.sh`.
 
