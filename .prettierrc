@@ -1,12 +1,19 @@
 {
-    "overrides": [
-        {
-            "files": [
-                "*.html"
-            ],
-            "options": {
-                "parser": "go-template"
-            }
-        }
-    ]
+  "overrides": [
+    {
+      "files": [
+        "*.html"
+      ],
+      "options": {
+        "parser": "go-template"
+      }
+    },
+    {
+      "files": "*.md",
+      "options": {
+        "printWidth": 120,
+        "proseWrap": "always"
+      }
+    }
+  ]
 }

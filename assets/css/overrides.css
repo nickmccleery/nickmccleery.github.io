@@ -22,7 +22,7 @@ html {
 
 p {
   font-family: "Space Grotesk", sans-serif;
-  line-height: 1.5;
+  line-height: 1.7;
 }
 
 body {
@@ -116,6 +116,26 @@ img {
 
 img[src$="#rounded"] {
   border-radius: 10px;
+}
+
+blockquote {
+  border-left: 5px solid var(--green);
+  padding: 0.2em 1em 0.2em 1em;
+  margin-left: 0;
+  background-color: rgba(255, 255, 255, 0.05);
+  color: white;
+  font-style: italic;
+}
+
+.footnote-ref::before {
+  content: "[";
+}
+.footnote-ref::after {
+  content: "]";
+}
+
+.footnote-ref {
+  margin-left: 0.4ch;
 }
 
 .description {
