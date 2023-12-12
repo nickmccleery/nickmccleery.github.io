@@ -76,7 +76,7 @@ little, and I see their thinking be revealed to be some variant of: _'Who the fu
 
 # A sudden realisation.
 
-Despite the frequency of those sorts of encounters, these events still provide access to vast repository of knowledge
+Despite the frequency of those sorts of encounters, these events still provide access to a vast repository of knowledge
 that you just can't find anywhere else. At one I attended recently, aside from an aerospace executive openly and
 egregiously advocating for firms in the region to stop competing with one another for staff because it drives up costs,
 I discovered that the way in which engineering software is sold has been changing—even for the enormous legacy CAx
