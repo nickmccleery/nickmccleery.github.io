@@ -3,7 +3,7 @@ title: Wait, did I need a lobbying budget all along?
 description: Sudden realisations, blind spots, and commercial naivety.
 date: 2023-12-12
 draft: false
-images: [/images/blog/01/GitFlow.drawio.png]
+images: [/images/blog/02/lobbying.png]
 tags: [marketing, start-ups, opinion]
 ---
 
