@@ -7,7 +7,7 @@ images: [/images/blog/01/GitFlow.drawio.png]
 tags: [software, development, git]
 ---
 
-# Background
+## Background
 
 The branching strategy we use at [Anneal](https://www.getanneal.com) is something I've arrived at after a few years of
 iteration across projects.
@@ -43,7 +43,7 @@ _Our git branch strategy._
 Obviously this doesn't include any detail about how we deploy infrastructure, which has some overlap... but here the
 focus is how we handle application updates.
 
-# Changelog
+## Changelog
 
 I've kept a [changelog](https://keepachangelog.com/) for every project I've worked on since I first came across one.
 Beyond providing an easy to skim record of changes, we also include links to relevant tickets and documentation.
@@ -53,7 +53,7 @@ of development. As someone who wants to do high quality engineering work as quic
 about release cadence, timelines, and general pace of progress. Being able to pull up a single document that lays out
 what work has been completed, and on what timeline, is a very straightforward way of keeping that stress in perspective.
 
-## The problem with CHANGELOG.md
+### The problem with CHANGELOG.md
 
 The only downside we face with keeping a changelog, aside from the odd requirement to nudge colleagues to update the
 thing as part of the review process (see below), is that we make changes to the `CHANGELOG.md` file quite late in the
@@ -81,7 +81,7 @@ have captured the changes we maed to `CHANGELOG.md` on our `production-release/v
 However, this process is pretty clunky in GitLab. It takes a few minutes per branch, and it's easy to forget. When you
 might be doing this a couple of times a day, it gets quite frustrating.
 
-# Bash script to the rescue
+## Bash script to the rescue
 
 Thankfully, GitLab have a nicely documented API we can lean on to take some of the clunk out of this.
 

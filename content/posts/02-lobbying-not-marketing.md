@@ -7,7 +7,7 @@ images: [/images/blog/02/lobbying.png]
 tags: [marketing, start-ups, opinion]
 ---
 
-# I'm not naive... right?
+## I'm not naive... right?
 
 My accent doesn't give it away too readily, but I grew up on the edge of a fairly hostile estate in north Belfast—one of
 the bits you used to hear about on the news—at the tail end of the Troubles. I was still in primary school when the Good
@@ -26,9 +26,9 @@ I think would, in a more sedate environment, take decades to acquire.
 
 Until recently, I would have never thought of myself as naive.
 
-# Engineering, soft skills, and suddenly wearing a suit to work.
+## Engineering, soft skills, and suddenly wearing a suit to work
 
-## Engineering first.
+### Engineering first
 
 The professional world is obviously different, with a different set of social norms and an effectively unwritten set of
 rules about how you should behave.
@@ -53,7 +53,7 @@ That aside, you absolutely can rock up to work at some of the highest performing
 wearing jeans, the wrong shirt, and a pair of Dr. Martens, and as long as you can solve the problems put in front of
 you, you'll become a valued member of the team.
 
-## I have to wear a suit now?
+### I have to wear a suit now?
 
 One of the most challenging experiences that's come from starting a business—particularly one that makes software for
 the highly conservative advanced engineering sector—is realising how unbelievably fucking hard it is to engage with the
@@ -74,7 +74,7 @@ how to talk to these people.
 Typically, I'll see someone's eyes flick from side to side then look me up and down, then they'll lean back just a
 little, and I see their thinking be revealed to be some variant of: _'Who the fuck do you think you are?'_
 
-# A sudden realisation.
+## A sudden realisation
 
 Despite the frequency of those sorts of encounters, these events still provide access to a vast repository of knowledge
 that you just can't find anywhere else. At one I attended recently, aside from an aerospace executive openly and
@@ -89,7 +89,7 @@ engagement to the supply chain, effectively reinforcing today's CAx vendor oligo
 Conveniently enough, this event took place in a government building—and triggered the thought: **we don't need
 marketing, we need lobbying**.
 
-# What I would change.
+## What I would change
 
 Having left this event feeling like I held all the guile of a two month old Golden Retriever, I realised that what we
 needed early on was not engineer-targeted digital marketing or high-capability technical advisors, or even a good
