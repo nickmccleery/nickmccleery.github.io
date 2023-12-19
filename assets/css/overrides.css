@@ -16,7 +16,7 @@
 html {
   color: #232333;
   font-family: "Space Grotesk", monospace;
-  font-size: 15px;
+  font-size: 16px;
   line-height: 1.6em;
 }
 
@@ -37,11 +37,13 @@ h4,
 h5,
 h6 {
   font-family: "Space Mono", sans-serif;
+  font-weight: 500;
 }
 
 h1 {
   font-size: 1.3rem;
   margin-top: 2em;
+  color: white;
 }
 
 h2 {
@@ -55,6 +57,11 @@ h5,
 h6 {
   font-size: 1.1rem;
   margin-top: 2em;
+}
+
+a {
+  border-bottom: 2px solid var(--darkMaincolor);
+  color: inherit;
 }
 
 code {
@@ -91,14 +98,14 @@ ul > li::before {
 
 hr {
   border: 0;
-  border-top: 2px dashed var(--bordercl);
+  border-top: 2 1px solid var(--bordercl);
   margin: 1em 0;
 }
 
 footer {
   display: flex;
   align-items: center;
-  border-top: 2px dashed var(--bordercl);
+  border-top: 1px solid var(--bordercl);
   padding: 2rem 0rem;
   margin-top: 2rem;
   color: var(--grey);
@@ -116,6 +123,10 @@ img {
 
 img[src$="#rounded"] {
   border-radius: 10px;
+}
+
+img[src$="#margin"] {
+  margin-top: 20px;
 }
 
 blockquote {
@@ -139,5 +150,40 @@ blockquote {
 }
 
 .description {
-  margin-bottom: 15px !important;
+  margin-bottom: 30px !important;
+  font-family: "Space Mono", sans-serif;
+  color: #ddd;
+  font-style: italic;
+}
+
+.description::before {
+  color: var(--darkMaincolor);
+  content: "## ";
+}
+
+.toc {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  border-top: 1px solid var(--grey);
+  border-bottom: 1px solid var(--grey);
+  font-family: "Space Mono", sans-serif;
+}
+
+.toc-header {
+  margin-top: 2em;
+  font-size: 1.1rem;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  font-family: "Space Mono", sans-serif;
+}
+
+.footnotes p {
+  margin-top: 2px;
+  margin-bottom: 2px;
+}
+
+.post-tags {
+  border-top: 1px solid var(--bordercl);
+  margin-top: 40px;
+  margin-bottom: 20px;
 }
