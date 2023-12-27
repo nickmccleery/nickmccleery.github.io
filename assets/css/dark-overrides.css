@@ -25,6 +25,10 @@ a {
   border-bottom: 2px solid var(--darkMaincolor);
 }
 
+a:hover {
+  color: var(--offblack);
+}
+
 .description::before {
   color: var(--darkMaincolor);
 }
