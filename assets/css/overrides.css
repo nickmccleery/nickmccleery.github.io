@@ -6,28 +6,27 @@
   --blue: #337bde;
   --pink: #ff0099;
   --orange: #f8b500;
+  --lightgrey: #f0f0f0;
   --grey: #737679;
   --darkgrey: #171c23;
   --offblack: #0f1219;
-  --darkMaincolor: var(--green);
+
+  --maincolor: var(--pink);
   --bordercl: var(--grey);
+
+  --lineheight: 1.9em;
 }
 
 html {
   color: #232333;
   font-family: "Space Grotesk", monospace;
   font-size: 16px;
-  line-height: 1.6em;
+  line-height: var(--lineheight);
 }
 
 p {
   font-family: "Space Grotesk", sans-serif;
-  line-height: 1.7;
-}
-
-body {
-  color: white;
-  background-color: var(--offblack);
+  line-height: var(--lineheight);
 }
 
 h1,
@@ -43,7 +42,6 @@ h6 {
 h1 {
   font-size: 1.3rem;
   margin-top: 2em;
-  color: white;
 }
 
 h2 {
@@ -60,13 +58,18 @@ h6 {
 }
 
 a {
-  border-bottom: 2px solid var(--darkMaincolor);
+  border-bottom: 2px solid var(--maincolor);
   color: inherit;
+}
+
+a:hover {
+  background-color: var(--maincolor);
+  color: white;
 }
 
 code {
   font-family: "Space Mono", monospace, sans-serif;
-  background-color: var(--darkgrey);
+  background-color: var(--lightgrey);
   color: var(--pink);
   text-decoration: bold;
   padding: 0.1em 0.2em;
@@ -91,7 +94,7 @@ ul > li::before {
 }
 
 ::selection {
-  background: var(--green);
+  background: var(--maincolor);
   color: vaR(--offblack);
   text-shadow: none;
 }
@@ -145,11 +148,10 @@ figcaption {
 }
 
 blockquote {
-  border-left: 5px solid var(--green);
+  border-left: 5px solid var(--maincolor);
   padding: 0.2em 1em 0.2em 1em;
   margin-left: 0;
   background-color: rgba(255, 255, 255, 0.05);
-  color: white;
   font-style: italic;
 }
 
@@ -167,12 +169,12 @@ blockquote {
 .description {
   margin-bottom: 30px !important;
   font-family: "Space Mono", sans-serif;
-  color: #ddd;
+  color: var(--grey);
   font-style: italic;
 }
 
 .description::before {
-  color: var(--darkMaincolor);
+  color: var(--maincolor);
   content: "// ";
 }
 

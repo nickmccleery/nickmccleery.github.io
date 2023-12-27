@@ -12,7 +12,7 @@ unsafe = true
 
 
 [params]
-mode = "dark"
+mode = "toggle"
 useCDN = false
 subtitle = "Notes that don't fit anywhere else."
 mathjax = true
