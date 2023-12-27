@@ -37,8 +37,7 @@ is also possible.
 
 The broad system looks something like this:
 
-![Git Branch Strategy](/images/blog/01/GitFlow.drawio.png#rounded)  
-_Our git branch strategy._
+{{< figure src="/images/blog/01/GitFlow.drawio.png#rounded" title="Our git branch strategy.">}}
 
 Obviously this doesn't include any detail about how we deploy infrastructure, which has some overlap... but here the
 focus is how we handle application updates.
@@ -60,8 +59,7 @@ thing as part of the review process (see below), is that we make changes to the 
 process—immedately prior to merging to the `production` branch. This means that changes here are not replicated in our
 `staging` or `development` branches without some manual intervention.
 
-![Bernie's Changelog](/images/blog/01/changelog.jpg)  
-_How we nudge colleagues to keep on top of things._
+{{< figure src="/images/blog/01/changelog.jpg#rounded#margin" title="How we nudge colleagues to keep on top of things.">}}
 
 For context, when we release to `production` from `staging`, the process that's followed is:
 

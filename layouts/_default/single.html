@@ -3,7 +3,9 @@
 	<article>
 		<div class="title">
 			<h1 class="title">{{ .Title }}</h1>
-			<p class="description">{{ .Description }}</p>
+			{{ with .Description }}
+				<p class="description">{{ . }}</p>
+			{{ end }}
 			<div class="meta">Posted on {{ dateFormat "Jan 2, 2006" .Date }}{{ if .Draft }} <span class="draft-label">DRAFT</span> {{ end }}</div>
 		</div>
 		
@@ -13,12 +15,14 @@
 			{{ .Params.tldr }}
 		</div>{{ end }}
 
+		{{ if ne .Title "About" }}
 		<div class="toc">
 			<p class="toc-header">Contents:</p>
 			<aside>
 				{{ .TableOfContents }}
 			</aside>
 		</div>
+		{{ end }}
 	
 
 		<section class="body">

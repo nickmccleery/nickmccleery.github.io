@@ -98,7 +98,7 @@ ul > li::before {
 
 hr {
   border: 0;
-  border-top: 2 1px solid var(--bordercl);
+  border-top: 1px solid var(--bordercl);
   margin: 1em 0;
 }
 
@@ -119,6 +119,8 @@ footer a {
 img {
   border: 0px;
   max-width: 100%;
+  display: block;
+  margin: auto;
 }
 
 img[src$="#rounded"] {
@@ -127,6 +129,19 @@ img[src$="#rounded"] {
 
 img[src$="#margin"] {
   margin-top: 20px;
+}
+
+figure {
+  display: block;
+  margin: auto;
+}
+
+figcaption {
+  display: block;
+  margin: auto;
+  text-align: center;
+  font-family: "Space Mono", sans-serif;
+  font-size: small;
 }
 
 blockquote {
@@ -158,7 +173,7 @@ blockquote {
 
 .description::before {
   color: var(--darkMaincolor);
-  content: "## ";
+  content: "// ";
 }
 
 .toc {

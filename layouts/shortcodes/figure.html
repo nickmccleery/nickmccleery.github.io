@@ -1,0 +1,4 @@
+<figure>
+    <img src="{{ .Get "src" }}" alt="{{ .Get "alt" }}">
+    <figcaption>{{ .Get "title" | safeHTML }}<br/>{{.Get "credit" | safeHTML }}</figcaption>
+</figure>
