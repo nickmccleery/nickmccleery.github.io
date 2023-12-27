@@ -7,19 +7,26 @@ Engineer who likes working at the intersection of hardware and software.
 
 Founder of [Anneal](https://www.getanneal.com); currently trying to spend as much time as possible with the IDE closed.
 
-# Professional Interests
+## Professional Interests
 
 I like working on things that are hard and that bridge disciplines.
 
-The work I enjoy most is probably best described as 'data-driven engineering'—to half pinch the title of [Steven Brunton's](https://twitter.com/eigensteve) book, [Data Driven Science and Engineering](https://www.cambridge.org/core/books/datadriven-science-and-engineering/77D52B171B60A496EAFE4DB662ADC36E).
+The work I enjoy most is probably best described as 'data-driven engineering'—to half pinch the title of
+[Steven Brunton's](https://twitter.com/eigensteve) book,
+[Data Driven Science and Engineering](https://www.cambridge.org/core/books/datadriven-science-and-engineering/77D52B171B60A496EAFE4DB662ADC36E).
 
-This typically means combining mechanical engineering with software development and/or data analysis and reporting, and has largely been in the context of F1 vehicle dynamics and powertrain development, but I've also had great experiences building DSP and financial modelling tech.
+This typically means combining mechanical engineering with software development and/or data analysis and reporting, and
+has largely been in the context of F1 vehicle dynamics and powertrain development, but I've also had great experiences
+building DSP and financial modelling tech.
 
-I like thermofluids, dynamics, optimisation, control, data visualisation—that sort of thing. I also enjoy things like cloud architecture and database design, and get fairly worked up about how work is approached, how problems are tackled, how information is shared etc.
+I like thermofluids, dynamics, optimisation, control, data visualisation—that sort of thing. I also enjoy things like
+cloud architecture and database design, and get fairly worked up about how work is approached, how problems are tackled,
+how information is shared etc.
 
-## Employment History
+### Employment History
 
-There's a detailed job history on my [LinkedIn](https://www.linkedin.com/in/nick-mccleery/), but I've had the pleasure of working on some very cool projects with some very sharp people.
+There's a detailed job history on my [LinkedIn](https://www.linkedin.com/in/nick-mccleery/), but I've had the pleasure
+of working on some very cool projects with some very sharp people.
 
 The short version is:
 
@@ -32,29 +39,34 @@ The short version is:
 - 2014 - 2016: [Mercedes AMG HPP](https://www.mercedes-amg-hpp.com/), Mechanical Engineer, Graduate
 - 2012 - 2013: [Mercedes AMG HPP](https://www.mercedes-amg-hpp.com/), Performance Development Engineer, Intern
 
-## Academic Stuff
+### Academic Stuff
 
 I studied Mechanical Engineering at [QUB](https://www.qub.ac.uk/).
 
-I hold a first class honours degree, and was awarded an [Institution of Mechanical Engineers](https://www.imeche.org/) prize for work on battery management systems.
+I hold a first class honours degree, and was awarded an [Institution of Mechanical Engineers](https://www.imeche.org/)
+prize for work on battery management systems.
 
-You can read the associated report [here](/2014-NMcCleery-BMSProtocol.pdf). Please don't point out how many times it contains the word 'batter' when I meant to write 'battery'.
+You can read the associated report [here](/2014-NMcCleery-BMSProtocol.pdf). Please don't point out how many times it
+contains the word 'batter' when I meant to write 'battery'.
 
-# Personal Interests
+## Personal Interests
 
-## Motorsport
+### Motorsport
 
 Cars and bikes are very close to my heart—especially small displacement two strokes.
 
-In the late 2000s, I did an incredibly average job on the club racing circuit, almost invariably finishing 6th. Though relatively quick in the wet, I eventually realised I was going to be more use doing sums than I was dragging elbows.
+In the late 2000s, I did an incredibly average job on the club racing circuit, almost invariably finishing 6th. Though
+relatively quick in the wet, I eventually realised I was going to be more use doing sums than I was dragging elbows.
 
-For someone who owns a light up mechanical keyboard, I'm also relatively practical, having built and maintained bikes and cars since I was a teenager, and since discovered that working with wood is good fun.
+For someone who owns a light up mechanical keyboard, I'm also relatively practical, having built and maintained bikes
+and cars since I was a teenager, and since discovered that working with wood is good fun.
 
-![Kirkistown](/images/Kirkistown.jpg)  
-_Me at Kirkistown, some time in 2009, aboard an RS125._
+{{< figure src="/images/Kirkistown.jpg#rounded#margin" title="Me at Kirkistown aboard an RS125; 2009" credit="Credit: <a href=\"http://www.joefoxphoto.co.uk/\">Joe Fox</a>">}}
 
-## Music
+### Music
 
-I'm a big fan of electronic music. Largely unguided fiddling with synthesizers and drum machines gave rise to my interest in signal processing, and that experience was incredibly helpful in more than one actual job I've had.
+I'm a big fan of electronic music. Largely unguided fiddling with synthesizers and drum machines gave rise to my
+interest in signal processing, and that experience was incredibly helpful in more than one actual job I've had.
 
-One track of mine has been pressed by [Fundamental](https://fundamentalrecords.bandcamp.com/merch), but it's been a long time since I fired up Ableton or twiddled a filter.
+One track of mine has been pressed by [Fundamental](https://fundamentalrecords.bandcamp.com/merch), but it's been a long
+time since I fired up Ableton or twiddled a filter.
