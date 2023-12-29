@@ -61,7 +61,7 @@ relatively quick in the wet, I eventually realised I was going to be more use do
 For someone who owns a light up mechanical keyboard, I'm also relatively practical, having built and maintained bikes
 and cars since I was a teenager, and since discovered that working with wood is good fun.
 
-{{< figure src="/images/Kirkistown.jpg#rounded#margin" title="Me at Kirkistown aboard an RS125; 2009" credit="Credit: <a href=\"http://www.joefoxphoto.co.uk/\">Joe Fox</a>">}}
+{{< figure src="/images/Kirkistown.jpg" class="rounded margin" title="Me at Kirkistown aboard an RS125; 2009" credit="Credit: <a href=\"http://www.joefoxphoto.co.uk/\">Joe Fox</a>">}}
 
 ### Music
 

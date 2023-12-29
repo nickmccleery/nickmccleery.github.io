@@ -7,7 +7,8 @@
 		<a href="{{ .URL }}">{{ .Name }}</a>
 		{{ end }}
 		{{ if eq .Site.Params.mode "toggle" -}}
-        | <span id="dark-mode-toggle" onclick="toggleTheme()"></span>
+		<span>&nbsp;|</span>
+        <a class="mode-toggle"><span id="dark-mode-toggle" onclick="toggleTheme()"></span></a>
 		<script src="{{ .Site.BaseURL }}js/themetoggle.js"></script>
 		{{ end }}
 	</nav>
