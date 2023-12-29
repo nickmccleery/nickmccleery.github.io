@@ -244,6 +244,16 @@ title="View frustum."
 credit="The vector along which the camera is looking is shown in red, the frustum in blue, and the remainder of the imaginary pyramid in grey."
 class="rounded margin">}}
 
+#### Field of view
+
+Another concept worth mentioning here is the _field of view_ (FOV). This could refer to one of two things: the angle
+between the left and right planes—known as horizontal FOV—or the angle between the top and bottom planes—known as
+vertical FOV. In Three.js, we specify vertical FOV, then effectively compute horizontal FOV from vertical FOV and
+specified aspect ratio.
+
+Taking a side elevation of our diagram above, we can see that the vertical FOV is just the angle between the top and
+bottom planes.
+
 ### Bounding boxes and bounding spheres
 
 These concepts are much simpler to explain than the view frustum, and will be useful when we actually get around to
@@ -283,13 +293,11 @@ box_{max} &= \begin{bmatrix} x_{max} \\ y_{max} \\ z_{max} \end{bmatrix}
 $$
 
 Similarly, a bounding sphere is simply the smallest possible sphere that can wholly enclose the target object or group
-of objects. Its centre will lie at the midpoint of the bounding box's `min` to `max` diagonal, and its radius will be
-half the length of that diagonal.
+of objects.
 
-In our case, we derive our bounding sphere from the bounding box. As I think about it, when our bounding box is a cube,
-the bounding sphere is one whose surface is coincident with each of the bounding box's eight vertices. When the bounding
-box is not a cube, it is the smallest sphere that can contain the bounding box, but all eight vertices will no longer be
-coincident with the its surface.
+In our case, we derive our bounding sphere from the bounding box. Its centre will lie at the midpoint of the bounding
+box's `min` to `max` diagonal, and its radius will be half the length of that diagonal. This means the bounding sphere's
+surface will be also coincident with each of the bounding box's eight vertices—neatly wrapping around the box.
 
 ## Viewer setup
 
