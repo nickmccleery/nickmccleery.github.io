@@ -24,6 +24,21 @@ html {
   line-height: var(--lineheight);
 }
 
+.icon {
+  position: relative;
+  top: 2px;
+  left: 0px;
+}
+
+.mode-toggle {
+  border-bottom: none;
+}
+
+.mode-toggle:hover {
+  cursor: pointer;
+  background-color: transparent;
+}
+
 p {
   font-family: "Space Grotesk", sans-serif;
   line-height: var(--lineheight);
@@ -131,6 +146,14 @@ img[src$="#rounded"] {
 }
 
 img[src$="#margin"] {
+  margin-top: 20px;
+}
+
+.rounded {
+  border-radius: 10px;
+}
+
+.margin {
   margin-top: 20px;
 }
 
