@@ -3,8 +3,8 @@ title: Building a palatable 3D viewer
 description: Engineering review procedures and using Three.js to visualise 3D CAD data.
 date: 2023-12-19
 draft: false
-images: [/images/blog/02/lobbying.png]
-tags: [software, development, 3D, CAD, Three.js]
+images: [/images/blog/03/ViewFrustum.png]
+tags: [engineering, review, software, development, 3D, CAD, Three.js]
 ---
 
 ## Motivation: design reviews _suck_
@@ -253,6 +253,11 @@ specified aspect ratio.
 
 Taking a side elevation of our diagram above, we can see that the vertical FOV is just the angle between the top and
 bottom planes.
+
+{{<figure
+src="/images/blog/03/ViewFrustumSide.png"
+title="Field of view, vertical."
+class="rounded margin">}}
 
 ### Bounding boxes and bounding spheres
 
