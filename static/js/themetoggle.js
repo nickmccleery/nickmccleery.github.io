@@ -23,5 +23,5 @@ function toggleTheme() {
   }
 }
 
-var savedTheme = localStorage.getItem("theme-storage") || "dark";
+var savedTheme = localStorage.getItem("theme-storage") || "light";
 setTheme(savedTheme);
