@@ -1,4 +1,32 @@
 <figure>
-    <img src="{{ .Get "src" }}" alt="{{ .Get "alt" }}" class="{{ .Get "class" }}">
+    <img src="{{ .Get "src" }}" alt="{{ .Get "alt" }}" class="{{ .Get "class" }}" style="cursor: pointer" onclick="enlargeImage(this)">
     <figcaption>{{ .Get "title" | safeHTML }}<br/>{{.Get "credit" | safeHTML }}</figcaption>
 </figure>
+
+<script>
+function enlargeImage(img) {
+    var src = img.src;
+    var overlay = document.createElement("div");
+    overlay.style.position = "fixed";
+    overlay.style.left = 0;
+    overlay.style.top = 0;
+    overlay.style.width = "100%";
+    overlay.style.height = "100%";
+    overlay.style.backgroundColor = "rgba(0,0,0,0.7)";
+    overlay.onclick = function() { this.parentNode.removeChild(this); };
+
+    var enlargedImg = document.createElement("img");
+    enlargedImg.src = src;
+    enlargedImg.style.position = "absolute";
+    enlargedImg.style.margin = "auto";
+    enlargedImg.style.top = 0;
+    enlargedImg.style.left = 0;
+    enlargedImg.style.right = 0;
+    enlargedImg.style.bottom = 0;
+    enlargedImg.style.maxHeight = "90%";
+    enlargedImg.style.maxWidth = "90%";
+
+    overlay.appendChild(enlargedImg);
+    document.body.appendChild(overlay);
+}
+</script>
