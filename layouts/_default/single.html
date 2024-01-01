@@ -1,0 +1,58 @@
+{{ define "main" }}
+<main>
+	<article>
+		<div class="title">
+			<h1 class="title">{{ .Title }}</h1>
+			{{ with .Description }}
+				<p class="description">{{ . }}</p>
+			{{ end }}
+			<div class="meta">Posted on {{ dateFormat "Jan 2, 2006" .Date }}{{ if .Draft }} <span class="draft-label">DRAFT</span> {{ end }}</div>
+		</div>
+		
+		{{ if isset .Params "tldr" }}
+		<div class="tldr">
+			<strong>tl;dr:</strong>
+			{{ .Params.tldr }}
+		</div>{{ end }}
+
+		{{ if ne .Title "About" }}
+		<div class="toc">
+			<p class="toc-header">Contents:</p>
+			<aside>
+				{{ .TableOfContents }}
+			</aside>
+		</div>
+		{{ end }}
+	
+
+		<section class="body">
+			{{ .Content }}
+		</section>
+
+		{{ if ne .Type "page" }}
+		{{ if gt .Params.tags 0 }}
+		<div class="post-tags">
+			<nav class="nav tags">
+				<ul class="tags">
+					{{ range .Params.tags }}
+					<li><a href="{{ "/tags/" | relLangURL }}{{ . | urlize }}">{{ . }}</a></li>
+					{{ end }}
+				</ul>
+			</nav>
+		</div>
+		{{ end }}
+		{{ end }}
+
+		{{- $.Scratch.Set "isDisqus" true -}}
+		<!-- Check if disqus short name is given -->
+		{{ if not .Site.DisqusShortname }}
+		{{- $.Scratch.Set "isDisqus" false -}}
+		{{ end }}
+
+		{{- if eq ($.Scratch.Get "isDisqus") true -}}
+		{{- partial "disqus.html" . -}}
+		{{- end -}}
+	</article>
+	
+</main>
+{{ end }}

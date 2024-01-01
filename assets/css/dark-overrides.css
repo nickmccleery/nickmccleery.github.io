@@ -1,0 +1,43 @@
+:root {
+  --green: #00f681;
+  --blue: #337bde;
+  --pink: #ff0099;
+  --orange: #f8b500;
+  --grey: #737679;
+  --darkgrey: #171c23;
+  --offblack: #0f1219;
+
+  --darkMaincolor: var(--green);
+  --maincolor: var(--green);
+  --bordercl: var(--grey);
+}
+
+body {
+  color: white;
+  background-color: var(--offblack);
+}
+
+h1 {
+  color: white;
+}
+
+a {
+  border-bottom: 2px solid var(--darkMaincolor);
+}
+
+a:hover {
+  color: var(--offblack);
+}
+
+.description::before {
+  color: var(--darkMaincolor);
+}
+
+blockquote {
+  color: white;
+}
+
+code {
+  background-color: var(--darkgrey);
+  color: var(--pink);
+}
