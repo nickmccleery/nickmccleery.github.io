@@ -272,7 +272,7 @@ parameterising things.
 
 In 3D, a bounding box is simply the smallest possible _axis aligned_ cuboid that can contain the given object. Axis
 aligned just means that the box's edges are parallel to the coordinate axes of the scene—so you can't sneakily rotate
-your boudning box cf. the axes to minimise its volume.
+your bounding box cf. the axes to minimise its volume.
 
 {{< figure src="/images/blog/03/Bounding_box.png" title="Axes aligned bounding box of a sphere." credit="Credit: <a href=\"https://commons.wikimedia.org/wiki/File:Bounding_box.png\">https://commons.wikimedia.org/wiki/User:Cobra w</a>" class="rounded margin">}}
 
@@ -730,7 +730,7 @@ and pieces that I've added to make the viewer work nicely are:
 
 ## The result
 
-There are some demos on our LinkedIn, but here's a screenshot of the viewer in action—including items listed in
+There are some demo videos on our LinkedIn, but here's a screenshot of the viewer in action—including items listed in
 [further work](#further-work).
 
 {{< figure src="/images/blog/03/Screenshot.png" title="Anneal CAD viewer: perspective projection of coilover STEP file." credit="<a href=\"https://www.getanneal.com\">https://www.getanneal.com</a>" class="rounded margin">}}
