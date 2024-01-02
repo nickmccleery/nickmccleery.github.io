@@ -29,10 +29,10 @@ direction, and the last serves to get more sets of eyes on things like
 
 To illustrate, that process might look something like this:
 
-{{< figure src="/images/blog/03/DesignReview.drawio.png" title="Simplfied review procedure flowchart." class="rounded margin">}}
+{{< figure src="/images/blog/03/DesignReview.drawio.png" title="Simplified review procedure flowchart." class="rounded margin">}}
 
-So the flowchart looks fine; no issues there. Unfortunately, the actual, practical processes followed by engineering
-teams are often archaic, unwieldy, untraceable, and error-prone. Ignoring the drawing component, which—where it
+So, the flowchart looks fine; no issues there. Unfortunately, the actual, practical processes followed by engineering
+teams are often archaic, unwieldy, untraceable, and error prone. Ignoring the drawing component, which—where it
 remains—is obviously 2D, the process of reviewing 3D designs tends to take one of the following forms:
 
 ### Option A: The meeting room
@@ -96,7 +96,7 @@ designer can get try and elicit some feedback from their team.
 - Feedback requires circulating the document via e-mail and waiting for responses.
   - If this process involves four or five people, especially for truly single-player PowerPoint workflows, the designer
     must wait for all of these responses, then piece together the feedback from several e-mails and individual documents
-    into a some collated, actionable list.
+    into some collated, actionable list.
   - Unbeknownst to one another, contributors may cover the same ground in parallel, suggesting similar or identical
     changes to the design without the opportunity to actually discuss those changes in context.
   - For the designer, the admin penalty from all this is high, and the process is slow and _painful_.
@@ -109,9 +109,9 @@ designer can get try and elicit some feedback from their team.
 
 ### Option C: _"My PLM system has a 3D viewer!"_
 
-You might thing the solution to this lies in the fact that SOLIDWORKS Manage or 3DEXPERIENCE claim to have 3D viewers
-that even allow markup. Unfortunately, having been demoed a few of these, I can say that all that I've seen so far have
-been incredibly disappointing.
+You might think the solution to this lies in the fact that SOLIDWORKS Manage or 3DEXPERIENCE claim to have 3D viewers
+that even allow markup. We were still using ENOVIA when I was last drawing parts, but having been demoed a few of the
+newer iterations of these tools, I can say that all that I've seen so far have been incredibly disappointing.
 
 Packaging up a Snipping Tool knock-off and putting a button for it in your toolbar is not providing a 3D review process.
 It's just the PowerPoint screenshot ping-pong review process that happens to be accessed from your PLM.
@@ -267,7 +267,7 @@ Our aspect ratio we can compute later, once we know the dimensions of the elemen
 
 ### Bounding boxes and bounding spheres
 
-These concepts are much simpler to explain than the view frustum, and will be useful when we actually get around to
+These concepts are much simpler to explain than the view frustum and will be useful when we actually get around to
 parameterising things.
 
 In 3D, a bounding box is simply the smallest possible _axis aligned_ cuboid that can contain the given object. Axis
@@ -413,7 +413,7 @@ rattle through the rest of the maths and get all the values we need.
 #### 2.1 Raw camera distance from centre of scene
 
 The hardest part here is computing the distance from the camera to the centre of the scene, which I'll call $l$. To help
-illustrate what we're after, here's a marked up side view of our frustum:
+illustrate what we're after, here's a marked upside view of our frustum:
 
 {{<figure
 src="/images/blog/03/ViewFrustumSideAnnotated.png"
@@ -584,7 +584,7 @@ These represent:
 
 - `X_FAR_SCALAR`: A scalar that we apply to the distance from the camera to the 'back' of the scene. This gives us a
   significant margin, and ensures that the far plane is always further away than the furthest part of the scene.
-- `X_NEAR_SCALAR`: A scalar that we apply to the distance from the camera to the 'front' of the scene. Again, gives us a
+- `X_NEAR_SCALAR`: A scalar that we apply to the distance from the camera to the 'front' of the scene. Again, gives us
   some margin, and ensures that the near plane is always close to the camera the nearest part of the scene.
 - `X_NEAR_DEFAULT`: The default distance from the centre of the scene to the near plane. Whichever is smaller, this or
   the value computed using `X_NEAR_SCALAR`, will be used as the near plane distance.
@@ -601,8 +601,20 @@ we need:
 <div>
 $$
 \begin{align*}
-\text{far} &= (l + r) \times \text{X\_FAR\_SCALAR} \\
-\text{near} &= \min[(l - r) \times \text{X\_NEAR\_SCALAR}, \text{X\_NEAR\_DEFAULT}]
+\text{far} &= (l + r) \times k_{far} \\
+\text{near} &= \min[(l - r) \times k_{far}, d_{near}]
+\end{align*}
+$$
+</div>
+
+Where:
+
+<div>
+$$
+\begin{align*}
+k_{far} &= \text{X\_FAR\_SCALAR} \\
+k_{near} &= \text{X\_NEAR\_SCALAR} \\
+d_{near} &= \text{X\_NEAR\_DEFAULT}
 \end{align*}
 $$
 </div>
@@ -709,11 +721,11 @@ this.perspectiveControls.target.set(ORIGIN.x, ORIGIN.y, ORIGIN.z);
 
 ## Limitations
 
-The most obvious limitation in what's outlined here really relates to what we point the camera at by default. Though our
-`computeDefaultPerspectiveCameraParameters` function accounts for the bounding sphere's centre, our orbit controls and
-what the camera actually looks at defaults to the scene origin. For parts that are small and centered well away from the
-origin, this can mean the camera basically points at empty space and the user has to manually reorient the camera to see
-the part.
+The most obvious limitation in what is outlined here really relates to what we point the camera at by default. Though
+our `computeDefaultPerspectiveCameraParameters` function accounts for the bounding sphere's centre, our orbit controls
+and what the camera actually looks at defaults to the scene origin. For parts that are small and centered well away from
+the origin, this can mean the camera basically points at empty space and the user has to manually reorient the camera to
+see the part.
 
 ## Further work
 
