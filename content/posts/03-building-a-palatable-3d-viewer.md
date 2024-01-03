@@ -17,7 +17,7 @@ The need to tackle this came from wanting to visualise 3D CAD data in a web brow
 [Anneal](https://www.getanneal.com)&rsquo;s design review tooling.
 
 The general background is that engineering teams typically do—and are in many cases obligated to—perform some variety of
-stage-gated review process for new designs and design modifications. At one end, you might a have high-level concept
+stage-gated review process for new designs and design modifications. At one end, you might have a high-level concept
 review, and at the other, a detailed drawing review. The first allows the team to opine on design philosophy and
 direction, and the last serves to get more sets of eyes on things like
 [GD&T](https://en.wikipedia.org/wiki/Geometric_dimensioning_and_tolerancing) on fully fleshed-out, detailed designs.
