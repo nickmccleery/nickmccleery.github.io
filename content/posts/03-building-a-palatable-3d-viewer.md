@@ -334,16 +334,26 @@ this.scene = new THREE.Scene();
 // then handles the addition of the relevant geometry to the scene.
 await this.loadFile();
 
-// Create renderer. Note that viewerContainer is a reference to the element
-// we'll be rendering in.
-this.renderer = new THREE.WebGLRenderer({ alpha: true });
-this.renderer.shadowMap.enabled = true;
-this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+// Create renderer. Uses our threeHelper module.
+this.renderer = threeHelper.createRenderer();
 this.viewerContainer.appendChild(this.renderer.domElement);
 
 // Create camera.
 this.perspectiveCamera = new THREE.PerspectiveCamera();
 ...
+```
+
+The relevant `threeHelper` functions are as follows:
+
+```javascript
+function createRenderer() {
+  const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+  renderer.shadowMap.enabled = true;
+  renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+  renderer.autoClear = false;
+
+  return renderer;
+}
 ```
 
 As a quick snippet of the sort of thing your `loadFile` method might want to actually do, here's an example that would
@@ -352,17 +362,17 @@ generate both a surface mesh and a wireframe mesh for a given geometry:
 ```javascript
 ...
 const material = new THREE.MeshPhongMaterial({
-  color: DEFAULT_COLOR,
-  wireframe: false,
-  side: THREE.DoubleSide,
+    color: constants.DEFAULT_COLOR,
+    wireframe: false,
+    side: THREE.DoubleSide,
 });
 
 const wireframeMaterial = new THREE.MeshBasicMaterial({
-  color: WIREFRAME_COLOR,
-  wireframe: true,
-  transparent: true,
-  opacity: WIREFRAME_OPACITY,
-  side: THREE.DoubleSide,
+    color: constants.WIREFRAME_COLOR,
+    wireframe: true,
+    transparent: true,
+    opacity: constants.WIREFRAME_OPACITY,
+    side: THREE.DoubleSide,
 });
 
 const mesh = new THREE.Mesh(geometry, material);
@@ -550,13 +560,13 @@ Then, to actually compute the coordinates of our desired camera position, we do 
 
 ```typescript
 ....
-// Calculate distance from camera to center of bounding sphere.
+// Calculate distance from camera to center of bounding sphere (including scaling).
 const r = objectRadius;
 const height = computeVisibleHeightFromAngleAndRadius(phiFov, r);
-const l = calculateDistanceFromAngleAndHeight(phiFov, height);
+const l = calculateDistanceFromAngleAndHeight(phiFov, height) * zoomScalar;
 
 // Get coords for camera, offset from box center.
-const coords = convertToCartesian(azimuth, elevation, l * zoomScalar);
+const coords = convertToCartesian(azimuth, elevation, l);
 
 const x = coords.x + objectCenter.x;
 const y = coords.y + objectCenter.y;
@@ -629,10 +639,10 @@ const near = Math.min((l - r) * X_NEAR_SCALAR, X_NEAR_DEFAULT);
 
 #### 2.4 Putting it all together
 
-Putting all of that together, we have a single function that computes initial camera setup parameters:
+Putting all of that together, we have a pair of functions that compute initial camera setup parameters:
 
 ```typescript
-export function computeDefaultPerspectiveCameraParameters(
+export function computeDefaultCameraPosition(
   phiFov: number,
   objectRadius: number,
   objectCenter: Coordinate,
@@ -642,61 +652,71 @@ export function computeDefaultPerspectiveCameraParameters(
 ): {
   position: Coordinate;
   l: number;
-  near: number;
-  far: number;
 } {
-  // Calculate distance from camera to center of bounding sphere.
+  // Calculate distance from camera to center of bounding sphere (including scaling).
   const r = objectRadius;
   const height = computeVisibleHeightFromAngleAndRadius(phiFov, r);
-  const l = calculateDistanceFromAngleAndHeight(phiFov, height);
+  const l = calculateDistanceFromAngleAndHeight(phiFov, height) * zoomScalar;
 
   // Get coords for camera, offset from box center.
-  const coords = convertToCartesian(azimuth, elevation, l * zoomScalar);
+  const coords = convertToCartesian(azimuth, elevation, l);
 
   const x = coords.x + objectCenter.x;
   const y = coords.y + objectCenter.y;
   const z = coords.z + objectCenter.z;
 
+  const position = { x, y, z };
+
+  return { position, l };
+}
+
+export function computeDefaultPerspectiveCameraFrustum(
+  objectRadius: number,
+  cameraDistanceFromTarget: number
+): {
+  near: number;
+  far: number;
+} {
+  const r = objectRadius;
+  const l = cameraDistanceFromTarget; // From camera to center of bounding sphere.
+
   // Handle frustum calcs.
   const far = (l + r) * X_FAR_SCALAR; // Distance to back of scene, scaled.
   const near = Math.min((l - r) * X_NEAR_SCALAR, X_NEAR_DEFAULT);
 
-  const position = { x, y, z };
-
-  return { position, l, near, far };
+  return { near, far };
 }
 ```
 
 This is called from our viewer component using the constants we outlined above.
 
 ```javascript
-const defaultParams = computeDefaultPerspectiveCameraParameters(
-  PHI_FOV,
-  this.boundingSphereRadius,
-  this.boundingSphereCenter,
-  HOME_AZIMUTH,
-  HOME_ELEVATION,
-  ZOOM_SCALAR
-);
-```
+setDefaultCameraPosition(camera, controls) {
+    camera.position.set(
+        this.defaultCameraPosition.x,
+        this.defaultCameraPosition.y,
+        this.defaultCameraPosition.z
+    );
 
-Then we use those values to set up the camera:
+    controls.target.set(constants.ORIGIN.x, constants.ORIGIN.y, constants.ORIGIN.z);
+    controls.update();
+    camera.updateProjectionMatrix();
+},
 
-```javascript
-...
-const { clientWidth, clientHeight } = this.viewerContainer;
-const aspect = clientWidth / clientHeight;
-this.perspectiveCamera.fov = PHI_FOV;
-this.perspectiveCamera.aspect = aspect;
-this.perspectiveCamera.near = defaultParams.near;
-this.perspectiveCamera.far = defaultParams.far;
+setDefaultPerspectiveCameraFrustum() {
+    const params = Geometry.computeDefaultPerspectiveCameraFrustum(
+        this.boundingSphere.radius,
+        this.defaultCameraDistanceFromTarget
+    );
 
-this.perspectiveCamera.position.set(
-    defaultParams.position.x,
-    defaultParams.position.y,
-    defaultParams.position.z
-);
-...
+    const { clientWidth, clientHeight } = this.viewerContainer;
+    const aspect = clientWidth / clientHeight;
+
+    this.perspectiveCamera.fov = constants.PHI_FOV;
+    this.perspectiveCamera.aspect = aspect;
+    this.perspectiveCamera.near = params.near;
+    this.perspectiveCamera.far = params.far;
+}
 ```
 
 ### 3: Controls
@@ -706,17 +726,23 @@ the user to rotate the camera around the scene, and to zoom in and out. These ar
 we by default point ours at the scene origin: `0, 0, 0`.
 
 ```javascript
-// Controls.
-this.perspectiveControls = new OrbitControls(
-    this.perspectiveCamera,
-    this.renderer.domElement
-);
-this.perspectiveControls.enableDamping = true;
-this.perspectiveControls.dampingFactor = 0.2;
-this.perspectiveControls.screenSpacePanning = true;
-this.perspectiveControls.enabled = true;
-...
-this.perspectiveControls.target.set(ORIGIN.x, ORIGIN.y, ORIGIN.z);
+// Create controls.
+this.perspectiveControls = threeHelper.createOrbitControls(this.perspectiveCamera, this.renderer.domElement, true);
+```
+
+The relevant `threeHelper` functions are as follows:
+
+```javascript
+function createOrbitControls(camera, rendererElement, enabled) {
+  const controls = new OrbitControls(camera, rendererElement);
+
+  controls.enableDamping = true;
+  controls.dampingFactor = constants.CONTROL_DAMPING_FACTOR;
+  controls.screenSpacePanning = true;
+  controls.enabled = enabled;
+
+  return controls;
+}
 ```
 
 ## Limitations
