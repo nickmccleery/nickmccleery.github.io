@@ -92,7 +92,7 @@ If you're going to cut down trees, you should spend a little bit of money to kee
 
 †_I should say that I absolutely don't have a problem with this. I've bought second hand equipment for myself and for
 Anneal employees in the past, and I'm happy to run almost any machine into the ground before replacing it. It's only a
-problem when it becomes a problem; when your workload exceeds what the machine can handle, and it when it starts to hold
+problem when it becomes a problem; when your workload exceeds what the machine can handle, and when it starts to hold
 things up._
 
 ## Budgets and boots
