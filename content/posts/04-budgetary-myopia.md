@@ -4,7 +4,7 @@ description: Whether you split atoms or roast beans, your tools are important.
 date: 2024-02-05
 draft: false
 images: [/images/blog/04/OGImage.png]
-tags: [engineering, software, technology, progress]
+tags: [software, business, opinion, engineering]
 ---
 
 ## Splitting atoms or roasting beans
