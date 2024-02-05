@@ -20,7 +20,7 @@ More succinctly than I could, he puts it like this:
 
 > "Every business is a software business."
 
-I find this to be overwhelmingly true. An enornomous fraction of businesses are now largely driven by their software and
+I find this to be overwhelmingly true. An enormous fraction of businesses are now largely driven by their software and
 systems. It's a point that I've found lost on decision makers, who often seem to think of IT equipment and software
 spend as an unavoidable evil; a pesky and persistent demand for resources that could be better used buying raw widget
 material or funding a few more trade show visits.
@@ -43,13 +43,13 @@ However, the average loaded cost of each of these hires was probably in the regi
 licenses cost—which could easily have you pushing a £100k per person total. I would think of £100k as a pretty
 significant investment, so I'd want to make sure that my new hires were as productive as possible. Given that research
 suggests a second monitor can increase productivity by as much as 42%[^1], I still find it astonishing that this policy
-was ever even considered, nevermind actually implemented. You don't even need to do any sums to reveal that a one-off
+was ever even considered, never mind actually implemented. You don't even need to do any sums to reveal that a one-off
 £300 spend that lets you wring 42% more out of a recurring £100k cost would be a good use of the funds; it's a complete
 no-brainer.
 
 ### "That would be 1% of our budget"
 
-The second happened a few years later, and was thankfully much more understandable—but still provided some interesting
+The second happened a few years later, and was thankfully much more understandable—but still offered some interesting
 insight into the decision making behind things. I was working for a much more cash-strapped organisation, at least by
 the industry's standards, and a significant chunk of the engineering function were using crusty old laptops that were
 nearing the end of their service life†.
@@ -78,7 +78,7 @@ every single thing that we ever did involved some interaction with a computer:
 - Part design finalised? hyperMILL.
 - Can't find the information you need? Google.
 
-This list goes on. The point is, our computers are now our first step to almost everything that we do. They're the tools
+This list goes on. The point is our computers are now our first step to almost everything that we do. They're the tools
 we use the most often, and they're the tools that we use to do the most important things. If you're spending 50-80 hours
 a week in front of a computer, then having those tools be as good as they can be is almost always going to be a good
 investment.
@@ -119,7 +119,7 @@ so they don't feel the pain first-hand.
 I also think things have changed a lot in the last few decades. When I started work as an engineer about ten years ago,
 many of my managers had started out working with drawing boards and using draughting film. In one case, I remember a
 manager telling me that they still drew on linen when he'd started at British Aerospace. There wasn't a computer on
-every desk, nor an enormous software bill, nevermind a second or third display for every person... yet these
+every desk, nor an enormous software bill, never mind a second or third display for every person... yet these
 organisations still produced incredible designs.
 
 My suspicion is that these guys look back on simpler times with rose-tinted glasses, with an internal monologue
