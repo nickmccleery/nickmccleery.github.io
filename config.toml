@@ -14,7 +14,7 @@ unsafe = true
 [params]
 mode = "toggle"
 useCDN = false
-subtitle = "Notes that don't fit anywhere else."
+subtitle = "Aut inveniam viam aut faciam"
 mathjax = true
 katex = true
 favicon = "https://img.icons8.com/ios-filled/500w/gears.png"
