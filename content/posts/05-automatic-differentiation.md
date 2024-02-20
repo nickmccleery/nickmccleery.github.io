@@ -208,7 +208,7 @@ section properties fixed—using values as follows:
 - $t_w$, web thickness = 5mm,
 - $t_f$, flange thickness = 5mm.
 
-#### Brute force and ignorance
+### Brute force and ignorance
 
 For a problem like this, it's not computationally challenging to explore the full design space. We can define a depth
 series at 1mm increments, a breadth series at 1mm increments, then work through the calculations for $I$ and then
@@ -224,7 +224,7 @@ depth and breadth are at their maximum.
 We knew that going into this problem, but for more complex problems, we might not have such a clear idea of where the
 optimum solution lies before we start.
 
-### A smarter approach
+### In search of a better way
 
 In a more realistic example, we might have a complex, multi-dimensional design space with an awkward shape, and we might
 not have any clear idea of where the best solution lies. Perhaps more imporantly, real-world simulation cases can be
@@ -236,23 +236,41 @@ To bring this back to our beam example, instead of computing deflection at some 
 $(b, d)$ pair, we would use an optimisation algorithm to explore the design space for us. We would start with an initial
 guess, compute the deflection at that point, then iteratively improve our guess until we arrive at the best solution.
 
-Though we could use Nelder-Mead or similar methoods mentioned above, this is where techniques like gradient descent come
-into play. We can use the gradient of our objective function with respect to our design variables to inform our next
-guess, and this can help us find the best solution more quickly.
+Though we could use Nelder-Mead or similar methoods mentioned above, this is where gradient-based optimisation like
+gradient descent come into play. We can use the gradient of our objective function with respect to our design variables
+to inform our next guess, and this can help us find the best solution more quickly.
 
 ### Enter gradient descent
 
-Ignoring the engineering scenarios for a moment, let's conider a more classic optimisation problem:
+Ignoring the engineering scenarios for a moment, let's consider a classic optimisation problem:
 [Himmelblau's function](https://en.wikipedia.org/wiki/Himmelblau%27s_function).
 
 Himmelblau's function exists entirely to test the performance of optimisation techniques. It's a 2D function with four
-local minima, and one local maximum. It's given by:
+local minima, and one local maximum, and it's given by:
 
 $$ f(x, y) = (x^2 + y - 11)^2 + (x + y^2 - 7)^2 $$
 
-{{< figure src="/images/blog/05/HimmelblauGradientDescent.png" title="Gradient descent on Himmelblau's function">}}
+Over $x$ and $y$ ranges that span $[-4, 4]$, it looks like this:
 
-<hr/>
+{{< figure src="/images/blog/05/Himmelblau.png" title="Himmelblau's function" >}}
+
+You can see the four minima and the maximum in the plot above, and you can see how the function's surface is quite
+complex. Imagine something like this, but in ten or twenty dimensions, and you can see how it might rapidly become
+numerically impossible to sweep the entire range of possible solutions.
+
+On gradient descent, the idea is to start at some initial position, then, over a series of iterations, move in the
+direction opposed to the direction of the objective function's gradient vector. That strikes me as a bit of a mouthful,
+but the important thing here is really to remember that the gradient of your function at a given point is effectively
+pointing in the direction of steepest ascent, so it holds that the negative of the gradient points in the direction of
+steepest descent.
+
+For more information on why that's actually the case,
+[this](https://www.khanacademy.org/math/multivariable-calculus/multivariable-derivatives/partial-derivative-and-gradient-articles/a/the-gradient),
+[this](https://www.youtube.com/watch?v=TNwHXWApyH4), and [this](https://www.geogebra.org/m/bxhwxr2x) are all helpful.
+
+#### Seeing it in action
+
+{{< figure src="/images/blog/05/HimmelblauGradientDescentAnimation.gif" title="Gradient descent on Himmelblau's function">}}
 
 This is where the appeal of differentiable programming starts to raise its head. If we were to be able to somehow
 isolate how beam deflection responds to change in depth and breadth—the objective function's sensitivity to our design
