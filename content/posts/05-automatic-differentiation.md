@@ -4,7 +4,7 @@ description: Design, finite differences, the allure of automatic differentiation
 date: 2024-02-19
 draft: false
 images: [/images/blog/04/OGImage.png]
-tags: [software, business, opinion, engineering]
+tags: [engineering, cad, software]
 ---
 
 ## Motivation
@@ -224,13 +224,13 @@ depth and breadth are at their maximum.
 We knew that going into this problem, but for more complex problems, we might not have such a clear idea of where the
 optimum solution lies before we start.
 
-#### A smarter approach
+### A smarter approach
 
 In a more realistic example, we might have a complex, multi-dimensional design space with an awkward shape, and we might
 not have any clear idea of where the best solution lies. Perhaps more imporantly, real-world simulation cases can be
-incredibly complex—requiring vast HPC clusters and sometimes running for days. This is the scenario where we would want
-to start using an optimisation routine to explore the design space for us, because anything even approaching an
-exhaustive search would be infeasible.
+incredibly complex—requiring vast HPC clusters and sometimes running for days. This is the scenario where we would
+definitely want to start using an optimisation routine to explore the design space for us, because anything even
+approaching an exhaustive search would be infeasible.
 
 To bring this back to our beam example, instead of computing deflection at some quantised version of every possible
 $(b, d)$ pair, we would use an optimisation algorithm to explore the design space for us. We would start with an initial
@@ -240,6 +240,25 @@ Though we could use Nelder-Mead or similar methoods mentioned above, this is whe
 into play. We can use the gradient of our objective function with respect to our design variables to inform our next
 guess, and this can help us find the best solution more quickly.
 
+### Enter gradient descent
+
+Ignoring the engineering scenarios for a moment, let's conider a more classic optimisation problem:
+[Himmelblau's function](https://en.wikipedia.org/wiki/Himmelblau%27s_function).
+
+Himmelblau's function exists entirely to test the performance of optimisation techniques. It's a 2D function with four
+local minima, and one local maximum. It's given by:
+
+$$ f(x, y) = (x^2 + y - 11)^2 + (x + y^2 - 7)^2 $$
+
+{{< figure src="/images/blog/05/HimmelblauGradientDescent.png" title="Gradient descent on Himmelblau's function">}}
+
+<hr/>
+
+This is where the appeal of differentiable programming starts to raise its head. If we were to be able to somehow
+isolate how beam deflection responds to change in depth and breadth—the objective function's sensitivity to our design
+variables—we could plug into that an appropriate optimisation routine and let the computer not only do the work for us,
+but also choose the best path to the best solution.
+
 That path to the best solution might look something like this:
 
 {{< figure src="/images/blog/05/BeamGradientDescent.png" title="Simulated gradient descent towards minimum deflection">}}
@@ -247,10 +266,9 @@ That path to the best solution might look something like this:
 This saves us from having to compute deflection at every point, instead effectively finding only the values along two
 edges of the surface, and as a result it can help us find the best solution more quickly.
 
-This is where the appeal of differentiable programming starts to raise its head. If we were to be able to somehow
-isolate how beam deflection responds to change in depth and breadth—the objective function's sensitivity to our design
-variables—we could plug into that an appropriate optimisation routine and let the computer not only do the work for us,
-but also choose the best path to the best solution.
+Unfortunately, this _two edge to the optimum_ path doesn't strike me as a great example—so let's
+
+## Real design processes
 
 ### Manual design optimisation
 
@@ -296,11 +314,16 @@ the software handling steps 3 to 5:
 5. Let it run, building the simulations and running them, and interrogating the results—ultimately examining the design
    space and iterating on the best solution.
 
+This approach can also be used to spit out some sensitivity analysis, letting you retain some understanding of how your
+system performance will respond to changes in its design.
+
 ### Adjoint methods
+
+This is where stuff gets real, and where I defintiely feel dumb.
 
 ### Adjoint optimisation and sensitivity analysis
 
-## How can we get those gradients?
+## So it's all about optimisation... where's the automatic differentiation?
 
 In the differentiable paradigm, those results would be composed not just of forces and torques and Von Mises stresses
 and flow velocities, but also the gradients of each of those with respect to the design variables.
@@ -320,7 +343,7 @@ $$
 
 ### Automatic differentiation
 
-## Real-world example: I-beams
+## Another I-beam example
 
 ## CAD and differentiable programming
 
