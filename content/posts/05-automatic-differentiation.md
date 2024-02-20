@@ -261,14 +261,14 @@ numerically impossible to sweep the entire range of possible solutions.
 On gradient descent, the idea is to start at some initial position, then, over a series of iterations, move in the
 direction opposed to the direction of the objective function's gradient vector. That strikes me as a bit of a mouthful,
 but the important thing here is really to remember that the gradient of your function at a given point is effectively
-pointing in the direction of steepest ascent, so it holds that the negative of the gradient points in the direction of
-steepest descent.
+pointing in the direction of steepest **ascent**, so it holds that the negative of the gradient points in the direction
+of steepest **descent**.
 
 For more information on why that's actually the case,
 [this](https://www.khanacademy.org/math/multivariable-calculus/multivariable-derivatives/partial-derivative-and-gradient-articles/a/the-gradient),
 [this](https://www.youtube.com/watch?v=TNwHXWApyH4), and [this](https://www.geogebra.org/m/bxhwxr2x) are all helpful.
 
-#### Seeing it in action
+If we animate the path the algorithm takes as it moves towards the minimum, it looks like this:
 
 {{< figure src="/images/blog/05/HimmelblauGradientDescentAnimation.gif" title="Gradient descent on Himmelblau's function">}}
 
