@@ -1,6 +1,6 @@
 ---
 title: Differentiable programming in engineering
-description: Design, finite differences, the allure of automatic differentiation.
+description: Design, partial derivatives, and the allure of automatic differentiation.
 date: 2024-02-19
 draft: false
 images: [/images/blog/04/OGImage.png]
@@ -111,7 +111,7 @@ credit="Credit: <a href=\"https://commons.wikimedia.org/wiki/User:Nicoguaro\">ht
 
 However, in some of these cases, and particuarly where Brent's method is effectively using the
 [secant method](https://en.wikipedia.org/wiki/Secant_method), we are basically doing a
-[finite difference](https://en.wikipedia.org/wiki/Secant_method) version of
+[finite difference](https://en.wikipedia.org/wiki/Finite_difference) version of
 [Newton's method](https://en.wikipedia.org/wiki/Newton%27s_method), ultimately evaluating our objective function at _at
 least_ two points, and then using our two output values and our step size to inform our next guess.
 
@@ -214,17 +214,19 @@ For a problem like this, it's not computationally challenging to explore the ful
 series at 1mm increments, a breadth series at 1mm increments, then work through the calculations for $I$ and then
 $\delta$ at each point.
 
-In this way, we arrive at a nice 2D matrix of deflection values; one for each $(b, d)$ pair. That looks like this:
+In this way, we arrive at a nice 2D matrix of deflection values; one for each $(b, d)$ pair. I think this is a fairly
+nice way to visualise how an engineering problem might be thought of as an optimisation problem—we're simply trying to
+find the position on this surface that has the minimum value.
 
 {{< figure src="/images/blog/05/BeamDeflection.png" title="Beam deflection as a function of breadth and depth">}}
 
-Unsurprisingly, the minimum deflection occurs down on the bottom right hand corner as you look at the plot—where both
-depth and breadth are at their maximum.
+Unsurprisingly, that minimum occurs down on the bottom right hand corner as you look at the plot—where both depth and
+breadth are at their maximum.
 
 We knew that going into this problem, but for more complex problems, we might not have such a clear idea of where the
 optimum solution lies before we start.
 
-### In search of a better way
+### A better way
 
 In a more realistic example, we might have a complex, multi-dimensional design space with an awkward shape, and we might
 not have any clear idea of where the best solution lies. Perhaps more imporantly, real-world simulation cases can be
@@ -259,32 +261,172 @@ complex. Imagine something like this, but in ten or twenty dimensions, and you c
 numerically impossible to sweep the entire range of possible solutions.
 
 On gradient descent, the idea is to start at some initial position, then, over a series of iterations, move in the
-direction opposed to the direction of the objective function's gradient vector. That strikes me as a bit of a mouthful,
-but the important thing here is really to remember that the gradient of your function at a given point is effectively
-pointing in the direction of steepest **ascent**, so it holds that the negative of the gradient points in the direction
-of steepest **descent**.
+direction opposed to the direction of the objective function's gradient vector. The gradient of your function at a given
+point is effectively pointing in the direction of **steepest ascent**, so it holds that the negative of the gradient
+points in the direction of **steepest descent**.
 
-For more information on why that's actually the case,
+_(For more information on why that's actually the case,
 [this](https://www.khanacademy.org/math/multivariable-calculus/multivariable-derivatives/partial-derivative-and-gradient-articles/a/the-gradient),
-[this](https://www.youtube.com/watch?v=TNwHXWApyH4), and [this](https://www.geogebra.org/m/bxhwxr2x) are all helpful.
+[this](https://www.youtube.com/watch?v=TNwHXWApyH4), and [this](https://www.geogebra.org/m/bxhwxr2x) are all helpful.)_
 
 If we animate the path the algorithm takes as it moves towards the minimum, it looks like this:
 
 {{< figure src="/images/blog/05/HimmelblauGradientDescentAnimation.gif" title="Gradient descent on Himmelblau's function">}}
 
-This is where the appeal of differentiable programming starts to raise its head. If we were to be able to somehow
-isolate how beam deflection responds to change in depth and breadth—the objective function's sensitivity to our design
-variables—we could plug into that an appropriate optimisation routine and let the computer not only do the work for us,
-but also choose the best path to the best solution.
+_(If you're interested in the code that generated this, it's at the end of this post. You can find it
+[here](#matlab-himmelblau-function-and-gradient-descent).)_
 
-That path to the best solution might look something like this:
+<hr/>
 
-{{< figure src="/images/blog/05/BeamGradientDescent.png" title="Simulated gradient descent towards minimum deflection">}}
+#### Mechanics of gradient descent
 
-This saves us from having to compute deflection at every point, instead effectively finding only the values along two
-edges of the surface, and as a result it can help us find the best solution more quickly.
+<details open>
+  <summary>This is likely familiar to many, so feel free to collapse this section and move on...</summary>
 
-Unfortunately, this _two edge to the optimum_ path doesn't strike me as a great example—so let's
+The method is fairly straightforward:
+
+1. Pick a starting point.
+   - Select an initial position in the parameter space as the initial 'guess' for the location of the minimum.
+   - Note that the choice of the starting point can influence which minimum the algorithm converges to in functions with
+     multiple minima.
+2. Compute the gradient of your function.
+   - Calculate the gradient of your objective function at the current point.
+   - This will be a vector that points in the direction of the steepest ascent of the function, and is given by the
+     partial derivatives of the function with respect to each of its parameters.
+   - This partial derivative point is important, and something I'll come back to later.
+3. Update the current point.
+   - Adjust current position, i.e. parameter values, by moving in the direction opposed to that of the gradient.
+   - This is achieved by first multiplying the gradient by a small scalar, called the learning rate, and then
+     subtracting the result from the current point.
+   - In our example, we have two parameters, so we would expect to move both our $x$ and $y$ values—but in higher
+     dimensions, we would be adjusting all of our parameters.
+4. Repeat until convergence.
+   - Repeat steps 2 and 3 until you reach some convergence critoerion. This is typically when the norm of the gradient
+     is less than some tolerance, indicating that you're close to the minimum, when the change in the function value
+     between iterations is less than some tolerance, or when you've reached some maximum number of iterations.
+   - In some cases, the evaluation of the function value at each point isn't actually necessary for the algorithm to
+     work. It can arrive at the optimum solution without it, but it is often useful to see how the function value
+     changes as the algorithm progresses, and as above, some stopping criteria might be based on the function value.
+
+The maths basically boils down to this:
+
+$$x_{new} = x_{old} - \alpha \nabla f(x\_{old})$$
+
+Where:
+
+- $x_{new}$ is the position vector at your next iteration.
+- $x_{old}$ is the position vector at your current iteration.
+- $\alpha$ is the learning rate.
+- $\nabla f(x\_{old})$ is the gradient of your function at your current position.
+
+As stated above, the gradient will be a vector of partial derivatives. So if your vector $x = (x_1, x_2, x_3, ... x_n)$,
+then your gradient will be a vector of partial derivatives, like this:
+
+$$\nabla f(x) = \left[ \frac{\partial f}{\partial x_1}, \frac{\partial f}{\partial x_2}, \frac{\partial f}{\partial x_3}, ... \frac{\partial f}{\partial x_n} \right]$$
+
+Then, your stopping critera is typically based on the norm of the gradient, like this:
+
+$$ \left\|| \nabla f(x) \right\|| < \epsilon $$
+
+Where:
+
+- $\left\|| \nabla f(x) \right\||$ is the norm or magnitude of the gradient vector.
+- $\epsilon$ is your stopping tolerance.
+
+If you're like me and tend to find the Elvish symbols a bit less intuitive than code, I'd recommend checking the code
+given at the bottom of the post: [here](#matlab-himmelblau-function-and-gradient-descent).
+
+</details>
+
+<hr/>
+
+## In search of partial derivatives
+
+I mentioned above that the partial derivative point is important, and this is where the appeal of differentiable
+programming starts to raise its head. In order to make use of gradient-based optimizsation, you need to compute the
+gradient of your objective function. To do that, you need to be able to compute the partial derivatives of your function
+with respect to each of its parameters.
+
+### Symbolic differentiation
+
+In the case of the Himmelblau example above, we actually do this by hand—_symbolically_ in the math-sy parlance. We have
+a simple expression, and we can compute its partial derivatives with respect to each of its parameters by hand, yielding
+two new expressions:
+
+$$f(x, y) = (x^2 + y - 11)^2 + (x + y^2 - 7)^2$$ $$\frac{\partial f}{\partial x} = 2(2x(x^2 + y - 11) + x + y^2 - 7)$$
+$$\frac{\partial f}{\partial y} = 2(2y(y^2 + x - 7) + y + x^2 - 11)$$
+
+Then we can just drop this into our code and make a call to each of these functions to get the partial derivatives at
+each point:
+
+```matlab
+% Define the Himmelblau function.
+fHimmelblau = @(x, y) (x.^2 + y - 11).^2 + (x + y.^2 - 7).^2;
+...
+% Gradient of the function will be a vector of partial derivatives, but we
+% can leave these as separate variables.
+grad_fHimmelblau_x = @(x, y) 2*(2*x.*(x.^2 + y - 11) + x + y.^2 - 7); % df/dx
+grad_fHimmelblau_y = @(x, y) 2*(x.^2 + 2*y.*(y.^2 + x - 7) - 11); % df/dy
+```
+
+This is straightforward for a function like Himmelblau's, but this is not going to be replicated across many—probably
+any—real engineering problems.
+
+### Numerical differentiation
+
+As an alternative to testing your high school mathematics abilities, these terms can also be computed numerically. That
+means evaluating your function at some positions around your current point, and then using the results to estimate the
+partial derivatives—effectively by doing some variant of rise over run along each axis. This approach is particularly
+useful when the symbolic form of the derivative is difficult to work out, or when dealing with functions where only
+numerical evaluations are possible.
+
+There are really three main methods for doing this:
+
+- Forward difference.
+- Backward difference.
+- Central difference.
+
+#### Forward difference
+
+For a function $f(x,y)$, the partial derivatives can be approximated as follows:
+$$\frac{\partial f}{\partial x} \approx \frac{f(x + h, y) - f(x, y)}{h}$$
+$$\frac{\partial f}{\partial y} \approx \frac{f(x, y + h) - f(x, y)}{h}$$
+
+Where $h$ is some small step size. Effectively, you just step 'forwards' in both $x$ and $y$, work out the change in
+function value, and then divide by the step size to get an estimate of the gradient.
+
+#### Backward difference
+
+This is really the same as the forward difference, but you step 'backwards' in both $x$ and $y$:
+$$\frac{\partial f}{\partial x} \approx \frac{f(x, y) - f(x - h, y)}{h}$$
+$$\frac{\partial f}{\partial y} \approx \frac{f(x, y) - f(x, y - h)}{h}$$
+
+#### Central difference
+
+Effectively a combination of the two above, the central difference method is given by stepping both forwards and
+backwards, and then taking the average of the two results. This is generally more accurate than the forward or backward
+difference methods, and is given by the following equations:
+$$\frac{\partial f}{\partial x} \approx \frac{f(x + h, y) - f(x - h, y)}{2h}$$
+$$\frac{\partial f}{\partial y} \approx \frac{f(x, y + h) - f(x, y - h)}{2h}$$
+
+#### Considerations
+
+Numerical differentiation provides an ability to compute the gradient of basically any function. This is quite
+attractive, and it means you can use gradient-based optimisation on any function you like. However, if you have to make
+four calls to your function to compute the gradient at each point, and you're doing this over a large number of points,
+and your function is computationally expensive, then this can become a significant bottleneck.
+
+You can also find funny edge cases where the step size is too large or too small, with numerical precision, near
+boundaries, and with functions that are not smooth. This can lead to inaccurate estimates of the gradient, and can lead
+to the optimisation algorithm failing to converge.
+
+### Automatic differentiation
+
+{{< figure src="/images/blog/05/FreeGradients.png" title="Simulated gradient descent towards minimum deflection">}}
+
+If we were to be able to somehow isolate how beam deflection responds to change in depth and breadth—the objective
+function's sensitivity to our design variables—we could plug into that an appropriate optimisation routine and let the
+computer not only do the work for us, but also choose the best path to the best solution.
 
 ## Real design processes
 
@@ -341,25 +483,10 @@ This is where stuff gets real, and where I defintiely feel dumb.
 
 ### Adjoint optimisation and sensitivity analysis
 
-## So it's all about optimisation... where's the automatic differentiation?
+## So it's all about optimisation... where's the automatic differentiation use-case?
 
 In the differentiable paradigm, those results would be composed not just of forces and torques and Von Mises stresses
 and flow velocities, but also the gradients of each of those with respect to the design variables.
-
-### Symbolic differentiation
-
-### Numerical differentiation
-
-For context, here's the maths behind the secant method. Note the $f(x_{n-1})$ and $f(x_{n-2})$ terms in the denominator
-and the $x_{n-1}$ and $x_{n-2}$ in the numerator; effectively $dy$ and $dx$:
-
-$$
-x_n
- = x_{n-1} - f(x_{n-1}) \frac{x_{n-1} - x_{n-2}}{f(x_{n-1}) - f(x_{n-2})}
- = \frac{x_{n-2} f(x_{n-1}) - x_{n-1} f(x_{n-2})}{f(x_{n-1}) - f(x_{n-2})}.
-$$
-
-### Automatic differentiation
 
 ## Another I-beam example
 
@@ -373,3 +500,108 @@ Some of these provide some interest background, alternative techniques etc.
 - [Differentiable 3D CAD Programs for Bidirectional Editing](https://arxiv.org/pdf/2110.01182.pdf)
 - [Design Sensitivity Calculations Directly on CAD-based Geometry](https://acdl.mit.edu/ESP/Publications/AIAApaper2015-1370.pdf)
 - [Adjoint Shape Optimization for Aerospace Applications](https://www.nas.nasa.gov/assets/nas/pdf/ams/2021/AMS_20210408_Kelecy.pdf)
+
+## Code
+
+### MATLAB Himmelblau function and gradient descent
+
+This will generate the Himmelblau function and animate the path of a gradient descent algorithm as it moves towards a
+local minimum.
+
+This is in MATLAB because the Windows/WSL2 combo I'm currently running doesn't play well with `matplotlib`.
+
+```matlab
+%% Initial setup.
+OUTPUT_FILENAME = 'HimmelblauGradientDescentAnimation.gif';
+
+% Define the Himmelblau function.
+fHimmelblau = @(x, y) (x.^2 + y - 11).^2 + (x + y.^2 - 7).^2;
+
+% Build the surface we'll plot gradient descent across.
+xRange = -4:0.2:4;
+yRange = -4:0.2:4;
+[xGrid, yGrid] = meshgrid(xRange, yRange);
+zValues = arrayfun(fHimmelblau, xGrid, yGrid);
+
+% Plot.
+hFigure = figure("Position", [500, 200, 1200, 900], 'Color', 'w');
+hAx = axes(hFigure);
+hSurf = surf(hAx, xGrid, yGrid, zValues, 'FaceAlpha', 0.8);
+xlabel('x');
+ylabel('y');
+zlabel('f(x, y)');
+hold on;
+title('Himmelblau Function');
+set(hAx, 'View', [-135, 45]);
+
+%% Gradient descent.
+
+% Gradient of the function will be a vector of partial derivatives, but we
+% can leave these as separate variables.
+grad_fHimmelblau_x = @(x, y) 2*(2*x.*(x.^2 + y - 11) + x + y.^2 - 7); % df/dx
+grad_fHimmelblau_y = @(x, y) 2*(x.^2 + 2*y.*(y.^2 + x - 7) - 11); % df/dy
+
+% Set gradient descent parameters.
+ALPHA = 0.003; % Learning rate.
+MAX_ITER = 200; % Maximum number of iterations.
+SOLVE_TOLERANCE = 1e-3; % Tolerance for stopping criterion.
+
+% Preallocate gradient descent path vectors.
+pathX = NaN(MAX_ITER, 1);
+pathY = NaN(MAX_ITER, 1);
+pathZ = NaN(MAX_ITER, 1);
+
+% Initial 'guess'.
+x = 0; % Initial x value.
+y = -4; % Initial y value.
+z = fHimmelblau(x, y); % Initial z value.
+
+pathX(1) = x;
+pathY(1) = y;
+pathZ(1) = z;
+
+% Add to plot.
+DELAY_TIME = 0.05; % Animation frame hold time.
+hGradientDescent = plot3(hAx, pathX, pathY, pathZ, 'r-', 'LineWidth', 2, 'Marker', 'o');
+hLegend = legend([hSurf, hGradientDescent], 'Himmelblau Function', 'Gradient Descent', 'location', 'NorthWest');
+
+% Write initial frame.
+frame = getframe(gcf);
+im = frame2im(frame);
+[imind, cm] = rgb2ind(im, 256);
+imwrite(imind, cm, OUTPUT_FILENAME, 'gif', 'Loopcount', inf, 'DelayTime', DELAY_TIME);
+
+% Solve.
+for iter = 1:MAX_ITER
+    % Compute gradient.
+    gradX = grad_fHimmelblau_x(x, y);
+    gradY = grad_fHimmelblau_y(x, y);
+
+    % Update x and y by moving in the direction opposite to the gradient.
+    x = x - ALPHA * gradX;
+    y = y - ALPHA * gradY;
+    z = fHimmelblau(x, y);
+
+    % Store the path.
+    pathX(iter + 1) = x;
+    pathY(iter + 1) = y;
+    pathZ(iter + 1) = z;
+
+    % Update plot.
+    set(hGradientDescent, 'xdata', pathX, 'ydata', pathY, 'zdata', pathZ);
+
+    % Capture the frame
+    drawnow;
+    frame = getframe(gcf);
+    im = frame2im(frame);
+    [imind, cm] = rgb2ind(im, 256);
+
+    % Write out.
+    imwrite(imind, cm, OUTPUT_FILENAME, 'gif', 'WriteMode', 'append', 'DelayTime', DELAY_TIME);
+
+    % Check for convergence.
+    if norm([gradX, gradY]) < SOLVE_TOLERANCE
+        break;
+    end
+end
+```
