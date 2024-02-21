@@ -1,7 +1,7 @@
 ---
 title: Differentiable programming in engineering
 description: Design, partial derivatives, and the allure of automatic differentiation.
-date: 2024-02-19
+date: 2024-02-21
 draft: false
 images: [/images/blog/04/OGImage.png]
 tags: [engineering, cad, software]
@@ -589,18 +589,21 @@ here:
 
 ### Summary
 
-I hope that all makes sense. The provided example shows automatic differentation lets us get analytically correct
-partial derivatives of a function we might be interested in, then shows how we might use those to arrive at a good
+I hope that all makes sense. The provided example shows how automatic differentation lets us get analytically correct
+partial derivatives of a function we might be interested in, without having to compute any derivatives by hand, then it
+shows how we might use those partial derivatives, in combination with some optimisation method, to arrive at a good
 solution to vaguely realistic engineering design optimisation problem.
 
 ## Real design processes
 
+That's all very interesting, but let's work through some examples of how things might work for real.
+
 ### Manual design optimisation
 
-Unfortunately, the example above is not very representative of a real-world workflow. In a real engineering team, where
-you run a mix of tools from Dassault and Ansys and Siemens and whoever else, you don't typically have hand-coded
+Unfortunately, the I-beam example above is not very representative of a real-world workflow. In a real engineering team,
+where you run a mix of tools from Dassault and Ansys and Siemens and whoever else, you don't typically have hand-coded
 geometry creation functions, hand-coded moment of inertia and deflection equations, and a simple 2D design space.
-Instead, have a complex mix of often siloed products, with friction-heavy interfaces, and no straightforward way of
+Instead, you have a complex mix of often siloed products, with friction-heavy interfaces, and no straightforward way of
 closing the loop between CAD and simulation.
 
 As a result, your actual process will probably be more like this:
@@ -623,7 +626,7 @@ As a result, your actual process will probably be more like this:
 
 Taking the above manual process and applying some more structure to it leads you to what we might call 'parametric
 design optimisation'. Here, as above, you start with some initial calcs or analytical simulation to set your initial
-parameters, and once again you build a parametric CAD model cane be adjusted.
+parameters, and once again you build a parametric CAD model that can be adjusted.
 
 However, instead of manually running and interrogating simulation results and using engineering judgement to inform your
 next iteration, you apply an optimisation tool and leverage that to home in on your optimum design. There are commercial
@@ -648,16 +651,18 @@ This is where stuff gets real, and where I defintiely feel dumb.
 
 ### Adjoint optimisation and sensitivity analysis
 
-## So it's all about optimisation... where's the automatic differentiation use-case?
+## So it's all about optimisation...
 
 In the differentiable paradigm, those results would be composed not just of forces and torques and Von Mises stresses
 and flow velocities, but also the gradients of each of those with respect to the design variables.
 
-## Another I-beam example
-
 ## CAD and differentiable programming
 
+<hr/>
+
 ## Reference material
+
+### Papers, theses, presentations, etc.
 
 Some of these provide some interest background, alternative techniques etc.
 
@@ -667,9 +672,9 @@ Some of these provide some interest background, alternative techniques etc.
 - [Adjoint Shape Optimization for Aerospace Applications](https://www.nas.nasa.gov/assets/nas/pdf/ams/2021/AMS_20210408_Kelecy.pdf)
 - [Optimal Control and Reinforcement Learning for Formula One Lap Simulation](https://ora.ox.ac.uk/objects/uuid:491a5bb1-db1b-4cf6-b6f2-0ec06097ac9d/files/dpr76f389g)
 
-## Code
+### Code
 
-### MATLAB Himmelblau function and gradient descent
+#### MATLAB Himmelblau function and gradient descent
 
 This will generate the Himmelblau function and animate the path of a gradient descent algorithm as it moves towards a
 local minimum.
