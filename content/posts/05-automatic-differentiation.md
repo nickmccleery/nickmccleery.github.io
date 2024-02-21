@@ -422,7 +422,34 @@ to the optimisation algorithm failing to converge.
 
 ### Automatic differentiation
 
-{{< figure src="/images/blog/05/FreeGradients.png" title="Simulated gradient descent towards minimum deflection">}}
+Automatic differentiation is a technique that allows you to compute the partial derivatives of any function with respect
+to any of its parameters. To borrow from [Wikipedia](https://en.wikipedia.org/wiki/Automatic_differentiation):
+
+> Automatic differentiation exploits the fact that every computer calculation, no matter how complicated, executes a
+> sequence of elementary arithmetic operations (addition, subtraction, multiplication, division, etc.) and elementary
+> functions (exp, log, sin, cos, etc.). By applying the chain rule repeatedly to these operations, partial derivatives
+> of arbitrary order can be computed automatically, accurately to working precision, and using at most a small constant
+> factor of more arithmetic operations than the original program.
+
+This sounds incredible. For a constant factor more operations, you can get the gradients of anything you like—without
+having to manually differentiate your function, and without having to worry about the computational or edge case issues
+that come with numerical differentiation. It's a technique that can effectively expose an analytially correct derivative
+(to numerical precision) for any function you like. Free gradients.
+
+{{< figure src="/images/blog/05/FreeGradients.png" title="It's free gradients">}}
+
+There are a whole series of libraries that can do this for you, and they're often used in machine learning and
+optimisation contexts. These include [autodiff](https://autodiff.github.io/),
+[autograd](https://github.com/HIPS/autograd), [jax](https://github.com/google/jax),
+[PyTorch](https://pytorch.org/tutorials/beginner/basics/autogradqs_tutorial.html), and
+[auto-diff](https://pypi.org/project/auto-diff/).
+
+The technique also gets used in some engineering contexts already, including some motorsport applications. This PhD
+thesis,
+[Optimal Control and Reinforcement Learning for Formula One Lap Simulation](https://ora.ox.ac.uk/objects/uuid:491a5bb1-db1b-4cf6-b6f2-0ec06097ac9d/files/dpr76f389g),
+makes use of pytorch's automatic differentiation capabilities to accelerate a collocation solve.
+
+## Another I-beam example
 
 If we were to be able to somehow isolate how beam deflection responds to change in depth and breadth—the objective
 function's sensitivity to our design variables—we could plug into that an appropriate optimisation routine and let the
@@ -492,7 +519,7 @@ and flow velocities, but also the gradients of each of those with respect to the
 
 ## CAD and differentiable programming
 
-## Papers
+## Reference material
 
 Some of these provide some interest background, alternative techniques etc.
 
@@ -500,6 +527,7 @@ Some of these provide some interest background, alternative techniques etc.
 - [Differentiable 3D CAD Programs for Bidirectional Editing](https://arxiv.org/pdf/2110.01182.pdf)
 - [Design Sensitivity Calculations Directly on CAD-based Geometry](https://acdl.mit.edu/ESP/Publications/AIAApaper2015-1370.pdf)
 - [Adjoint Shape Optimization for Aerospace Applications](https://www.nas.nasa.gov/assets/nas/pdf/ams/2021/AMS_20210408_Kelecy.pdf)
+- [Optimal Control and Reinforcement Learning for Formula One Lap Simulation](https://ora.ox.ac.uk/objects/uuid:491a5bb1-db1b-4cf6-b6f2-0ec06097ac9d/files/dpr76f389g)
 
 ## Code
 
