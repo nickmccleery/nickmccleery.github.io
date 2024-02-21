@@ -568,6 +568,31 @@ However, that's sort of beside the point. Here, what you can see is that I have 
 moment of area of an I-beam section, and that will also give the partial derivatives of that value with respect to each
 of the section's parameters that we pass in. This is exactly what we were after to enable gradient-based optimisation.
 
+### Look at it go
+
+In this case, we can't directly use simple gradient descent to find the best I-beam section, because we have a set of
+constraints that we need to satisfy.
+
+However, we can build on the technique, using something known as projected gradient descent—which is really gradient
+ascent in this case. With projected gradient descent, we can use the gradients to inform our next guess, and then
+project that guess back into the feasible space—allowing us to avoid the solution space that would violate our
+constraints.
+
+In the interest of simplicity I've chopped out the deflection component, so instead of minimising deflection, we're
+maximising second moment of area—which will achieve the same thing.
+
+This method actually works very nicely. You can find the code for this in the `run_gradient_ascent` function
+[in the repo](https://github.com/nickmccleery/autodiff-example/blob/main/src/example.py), and you can see it in action
+here:
+
+{{< figure src="/images/blog/05/MOIGradientAscent.gif" title="Projected gradient ascent on I-beam section">}}
+
+### Summary
+
+I hope that all makes sense. The provided example shows automatic differentation lets us get analytically correct
+partial derivatives of a function we might be interested in, then shows how we might use those to arrive at a good
+solution to vaguely realistic engineering design optimisation problem.
+
 ## Real design processes
 
 ### Manual design optimisation
