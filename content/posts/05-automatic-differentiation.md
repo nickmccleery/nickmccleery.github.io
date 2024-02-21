@@ -343,7 +343,7 @@ given at the bottom of the post: [here](#matlab-himmelblau-function-and-gradient
 ## In search of partial derivatives
 
 I mentioned above that the partial derivative point is important, and this is where the appeal of differentiable
-programming starts to raise its head. In order to make use of gradient-based optimizsation, you need to compute the
+programming starts to raise its head. In order to make use of gradient-based optimisation, you need to compute the
 gradient of your objective function. To do that, you need to be able to compute the partial derivatives of your function
 with respect to each of its parameters.
 
@@ -449,11 +449,124 @@ thesis,
 [Optimal Control and Reinforcement Learning for Formula One Lap Simulation](https://ora.ox.ac.uk/objects/uuid:491a5bb1-db1b-4cf6-b6f2-0ec06097ac9d/files/dpr76f389g),
 makes use of pytorch's automatic differentiation capabilities to accelerate a collocation solve.
 
-## Another I-beam example
+## Back to our I-beam
 
-If we were to be able to somehow isolate how beam deflection responds to change in depth and breadth—the objective
-function's sensitivity to our design variables—we could plug into that an appropriate optimisation routine and let the
-computer not only do the work for us, but also choose the best path to the best solution.
+In the [section above](#i-beam-example), I outlined a simple example of a design optimisation problem, where we wanted
+to minimise peak deflection in a simply supported, centrally loaded I-beam. I then went on to
+[outline how you might use gradient descent](#enter-gradient-descent) to find the best solution to a problem of similar
+nature.
+
+That latter section ultimately led up to this declaration of a requirement for partial derivatives, with these enabling
+us to use gradient-based optimisation to find the best solution to our problem.
+
+### To GitHub
+
+To provide something like a vageuly realistic example of how this might work, I've put together an incredibly simple
+[example repo](https://github.com/nickmccleery/autodiff-example). It makes use of `auto-diff`, wrapping a simple second
+moment of area calc in a function that yields, with every call, the beam's second moment of area and that second moment
+of area's gradient with respect to the beam's geometrical parameters.
+
+The relevant code we can actually work through here.
+
+This function returns the area moment of inertia of the specified section, $I_{xx}$:
+
+```python
+def compute_area_moment_of_inertia(
+    depth: float,
+    width: float,
+    t_web: float,
+    t_flange: float,
+) -> float:
+    """
+    Compute the area moment of inertia of an I-beam cross-section.
+
+    Ref: https://www.engineeringtoolbox.com/area-moment-inertia-d_1328.html
+
+    Args:
+        depth (float): The depth of the section.
+        width (float): The width of the section.
+        t_web (float): The thickness of the section's web.
+        t_flange (float): The thickness of the section's flange.
+
+    Returns:
+        float: The area moment of inertia of the beam cross-section.
+    """
+    depth_web = depth - 2 * t_flange
+    moi_x = (t_web * depth_web**3 / 12) + (width / 12) * (depth**3 - depth_web**3)
+
+    return moi_x
+```
+
+This simple function unwraps an array and passes it into the `compute_area_moment_of_inertia` function:
+
+```python
+def compute_area_moment_of_inertia_ad(x: np.ndarray) -> np.ndarray:
+    """
+    Wraps the compute_area_moment_of_inertia function to accept an array of inputs.
+
+    Args:
+        x (np.ndarray): An array of inputs containing the dimensions of the object.
+
+    Returns:
+        np.ndarray: The computed area moment of inertia.
+    """
+    return compute_area_moment_of_inertia(x[0], x[1], x[2], x[3])
+```
+
+While this function actually handles the automatic differentiation:
+
+```python
+def compute_area_moment_of_inerta_sensitivities(
+    depth: float,
+    width: float,
+    t_web: float,
+    t_flange: float,
+):
+    """
+    Compute the area moment of inertia and sensitivities for a given set of parameters.
+
+    Args:
+        depth (float): The depth of the section.
+        width (float): The width of the section.
+        t_web (float): The thickness of the section's web.
+        t_flange (float): The thickness of the section's flange.
+
+    Returns:
+        tuple: A tuple containing the area moment of inertia and sensitivities.
+               The area moment of inertia is a scalar value.
+               The sensitivities are a list of derivatives with respect to the input parameters.
+    """
+    x = np.array([[depth], [width], [t_web], [t_flange]])
+
+    with auto_diff.AutoDiff(x) as x:
+        moi_x = compute_area_moment_of_inertia_ad(x)
+
+    moi = moi_x.val[0]
+
+    # We only have one output, so the list of lists of lists can be flattened to a simple list.
+    sensitivities_raw = moi_x.der.tolist()
+    sensitivities = [x[0] for x in sensitivities_raw[0]]
+
+    return (moi, sensitivities)
+```
+
+This final one is the interesting one. We can make a very simple call to this function and get some interesting outputs.
+Say we called `compute_area_moment_of_inerta_sensitivities(100, 40, 5, 5)`, that would give us not just the area moment
+of inertia of the section, but also the sensitivities of that area moment of inertia with respect to each of the values
+we've passed in.
+
+If I place a breakpoint in the right spot, we can take a look at what we get here:
+
+{{< figure src="/images/blog/05/BeamAutoDiff.png" title="Inspecting variables: partial derivatives">}}
+
+Already, I'm seeing things I didn't expect. Even though it's an I beam and not a solid square section, I think of the
+second moment of area of something like this being basically $bd^3/12$, so I would expect the second moment of area to
+be most sensitive to changes in depth. However, looking at the values we get out here, it's actually most sensitive to
+changes in flange thickness.
+
+However, that's sort of beside the point. Here, what you can see is that I have a function that can compute the second
+moment of area of an I-beam section, and that will also give the partial derivatives of that value with respect to each
+of the section's parameters that we pass in. This is exactly what we were after to enable gradient-based optimisation.
 
 ## Real design processes
 
