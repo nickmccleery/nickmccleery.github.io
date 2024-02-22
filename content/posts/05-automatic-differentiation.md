@@ -514,7 +514,7 @@ us to use gradient-based optimisation to find the best solution to our problem.
 
 ### To GitHub
 
-To provide something like a vageuly realistic example of how this might work, I've put together an incredibly simple
+To provide something like a vaguely realistic example of how this might work, I've put together an incredibly simple
 [example repo](https://github.com/nickmccleery/autodiff-example). It makes use of `auto-diff`, wrapping a simple second
 moment of area calc in a function that yields, with every call, the beam's second moment of area and that second moment
 of area's gradient with respect to the beam's geometrical parameters.
@@ -644,12 +644,12 @@ here:
 
 I hope that all makes sense. The provided example shows how automatic differentation lets us get analytically correct
 partial derivatives of a function we might be interested in, without having to compute any derivatives by hand, then it
-shows how we might use those partial derivatives, in combination with some optimisation method, to arrive at a good
+shows how we might use those partial derivatives in combination with some optimisation method to arrive at a good
 solution to vaguely realistic engineering design optimisation problem.
 
 ## Real design processes
 
-That's all very interesting, but let's work through some examples of how things might work for real.
+I find this stuff incredibly interesting, but let's work through some examples of how things might work for real.
 
 ### Manual design optimisation
 
@@ -700,21 +700,48 @@ system performance will respond to changes in its design.
 
 ### Adjoint methods
 
-The adjoint method is really another name for reverse mode automatic differentiation—'adjoint mode'. As discussed above,
-this technique gives us inexpensive gradient calculatulation; inexpensive in that we don't have to spend time manually
-deriving derivatives, and inexpensive in that we can extract analytically correct derivatives across a large number of
-variables with a single simulation run.
+As touched on above, 'adjoint mode' is another name for reverse mode automatic differentiation. This technique gives us
+inexpensive gradient calculatulation; inexpensive in that we don't have to spend time manually deriving derivatives, and
+inexpensive in that we can extract analytically correct derivatives across a large number of input variables with a
+single simulation run.
 
 In the context of simulation-driven design optimisation, this is an attractive proposition. Unlike with the
 [parametric design optimisation](#parametric-design-optimisation) approach, where you might have to run a large number
-of simulations to explore the design space, the adjoint method lets you run a significantly
+of simulations to explore the design space, the adjoint method lets you run a significantly smaller number of
+simulations, but still extract partial derivatives for a large number of input variables.
 
 ### Adjoint optimisation and sensitivity analysis
 
 Taking a wing as an example again, let's say we have an initial geometry defined, and we want to use simulation to help
 us steer some modification to the profile for increased lift. First, we'll configure a domain for the
 simulation—configuring both a volume mesh and a surface mesh. If we're interested in knowing how we should change the
-shape of the thing to increase our lift, we're going to want some kind of sensitivity data.
+shape of the thing to increase our lift, we're going to want some kind of sensitivity data to tell us where we should
+first look to make changes.
+
+Helpfully, this is exactly what our adjoint method will provide us with—a CFD solution from the 'primal' simulation, and
+a set of partial derivatives that will tell us what the overall lift sensivity to position change of every point on the
+surface mesh.
+
+This exact process is described in the context of morphing aerostructures in the paper
+[Fast Sensitivity Analysis for the Design of Morphing Airfoils at Different Frequency Regimes](https://link.springer.com/chapter/10.1007/978-3-030-55594-8_42)
+by Kramer, Fuchs, Knacke, et. al. For our argument here, we aren't really interested in the frequency component of the
+problem, so I'll butcher a single case and annotate it with some of the things we might be interested in:
+
+{{< figure src="/images/blog/05/FastSensitivityAnalysisButchered.png"
+title="Lift sensitivity to foil shape change"
+credit="Adapted from Kramer, Fuchs, Knacke, et. al.">}}
+
+Basically, what this is showing us is that we have a set of partial derivatives that we can map onto our geometry that
+tell us how we need to change the the foil profile to increase lift. This is exactly the kind of data we would want to
+inform our next iteration of the design, given that our objective was to increase lift.
+
+If we were to have attempted something like this with a parametric design optimisation tool, we would have had to run a
+large number of simulations with modified geometries in order to explore the design space, and then we would have had to
+compute the differences in lift between each of those simulations to inform our next iteration of the design. Given that
+the computational cost of a single CFD simulation can be quite high, this could be a very expensive process—particularly
+when the adjoint method can give us that information with a single simulation run.
+
+#### Shape modification
 
 ## So it's all about optimisation...
 
@@ -737,6 +764,7 @@ Some of these provide some interest background, alternative techniques etc.
 - [Adjoint Shape Optimization for Aerospace Applications](https://www.nas.nasa.gov/assets/nas/pdf/ams/2021/AMS_20210408_Kelecy.pdf)
 - [Optimal Control and Reinforcement Learning for Formula One Lap Simulation](https://ora.ox.ac.uk/objects/uuid:491a5bb1-db1b-4cf6-b6f2-0ec06097ac9d/files/dpr76f389g)
 - [Using Automatic Differentation for Adjoint CFD Code Developent](https://people.maths.ox.ac.uk/gilesm/files/NA-05-25.pdf)
+- [Fast Sensitivity Analysis for the Design of Morphing Airfoils at Different Frequency Regimes](https://link.springer.com/chapter/10.1007/978-3-030-55594-8_42)
 
 ### Code
 
