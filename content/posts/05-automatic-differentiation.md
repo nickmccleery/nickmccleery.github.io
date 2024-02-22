@@ -4,7 +4,7 @@ description: Design, partial derivatives, and the allure of automatic differenti
 date: 2024-02-21
 draft: false
 images: [/images/blog/04/OGImage.png]
-tags: [engineering, cad, software]
+tags: [engineering, optimisation, cad, software]
 ---
 
 ## Motivation
@@ -20,18 +20,6 @@ discussing differentiable programming in engineering. The folks involved were:
 - Me, [@nick_mccleery](https://twitter.com/nick_mccleery).
 
 Plus a fleeting contribution from [@afshawnl](https://twitter.com/afshawnl).
-
-## Background
-
-This video, [You Should Be Using Automatic Differentiation](https://www.youtube.com/watch?v=sq2gPzlrM0g), is probably
-worth watching:
-
-<iframe width="640" height="480"
-src="https://www.youtube.com/embed/sq2gPzlrM0g">
-</iframe>
-
-Coincidentally, Ryan was also an advisor to [Quant Insight](https://quant-insight.com/) while I was there—and the
-website would suggest he's still active in that position.
 
 ## Why you might want gradients: Part 1
 
@@ -719,8 +707,8 @@ shape of the thing to increase our lift, we're going to want some kind of sensit
 first look to make changes.
 
 Helpfully, this is exactly what our adjoint method will provide us with—a CFD solution from the 'primal' simulation, and
-a set of partial derivatives that will tell us what the overall lift sensivity to position change of every point on the
-surface mesh.
+a set of partial derivatives that will tell us what the overall lift sensivity is to a small positional change of every
+point on the surface mesh.
 
 This exact process is described in the context of morphing aerostructures in the paper
 [Fast Sensitivity Analysis for the Design of Morphing Airfoils at Different Frequency Regimes](https://link.springer.com/chapter/10.1007/978-3-030-55594-8_42)
@@ -743,19 +731,52 @@ when the adjoint method can give us that information with a single simulation ru
 
 #### Shape modification
 
+These sensitivities can also be used to inform and drive automated shape modification, effectively letting the solver
+drive the design process. Another mention for Ansys here, as they already offer adjoint shape optimisation tools for
+CFD—and 'mesh morphing' that can perform shape modification based on the sensitivities extracted from an adjoint solve.
+
+Here's a figure reproduced from an Ansys presentation by Frankly Kelecy—note the 'mesh morph' step on the left hand
+side:
+
+{{< figure src="/images/blog/05/AnsysAdjoint.png"
+title="Ansys Adjoint-Driven Optimisation"
+credit="Credit: <a href=\"https://www.nas.nasa.gov/assets/nas/pdf/ams/2021/AMS_20210408_Kelecy.pdf\">Adjoint Shape Optimization for Aerospace Applications</a>" class="rounded margin">}}
+
+Practically, this allows for mesh deformation and exploration of alternate geometries without having to adjust a CAD
+model, and without having to regenerate a mesh that's derived from that CAD model.
+
+This is incredible. We already have commercially available tools out there that let component geometries be plugged into
+some sort of optimisation routine, and that iteratively improve upon a part's design without significant human input...
+all making use of adjoint sensitivities to inform the next iteration of the design.
+
 ## Wait, it's all optimisation?
 
 {{< figure src="/images/blog/05/AlwaysHasBeen.jpg">}}
 
+Given all of that, we've basically come full circle. The end goal of all the maths and the plots and the computational
+techniques discussed was really just to get some sensitivity values. These values are then used to help iteratively
+improve a design and improve the performance of some system—just like the teams of human engineers with some simplified
+mental models of these things have been doing all along.
+
+So it's always been optimisation, but computation lets us do it faster, and more robustly, and with more complex
+systems. It lets us do it with more parameters, and with more complex objectives, and with more complex constraints. It
+lets us do it with less human input, less human error, and less human bias... and in the case of differentiable
+programming, it lets us do all of that with less computational cost.
+
 ## CAD and differentiable programming
 
+I've been talking about this in the context of simplfied hand-code examples, and of CFD and FEA, but made next to no
+mention of CAD.
+
 ## Conclusion
+
+## Disclaimer
 
 <hr/>
 
 ## Appendix
 
-### Papers, theses, presentations, etc.
+### Papers, reports, presentations etc.
 
 Some of these provide some interest background, alternative techniques etc.
 
@@ -766,6 +787,28 @@ Some of these provide some interest background, alternative techniques etc.
 - [Optimal Control and Reinforcement Learning for Formula One Lap Simulation](https://ora.ox.ac.uk/objects/uuid:491a5bb1-db1b-4cf6-b6f2-0ec06097ac9d/files/dpr76f389g)
 - [Using Automatic Differentation for Adjoint CFD Code Developent](https://people.maths.ox.ac.uk/gilesm/files/NA-05-25.pdf)
 - [Fast Sensitivity Analysis for the Design of Morphing Airfoils at Different Frequency Regimes](https://link.springer.com/chapter/10.1007/978-3-030-55594-8_42)
+
+### Videos
+
+This video, [You Should Be Using Automatic Differentiation](https://www.youtube.com/watch?v=sq2gPzlrM0g), is probably
+worth watching:
+
+<div class="responsive-iframe">
+    <iframe src="https://www.youtube.com/embed/sq2gPzlrM0g" frameborder="0" allowfullscreen></iframe>
+</div>
+
+Coincidentally, Ryan was also an advisor to [Quant Insight](https://quant-insight.com/) while I was there—and the
+website would suggest he's still active in that position.
+
+These are good examples of adjoint methods in action:
+
+<div class="responsive-iframe">
+    <iframe src="https://www.youtube.com/embed/cZAhPQFINZ8" frameborder="0" allowfullscreen></iframe>
+</div>
+
+<div class="responsive-iframe">
+    <iframe src="https://www.youtube.com/embed/Yiz92Ekn7vU" frameborder="0" allowfullscreen></iframe>
+</div>
 
 ### Code
 
