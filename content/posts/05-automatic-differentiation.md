@@ -23,7 +23,7 @@ Plus a fleeting contribution from [@afshawnl](https://twitter.com/afshawnl).
 
 ## Why you might want gradients: Part 1
 
-Before I start into the mechanics of finite differences, analytical derivatives, and automatic differentation, it's
+Before I start into the mechanics of finite differences, analytical derivatives, and automatic differentiation, it's
 worth outlining at a very high level why any of this might be useful at all. Within the existing paradigm that we use to
 design and develop physical systems, and without getting into the inner workings of relevant things I definitely don't
 understand—like how OpenFOAM sets about solving the Navier-Stokes equations—there are three standout use cases that I
@@ -127,8 +127,10 @@ does too. The more direct use-cases I can think of are:
     operating envelope.
 - Parameter tuning.
   - Adjusting control system parameters to achieve desired system behaviour, often involving a gradient-based
-    optimisation routine. Gradient based approached are particularly attractive when you have a complex set of metrics
-    to deal with, as these can help you find optimal settings quickly.
+    optimisation routine. Gradient-based approaches are particularly attractive when you have a complex set of metrics
+    to deal with, as these can help you find optimal settings quickly... and this is a topic we'll come back to.
+  - On top of this, the 'D' in 'PID' stands for 'derivative'—so where this term is actually set, the control system is
+    using rate of change of the error signal to inform its next move.
 - Model predictive control and model reference adaptive control.
   - MPC uses gradients to optimise control inputs over some specified future horizon based on a system model, aiming to
     minimise a cost function that often includes terms for error, control effort, and constraints.
@@ -163,7 +165,7 @@ deflection, and we have the following constraints on our design variables:
 
 Here's the section we're talking about with our free variables highlighted:
 
-{{< figure src="/images/blog/05/BeamSection.png" title="Beam section">}}
+{{< figure src="/images/blog/05/BeamSection.png" title="Beam section" class="rounded margin">}}
 
 Now, for anyone who's got the $bd^3/12$ formula etched into their brain, you can see where we're going to end up
 here—but let's pretend we don't know the answer already.
@@ -172,7 +174,8 @@ This is the scenario we're talking about:
 
 {{< figure src="/images/blog/05/BeamSetup.png"
 title="Simply supported beam with central point load scenario"
-credit="Credit: <a href=\"https://commons.wikimedia.org/w/index.php?title=User:Hermanoere&action=edit&redlink=1\">https://commons.wikimedia.org/wiki/File:Simple_beam_with_center_load.svg</a>" class="rounded margin">}}
+credit="Credit: <a href=\"https://commons.wikimedia.org/w/index.php?title=User:Hermanoere&action=edit&redlink=1\">https://commons.wikimedia.org/wiki/File:Simple_beam_with_center_load.svg</a>"
+class="rounded margin">}}
 
 And our equation for deflection at the centre of the beam is: $$ \delta = \frac{F L^3}{48 E I} $$
 
@@ -206,7 +209,7 @@ In this way, we arrive at a nice 2D matrix of deflection values; one for each $(
 nice way to visualise how an engineering problem might be thought of as an optimisation problem—we're simply trying to
 find the position on this surface that has the minimum value.
 
-{{< figure src="/images/blog/05/BeamDeflection.png" title="Beam deflection as a function of breadth and depth">}}
+{{< figure src="/images/blog/05/BeamDeflection.png" title="Beam deflection as a function of breadth and depth" class="rounded margin">}}
 
 Unsurprisingly, that minimum occurs down on the bottom right hand corner as you look at the plot—where both depth and
 breadth are at their maximum.
@@ -217,7 +220,7 @@ optimum solution lies before we start.
 ### A better way
 
 In a more realistic example, we might have a complex, multi-dimensional design space with an awkward shape, and we might
-not have any clear idea of where the best solution lies. Perhaps more imporantly, real-world simulation cases can be
+not have any clear idea of where the best solution lies. Perhaps more importantly, real-world simulation cases can be
 incredibly complex—requiring vast HPC clusters and sometimes running for days. This is the scenario where we would
 definitely want to start using an optimisation routine to explore the design space for us, because anything even
 approaching an exhaustive search would be infeasible.
@@ -226,7 +229,7 @@ To bring this back to our beam example, instead of computing deflection at some 
 $(b, d)$ pair, we would use an optimisation algorithm to explore the design space for us. We would start with an initial
 guess, compute the deflection at that point, then iteratively improve our guess until we arrive at the best solution.
 
-Though we could use Nelder-Mead or similar methoods mentioned above, this is where gradient-based optimisation like
+Though we could use Nelder-Mead or similar methods mentioned above, this is where gradient-based optimisation like
 gradient descent come into play. We can use the gradient of our objective function with respect to our design variables
 to inform our next guess, and this can help us find the best solution more quickly.
 
@@ -236,13 +239,13 @@ Ignoring the engineering scenarios for a moment, let's consider a classic optimi
 [Himmelblau's function](https://en.wikipedia.org/wiki/Himmelblau%27s_function).
 
 Himmelblau's function exists entirely to test the performance of optimisation techniques. It's a 2D function with four
-local minima, and one local maximum, and it's given by:
+local minima and one local maximum, and it's given by:
 
 $$ f(x, y) = (x^2 + y - 11)^2 + (x + y^2 - 7)^2 $$
 
 Over $x$ and $y$ ranges that span $[-4, 4]$, it looks like this:
 
-{{< figure src="/images/blog/05/Himmelblau.png" title="Himmelblau's function" >}}
+{{< figure src="/images/blog/05/Himmelblau.png" title="Himmelblau's function" class="rounded margin">}}
 
 You can see the four minima and the maximum in the plot above, and you can see how the function's surface is quite
 complex. Imagine something like this, but in ten or twenty dimensions, and you can see how it might rapidly become
@@ -257,9 +260,11 @@ _(For more information on why that's actually the case,
 [this](https://www.khanacademy.org/math/multivariable-calculus/multivariable-derivatives/partial-derivative-and-gradient-articles/a/the-gradient),
 [this](https://www.youtube.com/watch?v=TNwHXWApyH4), and [this](https://www.geogebra.org/m/bxhwxr2x) are all helpful.)_
 
-If we animate the path the algorithm takes as it moves towards the minimum, it looks like this:
+If we animate the path the algorithm takes as it moves towards a minimum, it looks like this:
 
-{{< figure src="/images/blog/05/HimmelblauGradientDescentAnimation.gif" title="Gradient descent on Himmelblau's function">}}
+{{< figure src="/images/blog/05/HimmelblauGradientDescentAnimation.gif"
+title="Gradient descent on Himmelblau's function"
+class="rounded margin">}}
 
 _(If you're interested in the code that generated this, it's at the end of this post. You can find it
 [here](#matlab-himmelblau-function-and-gradient-descent).)_
@@ -269,7 +274,10 @@ _(If you're interested in the code that generated this, it's at the end of this 
 #### Intro to gradient descent
 
 <details open>
-  <summary>This is likely familiar to many, so feel free to collapse this section and move on...</summary>
+  <summary>
+  This is likely familiar to many software and data people, so feel free to collapse this section and move on,
+  but it may be interesting to any mechanical people reading...
+  </summary>
 
 The method is fairly straightforward:
 
@@ -289,8 +297,8 @@ The method is fairly straightforward:
    - In our example, we have two parameters, so we would expect to move both our $x$ and $y$ values—but in higher
      dimensions, we would be adjusting all of our parameters.
 4. Repeat until convergence.
-   - Repeat steps 2 and 3 until you reach some convergence critoerion. This is typically when the norm of the gradient
-     is less than some tolerance, indicating that you're close to the minimum, when the change in the function value
+   - Repeat steps 2 and 3 until you reach some convergence criterion. This is typically when the norm of the gradient is
+     less than some tolerance, indicating that you're close to the minimum, when the change in the function value
      between iterations is less than some tolerance, or when you've reached some maximum number of iterations.
    - In some cases, the evaluation of the function value at each point isn't actually necessary for the algorithm to
      work. It can arrive at the optimum solution without it, but it is often useful to see how the function value
@@ -312,7 +320,7 @@ then your gradient will be a vector of partial derivatives, like this:
 
 $$\nabla f(x) = \left[ \frac{\partial f}{\partial x_1}, \frac{\partial f}{\partial x_2}, \frac{\partial f}{\partial x_3}, ... \frac{\partial f}{\partial x_n} \right]$$
 
-Then, your stopping critera is typically based on the norm of the gradient, like this:
+Then, your stopping criteria is typically based on the norm of the gradient, like this:
 
 $$ \lVert \nabla f(x) \rVert < \epsilon $$
 
@@ -421,10 +429,12 @@ to any of its parameters. To borrow from [Wikipedia](https://en.wikipedia.org/wi
 
 This sounds incredible. For a constant factor more operations, you can get the gradients of anything you like—without
 having to manually differentiate your function, and without having to worry about the computational or edge case issues
-that come with numerical differentiation. It's a technique that can effectively expose an analytially correct derivative
-(to numerical precision) for any function you like. No sums; free gradients.
+that come with numerical differentiation. It's a technique that can effectively expose an analytically correct
+derivative (to numerical precision) for any function you like. No sums; free gradients.
 
-{{< figure src="/images/blog/05/FreeGradients.png" title="It's free gradients">}}
+{{< figure src="/images/blog/05/FreeGradients.png"
+title="It's free gradients"
+class="rounded margin">}}
 
 There are a whole series of libraries that can do this for you, and they're often used in machine learning and
 optimisation contexts. These include [autodiff](https://autodiff.github.io/),
@@ -435,7 +445,7 @@ optimisation contexts. These include [autodiff](https://autodiff.github.io/),
 The technique also gets used in some engineering contexts already, including some motorsport applications. This PhD
 thesis,
 [Optimal Control and Reinforcement Learning for Formula One Lap Simulation](https://ora.ox.ac.uk/objects/uuid:491a5bb1-db1b-4cf6-b6f2-0ec06097ac9d/files/dpr76f389g),
-makes use of pytorch's automatic differentiation capabilities to accelerate a collocation solve.
+makes use of PyTorch's automatic differentiation capabilities to accelerate a collocation solve.
 
 #### Forward and reverse mode
 
@@ -460,7 +470,7 @@ In reverse mode, the calc works backward from the output to the inputs. It first
 a forward pass, then tracks back through a reverse pass, applying the chain rule in reverse to compute the derivatives
 of the output with respect to each input variable.
 
-This mode is more efficeint dealing with functions that have a small number of outputs, like a scalar objective
+This mode is more efficient dealing with functions that have a small number of outputs, like a scalar objective
 function, and a large number of inputs, like a big set of parameters. This is because it computes all partial
 derivatives with respect to the inputs in a single backward pass.
 
@@ -557,7 +567,7 @@ def compute_area_moment_of_inertia_ad(x: np.ndarray) -> np.ndarray:
 While this function actually handles the automatic differentiation:
 
 ```python
-def compute_area_moment_of_inerta_sensitivities(
+def compute_area_moment_of_inertia_sensitivities(
     depth: float,
     width: float,
     t_web: float,
@@ -592,15 +602,17 @@ def compute_area_moment_of_inerta_sensitivities(
 ```
 
 This final one is the interesting one. We can make a very simple call to this function and get some interesting outputs.
-Say we called `compute_area_moment_of_inerta_sensitivities(100, 40, 5, 5)`, that would give us not just the area moment
+Say we called `compute_area_moment_of_inertia_sensitivities(100, 40, 5, 5)`, that would give us not just the area moment
 of inertia of the section, but also the sensitivities of that area moment of inertia with respect to each of the values
 we've passed in.
 
 If I place a breakpoint in the right spot, we can take a look at what we get here:
 
-{{< figure src="/images/blog/05/BeamAutoDiff.png" title="Inspecting variables: partial derivatives">}}
+{{< figure src="/images/blog/05/BeamAutoDiff.png"
+title="Inspecting variables: partial derivatives"
+class="rounded margin">}}
 
-Already, I'm seeing things I didn't expect. Even though it's an I beam and not a solid square section, I think of the
+Already, I'm seeing things I didn't expect. Even though it's an I-beam and not a solid square section, I think of the
 second moment of area of something like this being basically $bd^3/12$, so I would expect the second moment of area to
 be most sensitive to changes in depth. However, looking at the values we get out here, it's actually most sensitive to
 changes in flange thickness.
@@ -629,13 +641,16 @@ maximising second moment of area—which will achieve the same thing.
 
 This method actually works very nicely. You can find the code for this in the `run_gradient_ascent` function
 [in the repo](https://github.com/nickmccleery/autodiff-example/blob/main/src/example.py), and you can see it in action
-here:
+here—telling you what a first year engineering student could tell you without a moment's hesitation, but with more
+steps:
 
-{{< figure src="/images/blog/05/MOIGradientAscent.gif" title="Projected gradient ascent on I-beam section">}}
+{{<figure src="/images/blog/05/MOIGradientAscent.gif"
+title="Projected gradient ascent on I-beam section"
+class="rounded margin">}}
 
 ### Summary
 
-I hope that all makes sense. The provided example shows how automatic differentation lets us get analytically correct
+I hope that all makes sense. The provided example shows how automatic differentiation lets us get analytically correct
 partial derivatives of a function we might be interested in, without having to compute any derivatives by hand, then it
 shows how we might use those partial derivatives in combination with some optimisation method to arrive at a good
 solution to vaguely realistic engineering design optimisation problem.
@@ -649,8 +664,8 @@ I find this stuff incredibly interesting, but let's work through some examples o
 Unfortunately, the I-beam example above is not very representative of a real-world workflow. In a real engineering team,
 where you run a mix of tools from Dassault and Ansys and Siemens and whoever else, you don't typically have hand-coded
 geometry creation functions, hand-coded moment of inertia and deflection equations, and a simple 2D design space.
-Instead, you have a complex mix of often siloed products, with friction-heavy interfaces, and no straightforward way of
-closing the loop between CAD and simulation.
+Instead, you have a complex mix of often siloed products, with friction-heavy interfaces, no ability to wrap things in
+automatic differentiation libraries, and no straightforward way of closing the loop between CAD and simulation.
 
 As a result, your actual process will probably be more like this:
 
@@ -663,10 +678,10 @@ As a result, your actual process will probably be more like this:
      in particular areas of the geometry, extraction of peak stresses or deflections etc.
 5. Using engineering judgement, tweak the CAD to address any of the more pressing issues you've identified, then go back
    to step 3 and repeat the process.
-   - If you're lucky, you might have some variety of simplfied model from step 1 that you can adjust to correlate with
+   - If you're lucky, you might have some variety of simplified model from step 1 that you can adjust to correlate with
      your simulation results, and then use that to inform your next iteration of the CAD model.
-   - Simulation results are largely best compared to other simulation results, so you might have to run a few iterations
-     of this process to convince yourself that you're moving in the right direction.
+   - Simulation results are also largely best compared to other simulation results, so you might have to run a few
+     iterations of this process to be happy with how your design is performing.
 
 ### Parametric design optimisation
 
@@ -694,7 +709,7 @@ system performance will respond to changes in its design.
 ### Adjoint methods
 
 As touched on above, 'adjoint mode' is another name for reverse mode automatic differentiation. This technique gives us
-inexpensive gradient calculatulation; inexpensive in that we don't have to spend time manually deriving derivatives, and
+inexpensive gradient calculation; inexpensive in that we don't have to spend time manually deriving derivatives, and
 inexpensive in that we can extract analytically correct derivatives across a large number of input variables with a
 single simulation run.
 
@@ -712,15 +727,15 @@ shape of the thing to increase our lift, we're going to want some kind of sensit
 first look to make changes.
 
 Helpfully, this is exactly what our adjoint method will provide us with—a CFD solution from the 'primal' simulation, and
-a set of partial derivatives that will tell us what the overall lift sensivity is to a small positional change of every
-point on the surface mesh.
+a set of partial derivatives that will tell us what the overall lift sensitivity is to a small positional change of
+every point on the surface mesh.
 
 This exact process is described in the context of morphing aerostructures in the paper
 [Fast Sensitivity Analysis for the Design of Morphing Airfoils at Different Frequency Regimes](https://link.springer.com/chapter/10.1007/978-3-030-55594-8_42)
 by Kramer, Fuchs, Knacke, et. al. For our argument here, we aren't really interested in the frequency component of the
 problem, so I'll butcher a single case and annotate it with some of the things we might be interested in:
 
-{{< figure src="/images/blog/05/FastSensitivityAnalysisButchered.png"
+{{<figure src="/images/blog/05/FastSensitivityAnalysisButchered.png"
 title="Lift sensitivity to foil shape change"
 credit="Adapted from Kramer, Fuchs, Knacke, et. al.">}}
 
@@ -729,7 +744,7 @@ tell us how we need to change the the foil profile to increase lift. This is exa
 inform our next iteration of the design, given that our objective was to increase lift.
 
 If we were to have attempted something like this with a parametric design optimisation tool, we would have had to run a
-large number of simulations with modified geometries in order to explore the design space, and then we would have had to
+number of simulations with modified geometries in order to explore the design space, and then we would have had to
 compute the differences in lift between each of those simulations to inform our next iteration of the design. Given that
 the computational cost of a single CFD simulation can be quite high, this could be a very expensive process—particularly
 when the adjoint method can give us that information with a single simulation run.
@@ -740,12 +755,14 @@ These sensitivities can also be used to inform and drive automated shape modific
 drive the design process. Another mention for Ansys here, as they already offer adjoint shape optimisation tools for
 CFD—and 'mesh morphing' that can perform shape modification based on the sensitivities extracted from an adjoint solve.
 
-Here's a figure reproduced from an Ansys presentation by Frankly Kelecy—note the 'mesh morph' step on the left hand
-side:
+Here's a figure reproduced from an
+[Ansys presentation by Franklyn Kelecy](https://www.nas.nasa.gov/assets/nas/pdf/ams/2021/AMS_20210408_Kelecy.pdf)—note
+the 'mesh morph' step on the left hand side:
 
 {{< figure src="/images/blog/05/AnsysAdjoint.png"
 title="Ansys Adjoint-Driven Optimisation"
-credit="Credit: <a href=\"https://www.nas.nasa.gov/assets/nas/pdf/ams/2021/AMS_20210408_Kelecy.pdf\">Adjoint Shape Optimization for Aerospace Applications</a>" class="rounded margin">}}
+credit="Credit: <a href=\"https://www.nas.nasa.gov/assets/nas/pdf/ams/2021/AMS_20210408_Kelecy.pdf\">Adjoint Shape Optimization for Aerospace Applications</a>"
+class="rounded margin">}}
 
 Practically, this allows for mesh deformation and exploration of alternate geometries without having to adjust a CAD
 model, and without having to regenerate a mesh that's derived from that CAD model.
@@ -756,21 +773,21 @@ all making use of adjoint sensitivities to inform the next iteration of the desi
 
 ## Wait, it's all optimisation?
 
-{{< figure src="/images/blog/05/AlwaysHasBeen.jpg">}}
+{{< figure src="/images/blog/05/AlwaysHasBeen.jpg" class="rounded margin">}}
 
 Given all of that, we've basically come full circle. The end goal of all the maths and the plots and the computational
 techniques discussed was really just to get some sensitivity values. These values are then used to help iteratively
 improve a design and improve the performance of some system—just like the teams of human engineers with some simplified
 mental models of these things have been doing all along.
 
-So it's always been optimisation, but computation lets us do it faster, and more robustly, and with more complex
+So, it has always been optimisation, but computation lets us do it faster, and more robustly, and with more complex
 systems. It lets us do it with more parameters, and with more complex objectives, and with more complex constraints. It
 lets us do it with less human input, less human error, and less human bias... and in the case of differentiable
 programming, it lets us do all of that with less computational cost.
 
 ## CAD and differentiable programming
 
-I've been talking about this stuff in the context of simplfied, hand-coded examples, and of CFD and FEA, but made next
+I've been talking about this stuff in the context of simplified, hand-coded examples, and of CFD and FEA, but made next
 to no mention of CAD thus far. This has been intentional, as I think it would be incredibly confusing to just start
 talking about differentiable CAD and new CAD kernels without first working through what differentiable programming
 actually is, how engineering problems can be thought of as optimisation problems, and how simulation-heavy engineering
@@ -808,10 +825,10 @@ I think this is the grand vision. If, as they can already, your simulation tools
 solves—giving you sensitivities to the millions of input parameters that you might have in a complex mesh—then you can
 relate those sensitivities back to the input parameters that drive your CAD model.
 
-With end-to-end support for differentiable everything, instead of asking _'How would lift respond to some infintesimally
-small change in the $(x,y,z)$ coordinate of some node on the surface of my wing?'_ , as existing adjoint methods allow,
-you can ask how lift would respond to a change in camber, or chord length, or twist, or thickness, or any of the other
-parameters that you might have that actually drive your CAD model's geometry.
+With end-to-end support for differentiable everything, instead of asking _"How would lift respond to some
+infinitesimally small change in the $(x,y,z)$ coordinate of some node on the surface of my wing?"_ , as existing adjoint
+methods allow, you can ask how lift would respond to a change in camber, or chord length, or twist, or thickness, or any
+of the other parameters that you might have that actually drive your CAD model's geometry.
 
 Practically, I don't know how the hand-off of these derivatives would work. I imagine there would need to be a
 derivative interface between the CAD and the meshing and the simulation tools, and that you would need to be able to
@@ -826,7 +843,7 @@ as few simulation runs as possible.
 
 ### Alternatives
 
-Interestingly, there is a paper from my old university,
+Interestingly, there is a paper from my old department at QUB,
 [Linking Parametric CAD with Adjoint Surface Sensitivities](https://pureadmin.qub.ac.uk/ws/portalfiles/portal/51950626/Linking_parametric_CAD_with_adjoint_surface_sensitivities.pdf),
 that presents a method of combining adjoint methods with contemporary, non-differentiable parametric CAD.
 
@@ -835,7 +852,8 @@ for arriving at parametric sensitivities.
 
 {{< figure src="/images/blog/05/QUBWorkflow.png"
 title="Workflow for parametric sensitivity computation"
-credit="Credit: <a href=\"https://pureadmin.qub.ac.uk/ws/portalfiles/portal/51950626/Linking_parametric_CAD_with_adjoint_surface_sensitivities.pdf\">Vasilopoulos, Agarwal, Meyer et. al.</a>" class="rounded margin">}}
+credit="Credit: <a href=\"https://pureadmin.qub.ac.uk/ws/portalfiles/portal/51950626/Linking_parametric_CAD_with_adjoint_surface_sensitivities.pdf\">Vasilopoulos, Agarwal, Meyer et. al.</a>"
+class="rounded margin">}}
 
 ## Conclusion
 
