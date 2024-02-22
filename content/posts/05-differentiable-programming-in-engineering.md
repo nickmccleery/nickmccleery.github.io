@@ -816,8 +816,8 @@ Of course, there are some relatively direct relationships between these things a
 to solve for, but often these relationships are complex and non-linear, and your CAD system really knows nothing about
 them at all.
 
-Perhaps the selling point here would more closely related to the geometrical considerations that relate to manufacturing
-and packaging than to performance, but that sits well outside anything I've ever worked on.
+Perhaps the selling point here would be more closely related to the geometrical considerations that relate to
+manufacturing and packaging than to performance, but that sits well outside anything I've ever worked on.
 
 ### In an end-to-end differentiable ecosystem
 
@@ -826,7 +826,7 @@ solves—giving you sensitivities to the millions of input parameters that you m
 relate those sensitivities back to the input parameters that drive your CAD model.
 
 With end-to-end support for differentiable everything, instead of asking _"How would lift respond to some
-infinitesimally small change in the $(x,y,z)$ coordinate of some node on the surface of my wing?"_ , as existing adjoint
+infinitesimally small change in the $(x,y,z)$ coordinate of some node on the surface of my wing?"_, as existing adjoint
 methods allow, you can ask how lift would respond to a change in camber, or chord length, or twist, or thickness, or any
 of the other parameters that you might have that actually drive your CAD model's geometry.
 
