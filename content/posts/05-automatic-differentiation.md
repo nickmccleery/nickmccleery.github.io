@@ -87,9 +87,9 @@ presentations that eventually yield what's thought to the best overall compromis
 was.
 
 However, there are some cases where you can do this with a computer. You can write a program that will explore the
-design space and find the best solution. For example, you might want to determine the wing profile that will give you
-the minimum amount of drag while your aircraft is in cruise, while still generating enough lift for take-off under hot
-and high conditions.
+design space and find the best solution. For example, you might want to determine the aerofoil profile that will give
+you the minimum amount of drag while your aircraft is in cruise, while still generating enough lift for take-off under
+hot and high conditions.
 
 In this scenario, you want an optimisation routine that can modify the wing profile, compute the relevant lift and drag
 forces under the specified conditions, verify that all constraints are met, and then move on to the next iteration—all
@@ -278,7 +278,7 @@ _(If you're interested in the code that generated this, it's at the end of this 
 
 <hr/>
 
-#### Mechanics of gradient descent
+#### Intro to gradient descent
 
 <details open>
   <summary>This is likely familiar to many, so feel free to collapse this section and move on...</summary>
@@ -326,11 +326,11 @@ $$\nabla f(x) = \left[ \frac{\partial f}{\partial x_1}, \frac{\partial f}{\parti
 
 Then, your stopping critera is typically based on the norm of the gradient, like this:
 
-$$ \left\|| \nabla f(x) \right\|| < \epsilon $$
+$$ \lVert \nabla f(x) \rVert < \epsilon $$
 
 Where:
 
-- $\left\|| \nabla f(x) \right\||$ is the norm or magnitude of the gradient vector.
+- $\lVert \nabla f(x) \rVert < \epsilon$ is the norm or magnitude of the gradient vector.
 - $\epsilon$ is your stopping tolerance.
 
 If you're like me and tend to find the Elvish symbols a bit less intuitive than code, I'd recommend checking the code
@@ -448,6 +448,59 @@ The technique also gets used in some engineering contexts already, including som
 thesis,
 [Optimal Control and Reinforcement Learning for Formula One Lap Simulation](https://ora.ox.ac.uk/objects/uuid:491a5bb1-db1b-4cf6-b6f2-0ec06097ac9d/files/dpr76f389g),
 makes use of pytorch's automatic differentiation capabilities to accelerate a collocation solve.
+
+#### Forward and reverse mode
+
+It's worth touching on this as it becomes relevant later, but there are two main modes of automatic differentiation:
+forward mode and reverse mode. The best explanation of the difference between these two I've seen is
+[this Stack Exchange post](https://math.stackexchange.com/questions/2195377/reverse-mode-differentiation-vs-forward-mode-differentiation-where-are-the-be),
+but the short version is that they effectively just work through the chain rule in different orders—and this can result
+in different numbers of operations required to arrive at the result.
+
+**Forward mode:**
+
+In forward mode, differentiation progresses from the independent (input) variables towards the dependent (output)
+variables. It computes the derivative of each intermediate operation with respect to the input variables as it goes,
+effectively applying the chain rule from the inputs to the outputs.
+
+This mode is more efficient when the number of inputs is small compared to the number of outputs. This is because it
+calculates derivatives in a single pass, one per input variable.
+
+**Reverse mode:**
+
+In reverse mode, the calc works backward from the output to the inputs. It first computes the value of the function with
+a forward pass, then tracks back through a reverse pass, applying the chain rule in reverse to compute the derivatives
+of the output with respect to each input variable.
+
+This mode is more efficeint dealing with functions that have a small number of outputs, like a scalar objective
+function, and a large number of inputs, like a big set of parameters. This is because it computes all partial
+derivatives with respect to the inputs in a single backward pass.
+
+#### Trade-offs and terminology
+
+The choice between these two depends on the size of your input and output. Reverse mode is generally more efficient for
+functions with many inputs but few outputs—think neural networks with a scalar loss function. Forward mode is generally
+preferred when you have more outputs than inputs, as it avoids the computational overhead associated with the reverse
+pass that could be computationally intensive.
+
+It's also worth noting that these things both go by other names in different domains and contexts. These include:
+
+- Forward mode:
+  - Forward accumulation.
+  - Tangent mode.
+  - Bottom-up†.
+- Reverse mode:
+  - Reverse accumulation.
+  - Adjoint mode.
+  - Top-down†.
+  - Backpropagation‡.
+
+<hr/>
+
+† _According to [Wikipedia](https://en.wikipedia.org/wiki/Automatic_differentiation), but I don't think I've seen this
+written anywhere else._
+
+‡ _Common in the ML/AI space._
 
 ## Back to our I-beam
 
@@ -647,9 +700,21 @@ system performance will respond to changes in its design.
 
 ### Adjoint methods
 
-This is where stuff gets real, and where I defintiely feel dumb.
+The adjoint method is really another name for reverse mode automatic differentiation—'adjoint mode'. As discussed above,
+this technique gives us inexpensive gradient calculatulation; inexpensive in that we don't have to spend time manually
+deriving derivatives, and inexpensive in that we can extract analytically correct derivatives across a large number of
+variables with a single simulation run.
+
+In the context of simulation-driven design optimisation, this is an attractive proposition. Unlike with the
+[parametric design optimisation](#parametric-design-optimisation) approach, where you might have to run a large number
+of simulations to explore the design space, the adjoint method lets you run a significantly
 
 ### Adjoint optimisation and sensitivity analysis
+
+Taking a wing as an example again, let's say we have an initial geometry defined, and we want to use simulation to help
+us steer some modification to the profile for increased lift. First, we'll configure a domain for the
+simulation—configuring both a volume mesh and a surface mesh. If we're interested in knowing how we should change the
+shape of the thing to increase our lift, we're going to want some kind of sensitivity data.
 
 ## So it's all about optimisation...
 
@@ -671,6 +736,7 @@ Some of these provide some interest background, alternative techniques etc.
 - [Design Sensitivity Calculations Directly on CAD-based Geometry](https://acdl.mit.edu/ESP/Publications/AIAApaper2015-1370.pdf)
 - [Adjoint Shape Optimization for Aerospace Applications](https://www.nas.nasa.gov/assets/nas/pdf/ams/2021/AMS_20210408_Kelecy.pdf)
 - [Optimal Control and Reinforcement Learning for Formula One Lap Simulation](https://ora.ox.ac.uk/objects/uuid:491a5bb1-db1b-4cf6-b6f2-0ec06097ac9d/files/dpr76f389g)
+- [Using Automatic Differentation for Adjoint CFD Code Developent](https://people.maths.ox.ac.uk/gilesm/files/NA-05-25.pdf)
 
 ### Code
 
