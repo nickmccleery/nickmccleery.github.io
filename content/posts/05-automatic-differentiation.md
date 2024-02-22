@@ -422,7 +422,7 @@ to any of its parameters. To borrow from [Wikipedia](https://en.wikipedia.org/wi
 This sounds incredible. For a constant factor more operations, you can get the gradients of anything you like—without
 having to manually differentiate your function, and without having to worry about the computational or edge case issues
 that come with numerical differentiation. It's a technique that can effectively expose an analytially correct derivative
-(to numerical precision) for any function you like. Free gradients.
+(to numerical precision) for any function you like. No sums; free gradients.
 
 {{< figure src="/images/blog/05/FreeGradients.png" title="It's free gradients">}}
 
@@ -605,6 +605,11 @@ second moment of area of something like this being basically $bd^3/12$, so I wou
 be most sensitive to changes in depth. However, looking at the values we get out here, it's actually most sensitive to
 changes in flange thickness.
 
+This is an interesting way to force yourself to think, as after ruminating on this for a minute or two, it makes perfect
+sense. Each of the flanges is as far from the centroid of the section as you can get, so changes in flange thickness
+will have a greater effect on the second moment of area—plus there's one at the top and one at the bottom, so a 1mm
+adjustment in our flange thickness value will result in two flanges each getting 1mm thicker.
+
 However, that's sort of beside the point. Here, what you can see is that I have a function that can compute the second
 moment of area of an I-beam section, and that will also give the partial derivatives of that value with respect to each
 of the section's parameters that we pass in. This is exactly what we were after to enable gradient-based optimisation.
@@ -765,12 +770,104 @@ programming, it lets us do all of that with less computational cost.
 
 ## CAD and differentiable programming
 
-I've been talking about this in the context of simplfied hand-code examples, and of CFD and FEA, but made next to no
-mention of CAD.
+I've been talking about this stuff in the context of simplfied, hand-coded examples, and of CFD and FEA, but made next
+to no mention of CAD thus far. This has been intentional, as I think it would be incredibly confusing to just start
+talking about differentiable CAD and new CAD kernels without first working through what differentiable programming
+actually is, how engineering problems can be thought of as optimisation problems, and how simulation-heavy engineering
+processes typically work.
+
+In general, I think differentiable programming is an incredibly interesting area, and it's already being used all over
+the place—including in engineering tools that are already on the market. In the CFD and FEA cases, it's pretty
+incredible to be able to extract such granular sensitivity data from a single simulation run, and to be able to use that
+data to steer the design process.
+
+How this might be applied to CAD is a bit less clear to me, but I think I can see the grander vision where the appeal
+truly lies.
+
+### In isolation
+
+In isolation, I don't think I see much value in building a differentiable CAD system. If our goals relate to
+optimisation and iterative design improvement and closed-loop, simulation-driven design processes, then I struggle to
+see which parameters that the CAD system 'owns' are really of interest. CAD packages are specialised tools for geometry
+creation, and as a result, the parameters that they own are effectively all geometrical properties, though perhaps with
+a density value thrown in. Your CAD system can tell you things like lengths, areas, volumes, masses, moments of inertia,
+and so on, so with automatic differentiation thrown in, it could tell you how these things relate to driving parameters.
+However, it can't tell you things like lift, drag, stress, deflection, pressure drop, natural frequency... or any of the
+other performance-oriented metrics that you might actually be interested in minimising or maximising.
+
+Of course, there are some relatively direct relationships between these things and the quantities we would actually want
+to solve for, but often these relationships are complex and non-linear, and your CAD system really knows nothing about
+them at all.
+
+Perhaps the selling point here would more closely related to the geometrical considerations that relate to manufacturing
+and packaging than to performance, but that sits well outside anything I've ever worked on.
+
+### In an end-to-end differentiable ecosystem
+
+I think this is the grand vision. If, as they can already, your simulation tools can run both primal and adjoint
+solves—giving you sensitivities to the millions of input parameters that you might have in a complex mesh—then you can
+relate those sensitivities back to the input parameters that drive your CAD model.
+
+With end-to-end support for differentiable everything, instead of asking _'How would lift respond to some infintesimally
+small change in the $(x,y,z)$ coordinate of some node on the surface of my wing?'_ , as existing adjoint methods allow,
+you can ask how lift would respond to a change in camber, or chord length, or twist, or thickness, or any of the other
+parameters that you might have that actually drive your CAD model's geometry.
+
+Practically, I don't know how the hand-off of these derivatives would work. I imagine there would need to be a
+derivative interface between the CAD and the meshing and the simulation tools, and that you would need to be able to
+relate CAD parameters to the mesh, and then the mesh to the simulation results, and then the simulation results back to
+the CAD parameters—but I think this should be soluble.
+
+If that were achievable, it would allow not just for free-form _mesh morphing_ that is unlikely to be directly
+applicable to critical features like those of bearings and shafts—but for computationally efficient, structured design
+optimisation. It would allow for the closed-loop, simulation-driven design process to adjust diameters and
+eccentricities and chord lengths and so on, all while homing in on the best possible solution to the problem at hand in
+as few simulation runs as possible.
+
+### Alternatives
+
+Interestingly, there is a paper from my old university,
+[Linking Parametric CAD with Adjoint Surface Sensitivities](https://pureadmin.qub.ac.uk/ws/portalfiles/portal/51950626/Linking_parametric_CAD_with_adjoint_surface_sensitivities.pdf),
+that presents a method of combining adjoint methods with contemporary, non-differentiable parametric CAD.
+
+This approach does require perturbation of the CAD model, but they still report a computationally efficient mechanism
+for arriving at parametric sensitivities.
+
+{{< figure src="/images/blog/05/QUBWorkflow.png"
+title="Workflow for parametric sensitivity computation"
+credit="Credit: <a href=\"https://pureadmin.qub.ac.uk/ws/portalfiles/portal/51950626/Linking_parametric_CAD_with_adjoint_surface_sensitivities.pdf\">Vasilopoulos, Agarwal, Meyer et. al.</a>" class="rounded margin">}}
 
 ## Conclusion
 
-## Disclaimer
+My broad view is that differentiable programming offers some exciting use cases in engineering, but I don't think we
+would see the full benefit of this until we arrive at some sort of end-to-end (eco)system that accommodates the
+paradigm.
+
+I'm a big fan of open and interoperable tools, so I hope this goes the way of some sort of standard that allows for
+straightforward integration of different systems—wholly unlike the history of commercial CAD systems to date.
+
+### Limitations
+
+The biggest limitation I see is probably just the frequently non-linear nature of the relationships between the
+parameters that the CAD system owns and the quantities that we actually care about. I imagine you get around this with
+appropriate configuration of any optimisation technique, but I think it's worth noting that your objective function
+could be highly non-linear, and that this could cause issues with gradient-based optimisation failing to converge,
+getting trapped in local minima, and so on.
+
+It could also be challenging to employ adjoint methods with a large number of output parameters, as the reverse mode
+automatic differentiation technique is generally more efficient when the number of inputs is small
+
+### Disclaimer
+
+I should probably say that I'm not really an expert on any of this stuff, so it is entirely possible that there are
+inaccurate comments and misunderstandings here.
+
+However, I do straddle the worlds of both mechanical engineering and software development. I've battled with ancient
+versions of CATIA, designed bits of engines, developed new suspension systems, and built a lot of
+scientific/mathematical software, so I have quite a lot of exposure to the tools and techniques that are discussed here.
+
+I hope that any overly shallow knowledge hasn't detracted from the overall message, but if you spot any egregious
+errors, please just get in touch and let me know.
 
 <hr/>
 
@@ -778,7 +875,7 @@ mention of CAD.
 
 ### Papers, reports, presentations etc.
 
-Some of these provide some interest background, alternative techniques etc.
+Some of these provide some interesting background, alternative techniques etc.
 
 - [Linking Parametric CAD with Adjoint Surface Sensitivities](https://pureadmin.qub.ac.uk/ws/portalfiles/portal/51950626/Linking_parametric_CAD_with_adjoint_surface_sensitivities.pdf)
 - [Differentiable 3D CAD Programs for Bidirectional Editing](https://arxiv.org/pdf/2110.01182.pdf)
