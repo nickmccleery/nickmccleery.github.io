@@ -743,16 +743,17 @@ when the adjoint method can give us that information with a single simulation ru
 
 #### Shape modification
 
-## So it's all about optimisation...
+## Wait, it's all optimisation?
 
-In the differentiable paradigm, those results would be composed not just of forces and torques and Von Mises stresses
-and flow velocities, but also the gradients of each of those with respect to the design variables.
+{{< figure src="/images/blog/05/AlwaysHasBeen.jpg">}}
 
 ## CAD and differentiable programming
 
+## Conclusion
+
 <hr/>
 
-## Reference material
+## Appendix
 
 ### Papers, theses, presentations, etc.
 
