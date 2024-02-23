@@ -326,7 +326,7 @@ $$ \lVert \nabla f(x) \rVert < \epsilon $$
 
 Where:
 
-- $\lVert \nabla f(x) \rVert < \epsilon$ is the norm or magnitude of the gradient vector.
+- $\lVert \nabla f(x) \rVert$ is the norm or magnitude of the gradient vector.
 - $\epsilon$ is your stopping tolerance.
 
 If you're like me and tend to find the Elvish symbols a bit less intuitive than code, I'd recommend checking the code
