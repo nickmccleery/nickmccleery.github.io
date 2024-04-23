@@ -1,4 +1,4 @@
-baseURL = "http://example.org/"
+baseURL = "https://nickmcccleery.github.io"
 languageCode = "en-gb"
 title = "Nick McCleery"
 theme = 'archie'
@@ -34,6 +34,11 @@ url = "https://twitter.com/nick_mccleery"
 name = "GitHub"
 icon = "github"
 url = "https://github.com/nickmccleery"
+
+[[params.social]]
+name = "CV"
+icon = "file-text"
+url = "/cv"
 
 
 [[menu.main]]

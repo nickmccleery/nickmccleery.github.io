@@ -3,7 +3,7 @@ title: About
 date: 2023-09-03
 ---
 
-Engineer who likes working at the intersection of hardware and software. Founder of [Anneal](https://www.getanneal.com).
+Engineer who likes working at the intersection of hardware and software.
 
 ## Professional Interests
 
@@ -76,3 +76,7 @@ interest in signal processing, and that experience was incredibly helpful in mor
 
 One track of mine has been pressed by [Fundamental](https://fundamentalrecords.bandcamp.com/merch), but it's been a long
 time since I fired up Ableton or twiddled a filter.
+
+### CV
+
+See [CV](/cv).

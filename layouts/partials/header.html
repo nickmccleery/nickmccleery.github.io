@@ -84,6 +84,10 @@
 			});
 			</script>
 	{{ end }}
+
+	<!-- Lightbox. -->
+	<script src="{{ .Site.BaseURL }}js/lightbox.js"></script>
+	<link href="{{ .Site.BaseURL }}css/lightbox.css" rel="stylesheet">
 	
 	<!-- Custom CSS style get applied last -->
 	{{- if isset .Site.Params "customcss" }}

@@ -1,6 +1,6 @@
 {{ define "main" }}
 <main>
-	<article>
+	<article id="article">
 		<div class="title">
 			<h1 class="title">{{ .Title }}</h1>
 			{{ with .Description }}
@@ -15,7 +15,7 @@
 			{{ .Params.tldr }}
 		</div>{{ end }}
 
-		{{ if ne .Title "About" }}
+		{{ if not (in (slice "About" "CV") .Title) }}
 		<div class="toc">
 			<p class="toc-header">Contents:</p>
 			<aside>
@@ -52,6 +52,36 @@
 		{{- if eq ($.Scratch.Get "isDisqus") true -}}
 		{{- partial "disqus.html" . -}}
 		{{- end -}}
+
+		<!-- Make all article sub-headings clickable/linkable. -->
+		<script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+		<script>
+		(function addHeadingLinks(){
+		var article = document.getElementById('article');
+		var headings = article.querySelectorAll('h1, h2, h3, h4, h5, h6');
+		headings.forEach(function(heading){
+			if(heading.id){
+			var a = document.createElement('a');
+			a.innerHTML = heading.innerHTML;
+			a.href = '#'+heading.id;
+			a.className = 'heading-link';
+
+			var icon = document.createElement('i');
+			icon.setAttribute('data-feather', 'link-2');
+			icon.setAttribute('color', 'gray');
+			icon.className = "icon";
+			icon.style = "margin-left: 0.2em;"
+			a.appendChild(icon);
+
+			heading.innerHTML = '';
+			heading.appendChild(a);
+			}
+		});
+		feather.replace(); // Update Feather icons
+		})();
+		</script>
+
+
 	</article>
 	
 </main>
