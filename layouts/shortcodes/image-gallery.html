@@ -1,0 +1,31 @@
+<style>
+    .image-gallery {overflow: auto; margin-left: -1%!important;}
+    .image-gallery li {float: left; display: block; margin: 0 0 1% 1%; width: 100%;}
+    .image-gallery li a {text-align: center; text-decoration: none!important; color: #777;}
+    .image-gallery li a span {display: block; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; padding: 3px 0;}
+    .image-gallery li a img {width: 100%; display: block;}
+
+    /* For devices 576px and up */
+    @media only screen and (min-width: 576px) {
+        .image-gallery li {width: 45%;}
+    }
+
+    /* For devices 768px and up */
+    @media only screen and (min-width: 768px) {
+        .image-gallery li {width: 31%;}
+    }
+</style>
+
+{{ $dir := string (.Get "gallery_dir") }}
+<ul class="image-gallery">
+{{ range (readDir (print "static" $dir)) }}
+  {{- $imageurl := printf "%s/%s" $dir .Name -}}
+  {{- $imagetitle := .Name -}}
+    <li>
+      <a href="{{ $imageurl }}" title="{{ $imagetitle }}" class="lightbox-image">
+        <img src="{{ $imageurl }}" alt="{{ $imagetitle }}" title="{{ $imagetitle }}">
+        <span>{{ $imagetitle }}</span>
+      </a>
+    </li>
+{{ end }}
+</ul>
