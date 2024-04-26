@@ -212,6 +212,16 @@ blockquote {
   content: "// ";
 }
 
+
+div .site-description {
+
+
+  p {
+    font-family: "Space Mono", sans-serif;
+  }
+
+}
+
 .toc {
   margin-top: 20px;
   margin-bottom: 20px;

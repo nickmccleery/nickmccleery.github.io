@@ -14,7 +14,7 @@ unsafe = true
 [params]
 mode = "toggle"
 useCDN = false
-subtitle = "Aut inveniam viam aut faciam"
+subtitle = "This website is an irregularly updated collection of things I've written. Most of these articles are related to engineering, software, or start-ups. <br/><br/> _Aut inveniam viam aut faciam._"
 mathjax = true
 katex = true
 favicon = "https://img.icons8.com/ios-filled/500w/gears.png"
@@ -47,11 +47,16 @@ url = "/"
 weight = 1
 
 [[menu.main]]
-name = "Blog"
+name = "Articles"
 url = "/posts"
 weight = 2
 
 [[menu.main]]
+name = "Tags"
+url = "/tags"
+weight = 3
+
+[[menu.main]]
 name = "About"
 url = "/about"
-weight = 3
+weight = 4
