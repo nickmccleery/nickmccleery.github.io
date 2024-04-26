@@ -763,7 +763,7 @@ experiences and perspectives to draw on. A good team is more than the sum of its
 At times, when you've got a million different things to do _and_ you also need to find some creativity or product vision
 or clever ways to try and engage a customer, trying to run a high growth potential business without a team just leaves
 you in crank the handle mode. You're just working through a list, without any of the organic magic that comes from a
-team working together. Not that I intend to compare being part of a team with consuming amphetaminse, but that feeling
+team working together. Not that I intend to compare being part of a team with consuming amphetamines, but that feeling
 does remind me of how notoriously collaborative mathematician Paul Erdős described his experience of trying to do
 mathematics without them:
 
@@ -836,7 +836,7 @@ There's a reason why Peter Thiel
 My thinking here is pretty similar to that on remote working: you absolutely can build a unicorn anywhere, and there are
 some great examples of companies in unexpected places—and remote-first ones—that have done exactly that. However, I do
 think geography is worth some relatively considered thought. As with Thiel and his desire to get people in the office,
-there are some very valid reasons why the US has produced 645 unicorns, the UK 46,, and Ireland just 6[^1].
+there are some very valid reasons why the US has produced 645 unicorns, the UK 46, and Ireland just 6[^1].
 
 For us, what was incredibly obvious, and what we realised too late, was that US culture is markedly more open, a million
 times more supportive of enterprise, and has signficantly more appetite for risk. We should have started with a focus on
@@ -895,7 +895,7 @@ raise enough to give yourself some headroom. If you're going to do content, buil
 you're using your experience to drive product development, lean into that and build the product you envisage.
 
 In general, I think I now prefer the approach of considering your options, making a plan, then committing to that with
-all of your resources. If it doesn't work out, you reassess and go again—but the attractivenss of the half-measure
+all of your resources. If it doesn't work out, you reassess and go again—but the attractiveness of the half-measure
 should be resisted; by trying to do a little bit of everything, you might end up not doing anything particularly well.
 
 ### A note on 'entrepreneurial' activity
@@ -942,7 +942,7 @@ customers, and how you position yourself... that all came later.
 Recently, sat on my partner's parents' patio, I found myself glued to
 [Zero to One](https://www.amazon.co.uk/Zero-One-Notes-Start-Future/dp/0753555204). I read it cover to cover, having
 previously read a couple of chapters and thrown it away, generally preferring to read about cars or motorbikes or
-aeroplanes or transistors or whatever. At the time, it occured to me that the book was full of useful information...
+aeroplanes or transistors or whatever. At the time, it occurred to me that the book was full of useful information...
 but, more than that, my desire to keep reading told me that I had, at some point, developed a legitimate interest in all
 of these other facets of running a business that I had previously neglected.
 
