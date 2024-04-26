@@ -5,6 +5,7 @@
 		<div class="content">
 			{{ partial "head.html" . }}		
 			<main class="list">
+				<hr/>
 				<div class="site-description">
 					{{- if isset .Site.Params "subtitle" -}}
 					<p>{{ .Site.Params.Subtitle | markdownify }}</p>
