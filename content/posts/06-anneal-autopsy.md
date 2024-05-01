@@ -880,7 +880,7 @@ the lead and try and force an outcome—whether that's terms, timeline, or whate
 ### Death by half-measure
 
 One other thing that might have played a hand in our demise was a half-measure approach to things. In several corners of
-the business, from fundraising to product to marketing, we dipped out toes in the water, but didn't really commit.
+the business, from fundraising to product to marketing, we dipped our toes in the water, but didn't really commit.
 
 We built a product... but based it neither on a supremely confident vision of the future, nor on a deeply researched
 thesis on customer behaviour. We targeted engineers... but we didn't narrow the focus enough, and were too broad with
