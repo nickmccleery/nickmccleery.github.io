@@ -619,7 +619,7 @@ Launching immediately is obviously at odds with the Figma-style, build-your-visi
 engineering-specific insight I now have on this.
 
 As far as I can tell, engineers generally like _things_. They like products they can see and test and play with. What
-engineers generally don't like is sales. They don't like having to talk people when they don't have to, especially when
+engineers generally don't like is sales. They don't like talking to people when they don't have to, especially when
 they think the other party is non-technical. They don't like bullshit, and they don't buy hype.
 
 This is probably a good argument for making sure you recruit one or two of the grandmaster salespeople that Peter Thiel
