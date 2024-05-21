@@ -1,5 +1,5 @@
 ---
-title: Building a palatable 3D viewer
+title: Building a palatable 3D viewer | Part I
 description: Engineering review procedures and using Three.js to visualise 3D CAD data.
 date: 2024-01-01
 draft: false
