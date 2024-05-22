@@ -98,8 +98,8 @@ mentioning that the orthographic camera has a `zoom` property that is actively u
 For perspective cameras:
 
 - The `zoom` property exists but is not commonly used. Instead, the default Three.js controls employ 'dollying' bound to
-  the mouse wheel, where the camera moves closer to or further from the target point along the line of sight—the vector $\vec{AB}$ in the
-  figure above.
+  the mouse wheel, where the camera moves closer to or further from the target point along the line of sight—the vector
+  $\vec{AB}$ in the figure above.
 - As the camera moves closer to the target, the visible area decreases, making objects appear larger, and as the camera
   moves further from the target, the visible area increases, making objects appear smaller.
 
@@ -127,11 +127,9 @@ Since we achieve equivalence by matching up the viewing volumes, camera position
 interested in are:
 
 - [`PerspectiveCamera`](https://threejs.org/docs/index.html#api/en/cameras/PerspectiveCamera):
-
   - `fov`
   - `near`
   - `far`
-
 - [`OrthographicCamera`](https://threejs.org/docs/index.html#api/en/cameras/PerspectiveCamera):
   - `left`
   - `right`
@@ -140,9 +138,6 @@ interested in are:
   - `near`
   - `far`
   - `zoom`
-
-These are what we'll need to work with to establish the two viewing volumes, plus the aspect ratio of the canvas. With
-those parameters and a bit of trigonometry, we'll be able to set up our view equivalence.
 
 ### Technical approach
 
@@ -553,8 +548,7 @@ For our implementation, I thought the best way to present this would be to 'unfo
 highlight the relevant face. When a user clicks a particular button for a target face, we orient the camera to be
 parallel to that face then zoom out to fit the whole model in view.
 
-This is the design I settled on:
-{{<figure
+This is the design I settled on: {{<figure
 src="/images/blog/07/ViewCube.png"
 title="Unfolded standard view cube."
 class="rounded margin">}}
