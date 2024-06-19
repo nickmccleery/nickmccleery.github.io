@@ -21,6 +21,11 @@ favicon = "https://img.icons8.com/ios-filled/500w/gears.png"
 customcss = ["css/overrides.css"]
 
 [[params.social]]
+name = "Email"
+icon = "mail"
+url = "mailto:contact@nickmccleery.com"
+
+[[params.social]]
 name = "LinkedIn"
 icon = "linkedin"
 url = "https://www.linkedin.com/in/nick-mccleery/"
@@ -34,11 +39,6 @@ url = "https://twitter.com/nick_mccleery"
 name = "GitHub"
 icon = "github"
 url = "https://github.com/nickmccleery"
-
-[[params.social]]
-name = "CV"
-icon = "file-text"
-url = "/cv"
 
 
 [[menu.main]]

@@ -23,8 +23,8 @@ how information is shared etc.
 
 ### Employment History
 
-There's a detailed job history on my [LinkedIn](https://www.linkedin.com/in/nick-mccleery/), but I've had the pleasure
-of working on some very cool projects with some very sharp people.
+There's a detailed job history on my [LinkedIn](https://www.linkedin.com/in/nick-mccleery/) and outlined my [CV](/cv),
+but I've had the pleasure of working on some very cool projects with some very sharp people.
 
 The short version is:
 
@@ -77,6 +77,7 @@ interest in signal processing, and that experience was incredibly helpful in mor
 One track of mine has been pressed by [Fundamental](https://fundamentalrecords.bandcamp.com/merch), but it's been a long
 time since I fired up Ableton or twiddled a filter.
 
-### CV
+### Contact
 
-See [CV](/cv).
+Some of my social media profiles are linked in the footer, but you can also e-mail me directly at
+[contact@nickmccleery.com](mailto:contact@nickmccleery.com).
