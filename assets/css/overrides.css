@@ -95,10 +95,12 @@ table {
   font-family: "Space Mono", monospace, sans-serif;
   margin-left: auto;
   margin-right: auto;
+  font-size: smaller;
 }
 
 table th {
   text-align: left;
+  font-size: small;
 }
 
 ul {
@@ -212,14 +214,10 @@ blockquote {
   content: "// ";
 }
 
-
 div .site-description {
-
-
   p {
     font-family: "Space Mono", sans-serif;
   }
-
 }
 
 .toc {
