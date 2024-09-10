@@ -753,45 +753,45 @@ def compute_succeeding_index(index: str) -> str:
 
 The process for each of these is fairly straightforward.
 
-- For `compute_intermediate_index`:
+For `compute_intermediate_index`:
 
-  - Validate both input indices to ensure they're in the correct format.
-  - If `index_before` is lexicographically greater than `index_after`, swap them to ensure correct ordering.
-  - Initialise an empty string `index_intermediate` to store the result.
-  - Find the maximum length between the two input indices.
-  - Pad the shorter index with the start or end of the alphabet as appropriate.
-  - If the padded indices are identical, return the midpoint of the alphabet.
-  - Compare the indices character by character:
-    - If characters are the same, add that character to the intermediate index.
-    - If characters differ:
-      - Compute the midpoint between their ordinal values.
-      - If the midpoint is different from the 'before' character, use the midpoint.
-      - If the midpoint is the same as the 'before' character, use the 'before' character followed by the alphabet's
-        midpoint.
-    - Return the intermediate index once a difference is found.
+- Validate both input indices to ensure they're in the correct format.
+- If `index_before` is lexicographically greater than `index_after`, swap them to ensure correct ordering.
+- Initialise an empty string `index_intermediate` to store the result.
+- Find the maximum length between the two input indices.
+- Pad the shorter index with the start or end of the alphabet as appropriate.
+- If the padded indices are identical, return the midpoint of the alphabet.
+- Compare the indices character by character:
+  - If characters are the same, add that character to the intermediate index.
+  - If characters differ:
+    - Compute the midpoint between their ordinal values.
+    - If the midpoint is different from the 'before' character, use the midpoint.
+    - If the midpoint is the same as the 'before' character, use the 'before' character followed by the alphabet's
+      midpoint.
+  - Return the intermediate index once a difference is found.
 
-- For `compute_preceding_index`:
+Then, for `compute_preceding_index`:
 
-  - Validate the input index.
-  - Iterate through the index string from right to left:
-    - Convert each character to its ordinal value.
-    - If the ordinal is greater than the initial ordinal:
-      - Decrement this character by one.
-      - Return the modified index.
-  - If no character could be decremented (all at minimum value):
-    - Remove the last character.
-    - Append the start of the alphabet followed by the end of the alphabet.
+- Validate the input index.
+- Iterate through the index string from right to left:
+- Convert each character to its ordinal value.
+- If the ordinal is greater than the initial ordinal:
+  - Decrement this character by one.
+  - Return the modified index.
+- If no character could be decremented (all at minimum value):
+  - Remove the last character.
+  - Append the start of the alphabet followed by the end of the alphabet.
 
-- For `compute_succeeding_index`:
+Finally, for `compute_succeeding_index`:
 
-  - Validate the input `index` using the `validate_index()` function.
-  - Check if the last character of the `index` is equal to `ALPHABET_END`.
-    - If the last character is `ALPHABET_END`, append `INIT_INDEX` to the `index`.
-  - If the last character is not `ALPHABET_END`:
-    - Convert the last character of the `index` to its corresponding integer using `ALPHA_MAP.to_int()`.
-    - Increment the integer by one.
-    - Convert the incremented integer back to a character using `ALPHA_MAP.to_char()`.
-    - Return the original `index` with the incremented character replacing the last character.
+- Validate the input `index` using the `validate_index()` function.
+- Check if the last character of the `index` is equal to `ALPHABET_END`.
+  - If the last character is `ALPHABET_END`, append `INIT_INDEX` to the `index`.
+- If the last character is not `ALPHABET_END`:
+  - Convert the last character of the `index` to its corresponding integer using `ALPHA_MAP.to_int()`.
+  - Increment the integer by one.
+  - Convert the incremented integer back to a character using `ALPHA_MAP.to_char()`.
+  - Return the original `index` with the incremented character replacing the last character
 
 ## Limitations
 
@@ -811,10 +811,10 @@ to be aware of:
     emerge in large or highly active boards where many items are inserted at once in the same position.
   - Since we then sort alphabetically, this shouldn't cause any major headaches, but I can imagine there basically being
     some non-deterministic behaviour in the ordering of items that have the same index.
-- Database complexity.
-  - Since the indexing is managed in Python and the indices are stored as strings, ensuring performance in a database
-    context (e.g., during sorting and retrieval) may require additional database optimization. Direct integer-based or
-    float-based comparisons are typically more efficient in database operations.
+- Database overhead.
+  - Since the indexing is managed in Python and the indices are stored as strings, performance in a database context
+    (e.g., during sorting and retrieval) may be worse than with numeric types. Direct integer-based or float-based
+    comparisons are typically more efficient in database operations.
 
 ## Conclusion
 

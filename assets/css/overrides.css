@@ -104,7 +104,7 @@ table th {
 }
 
 ul {
-  list-style: circle;
+  list-style: square;
   padding-left: 2ch;
 }
 ul li {
