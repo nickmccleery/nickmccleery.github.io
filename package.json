@@ -1,0 +1,32 @@
+{
+  "name": "blog",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "generate-og": "node --loader ts-node/esm scripts/opengraph-generator/src/generate-opengraph-images.ts",
+    "build": "npm run generate-og && hugo"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nickmccleery/nickmccleery.github.io.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nickmccleery/nickmccleery.github.io/issues"
+  },
+  "homepage": "https://github.com/nickmccleery/nickmccleery.github.io#readme",
+  "devDependencies": {
+    "ts-node": "^10.9.2",
+    "typescript": "^5.6.2",
+    "@types/node": "^18.15.11"
+  },
+  "dependencies": {
+    "sharp": "^0.32.0",
+    "canvas": "^2.9.0"
+  }
+}
