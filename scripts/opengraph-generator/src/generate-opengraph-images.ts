@@ -37,7 +37,7 @@ function extractTitle(content: string): string | null {
 
 async function processMarkdownFile(filePath: string) {
   const content = fs.readFileSync(filePath, "utf-8");
-  const title = extractTitle(content);
+  let title = extractTitle(content);
 
   if (title) {
     const fileName = path.basename(filePath, ".md");
@@ -46,11 +46,13 @@ async function processMarkdownFile(filePath: string) {
     await generateOpenGraphImage({
       templatePath: path.join(__dirname, "..", "templates", "template.png"),
       outputPath,
-      fontPath: path.join(__dirname, "..", "fonts", "SpaceMono-Bold.ttf"),
-      fontSize: 48,
+      fontPath: path.join(__dirname, "..", "fonts", "SpaceMono-Regular.ttf"),
+      fontSize: 150,
       text: title,
       textColor: "#000000",
-      textPosition: { x: 50, y: 150 },
+      textPosition: { x: 390, y: 630 },
+      lineHeight: 170,
+      maxWidth: 2500,
     });
 
     console.log(`Generated OpenGraph image for: ${fileName}`);

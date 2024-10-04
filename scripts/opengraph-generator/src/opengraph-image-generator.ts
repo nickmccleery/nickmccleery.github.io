@@ -9,6 +9,8 @@ interface OpenGraphOptions {
   text: string;
   textColor: string;
   textPosition: { x: number; y: number };
+  lineHeight: number; // New property for line height
+  maxWidth: number; // New property for text wrapping
 }
 
 export async function generateOpenGraphImage(
@@ -31,8 +33,34 @@ export async function generateOpenGraphImage(
   ctx.font = `${options.fontSize}px CustomFont`;
   ctx.fillStyle = options.textColor;
 
-  // Draw the text
-  ctx.fillText(options.text, options.textPosition.x, options.textPosition.y);
+  // Function to wrap text
+  function wrapText(text: string, maxWidth: number): string[] {
+    const words = text.split(" ");
+    const lines = [];
+    let currentLine = words[0];
+
+    for (let i = 1; i < words.length; i++) {
+      const word = words[i];
+      const width = ctx.measureText(currentLine + " " + word).width;
+      if (width < maxWidth) {
+        currentLine += " " + word;
+      } else {
+        lines.push(currentLine);
+        currentLine = word;
+      }
+    }
+    lines.push(currentLine);
+    return lines;
+  }
+
+  // Wrap text and draw it with custom line height
+  const lines = wrapText(options.text, options.maxWidth);
+  let y = options.textPosition.y;
+
+  lines.forEach((line) => {
+    ctx.fillText(line, options.textPosition.x, y);
+    y += options.lineHeight;
+  });
 
   // Convert the canvas to a buffer
   const buffer = canvas.toBuffer("image/png");
