@@ -1,6 +1,8 @@
 ---
 title: About
+description: A short 'about me' page.
 date: 2023-09-03
+images: [/images/og/about.png]
 ---
 
 Engineer who likes working at the intersection of hardware and software.
