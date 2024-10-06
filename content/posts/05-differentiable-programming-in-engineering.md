@@ -3,7 +3,7 @@ title: Differentiable programming in engineering
 description: Design, partial derivatives, and the allure of automatic differentiation.
 date: 2024-02-22
 draft: false
-images: [/images/blog/05/OGImage.png]
+images: [/images/og/05-differentiable-programming-in-engineering.png]
 tags: [engineering, optimisation, cad, software]
 ---
 

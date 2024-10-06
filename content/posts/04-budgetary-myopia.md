@@ -3,7 +3,7 @@ title: Budgetary myopia and the hand-me-down laptop
 description: Whether you split atoms or roast beans, your tools are important.
 date: 2024-02-05
 draft: false
-images: [/images/blog/04/OGImage.png]
+images: [/images/og/04-budgetary-myopia.png]
 tags: [software, business, opinion, engineering]
 ---
 

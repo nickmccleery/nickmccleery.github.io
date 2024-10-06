@@ -3,7 +3,7 @@ title: Building a palatable 3D viewer | Part I
 description: Engineering review procedures and using Three.js to visualise 3D CAD data.
 date: 2024-01-01
 draft: false
-images: [/images/blog/03/ViewFrustum.png]
+images: [/images/og/03-building-a-palatable-3d-viewer.png]
 tags: [engineering, review, software, development, 3D, CAD, Three.js]
 ---
 

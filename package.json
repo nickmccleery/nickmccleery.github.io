@@ -21,12 +21,14 @@
   },
   "homepage": "https://github.com/nickmccleery/nickmccleery.github.io#readme",
   "devDependencies": {
+    "@types/js-yaml": "^4.0.9",
+    "@types/node": "^18.15.11",
     "ts-node": "^10.9.2",
-    "typescript": "^5.6.2",
-    "@types/node": "^18.15.11"
+    "typescript": "^5.6.2"
   },
   "dependencies": {
-    "sharp": "^0.32.0",
-    "canvas": "^2.9.0"
+    "canvas": "^2.9.0",
+    "js-yaml": "^4.1.0",
+    "sharp": "^0.32.0"
   }
 }

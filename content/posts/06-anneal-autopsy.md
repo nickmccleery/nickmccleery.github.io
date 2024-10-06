@@ -3,7 +3,7 @@ title: Anneal autopsy
 description: Post-mortem reflections on a failed engineering software start-up.
 date: 2024-04-23
 draft: false
-images: [/images/blog/06/OGImage.png]
+images: [/images/og/06-anneal-autopsy.png]
 tags: [start-ups, business]
 ---
 
@@ -619,8 +619,8 @@ Launching immediately is obviously at odds with the Figma-style, build-your-visi
 engineering-specific insight I now have on this.
 
 As far as I can tell, engineers generally like _things_. They like products they can see and test and play with. What
-engineers generally don't like is sales. They don't like talking to people when they don't have to, especially when
-they think the other party is non-technical. They don't like bullshit, and they don't buy hype.
+engineers generally don't like is sales. They don't like talking to people when they don't have to, especially when they
+think the other party is non-technical. They don't like bullshit, and they don't buy hype.
 
 This is probably a good argument for making sure you recruit one or two of the grandmaster salespeople that Peter Thiel
 describes; the ones who can do sales without anyone noticing—but it's also a good argument for launching as early as you

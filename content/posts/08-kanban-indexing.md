@@ -3,7 +3,7 @@ title: A robust mechanism for Kanban board column indexing
 description: A human-readable indexing approach that can accommodate user-configurable sort orders.
 date: 2024-09-08
 draft: false
-images: [/images/blog/08/OGImage.png]
+images: [/images/og/08-kanban-indexing.png]
 tags: [software, kanban, indexing, sorting, lists, data structures, algorithms]
 ---
 

@@ -3,7 +3,7 @@ title: Building a palatable 3D viewer | Part II
 description: Three.js, toggling projections, and building a viewer that's familiar to CAD users.
 date: 2024-05-21
 draft: false
-images: [/images/blog/07/OGImage.png]
+images: [/images/og/07-building-a-palatable-3d-viewer-part-2.png]
 tags: [engineering, review, software, development, 3D, CAD, Three.js]
 ---
 
