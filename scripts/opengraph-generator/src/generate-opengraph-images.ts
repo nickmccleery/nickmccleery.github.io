@@ -2,57 +2,77 @@ import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
 import { generateOpenGraphImage } from "./opengraph-image-generator.js";
+import yaml from "js-yaml";
+import globalConfig from "./opengraph-config.mjs";
 
-// ES module equivalent of __dirname
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const contentDir = path.join(__dirname, "..", "..", "..", "content");
-console.log(contentDir);
 const outputDir = path.join(
   __dirname,
   "..",
   "..",
   "..",
-  "static",
-  "images",
-  "og"
+  globalConfig.output_dir
 );
 
-// Ensure output directory exists
+// Ensure output directory exists.
 if (!fs.existsSync(outputDir)) {
   fs.mkdirSync(outputDir, { recursive: true });
 }
 
-function extractTitle(content: string): string | null {
-  const titleRegex = /title:\s*(?:["'](.+?)["']|(.+))(?:\n|$)/;
-  const match = content.match(titleRegex);
+interface FrontMatter {
+  title: string;
+  description: string;
+}
+
+function extractFrontMatter(content: string): FrontMatter {
+  const frontMatterRegex = /^---\s*\n([\s\S]*?)\n---/;
+  const match = content.match(frontMatterRegex);
 
   if (match) {
-    return match[1] || match[2];
+    const frontMatter = yaml.load(match[1]) as FrontMatter;
+    return {
+      title: frontMatter.title || "",
+      description: frontMatter.description || "",
+    };
   }
 
-  return null;
+  return { title: "", description: "" };
 }
 
 async function processMarkdownFile(filePath: string) {
   const content = fs.readFileSync(filePath, "utf-8");
-  let title = extractTitle(content);
+  const { title, description } = extractFrontMatter(content);
 
   if (title) {
     const fileName = path.basename(filePath, ".md");
     const outputPath = path.join(outputDir, `${fileName}.png`);
 
     await generateOpenGraphImage({
-      templatePath: path.join(__dirname, "..", "templates", "template.png"),
+      templatePath: path.join(__dirname, "..", globalConfig.template_path),
       outputPath,
-      fontPath: path.join(__dirname, "..", "fonts", "SpaceMono-Regular.ttf"),
-      fontSize: 150,
-      text: title,
-      textColor: "#000000",
-      textPosition: { x: 390, y: 630 },
-      lineHeight: 170,
-      maxWidth: 2500,
+      title: {
+        text: title,
+        font: globalConfig.title_font,
+        position: { x: 390, y: 630 },
+        maxWidth: 2500,
+        lineHeight: 170,
+      },
+      description: {
+        text: description,
+        font: globalConfig.description_font,
+        position: { x: 390, y: 0 },
+        maxWidth: 2500,
+        lineHeight: 100,
+      },
+      domain: {
+        text: globalConfig.domain,
+        font: globalConfig.domain_font,
+        position: { x: 390, y: 400 },
+      },
+      descriptionOffset: 75,
     });
 
     console.log(`Generated OpenGraph image for: ${fileName}`);
