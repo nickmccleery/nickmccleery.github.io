@@ -8,8 +8,8 @@ import {
 import { FontConfig } from "./opengraph-config.mjs";
 import path from "path";
 
-const PREFIX_OFFSET = 75;
-const DEFAULT_OFFSET = 50;
+const PREFIX_OFFSET = 30;
+const DEFAULT_OFFSET = 20;
 
 interface TextOptions {
   text: string;

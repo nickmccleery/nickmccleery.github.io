@@ -56,23 +56,23 @@ async function processMarkdownFile(filePath: string) {
       title: {
         text: title,
         font: globalConfig.title_font,
-        position: { x: 390, y: 630 },
-        maxWidth: 2500,
-        lineHeight: 170,
+        position: { x: 150, y: 230 },
+        maxWidth: 900,
+        lineHeight: 65,
       },
       description: {
         text: description,
         font: globalConfig.description_font,
-        position: { x: 390, y: 0 },
-        maxWidth: 2500,
-        lineHeight: 100,
+        position: { x: 150, y: 0 },
+        maxWidth: 900,
+        lineHeight: 40,
       },
       domain: {
         text: globalConfig.domain,
         font: globalConfig.domain_font,
-        position: { x: 390, y: 400 },
+        position: { x: 150, y: 150 },
       },
-      descriptionOffset: 75,
+      descriptionOffset: 30,
     });
 
     console.log(`Generated OpenGraph image for: ${fileName}`);
