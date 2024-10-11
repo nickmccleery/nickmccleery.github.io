@@ -485,8 +485,6 @@ boils down to two files:
 - `main.py`: handles all of the actual logic that will be called on, e.g. getting the initial index for a card going
   into an empty column, computing the index required to insert a card between two existing cards etc.
 
-, , but the implementation is short enough to be shared in-line.
-
 ### `alphabet_indexer.py`
 
 ```python
