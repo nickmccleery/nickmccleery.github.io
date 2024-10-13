@@ -1,7 +1,5 @@
-// utils.ts
-
 import { v4 as uuidv4 } from "uuid";
-import { DIMS, PAPER_SIZE } from "./constants";
+import { SHEET_CONFIGS, PAPER_SIZES } from "./constants";
 
 export function getUtcTimestamp(): string {
   const now = new Date().toISOString();
@@ -12,9 +10,9 @@ export function getUuid(): string {
   return uuidv4();
 }
 
-export function getDims(): [number, number, number] {
-  const activeDims = DIMS[PAPER_SIZE];
-  return [activeDims.width, activeDims.height, activeDims.border];
+export function getSheetDims(paperSize: PAPER_SIZES): [number, number] {
+  const activeDims = SHEET_CONFIGS[paperSize];
+  return [activeDims.width, activeDims.height];
 }
 
 export function linspace(start: number, stop: number, num: number): number[] {

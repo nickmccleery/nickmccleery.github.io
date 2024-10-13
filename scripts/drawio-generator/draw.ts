@@ -1,8 +1,5 @@
-// draw.ts
-
 import { getUuid } from "./utils";
-import { AXIS_GEOM, DEFAULT_GEOM, AUTHOR_BOX } from "./constants";
-import { getDims } from "./utils";
+import { AXIS_GEOM, DEFAULT_GEOM, AUTHOR_BOX, ALPHABET } from "./constants";
 
 export function drawGridLabels(
   root: any,
@@ -10,15 +7,16 @@ export function drawGridLabels(
   row_coords: [number, number][],
   col_coords: [number, number][]
 ) {
-  let row_axis_number = 0;
-  let col_axis_letter = "A";
-  let letter_iteration = 1;
-  let number_iteration = 1;
+  let rowAxisNumber = 0;
+  let colAxisLetterIndex = 0;
+
+  let iLetter = 1;
+  let iNumber = 1;
 
   row_coords.forEach(([x, y]) => {
     const mx_cell = root.ele("mxCell", {
       id: getUuid(),
-      value: row_axis_number.toString(),
+      value: (rowAxisNumber + 1).toString(),
       style: "text;html=1;align=center;verticalAlign=middle;fontSize=12",
       vertex: "1",
       parent: parent_id,
@@ -30,16 +28,16 @@ export function drawGridLabels(
       ...AXIS_GEOM,
     });
 
-    if (number_iteration % 2 === 0) {
-      row_axis_number += 1;
+    if (iNumber % 2 === 0) {
+      rowAxisNumber += 1;
     }
-    number_iteration += 1;
+    iNumber += 1;
   });
 
   col_coords.forEach(([x, y]) => {
     const mx_cell = root.ele("mxCell", {
       id: getUuid(),
-      value: col_axis_letter,
+      value: ALPHABET[colAxisLetterIndex],
       style: "text;html=1;align=center;verticalAlign=middle;fontSize=12",
       vertex: "1",
       parent: parent_id,
@@ -51,37 +49,42 @@ export function drawGridLabels(
       ...AXIS_GEOM,
     });
 
-    if (letter_iteration % 2 === 0) {
-      col_axis_letter = String.fromCharCode(col_axis_letter.charCodeAt(0) + 1);
+    if (iLetter % 2 === 0) {
+      colAxisLetterIndex += 1;
     }
-    letter_iteration += 1;
+    iLetter += 1;
   });
 }
 
-export function drawAuthorBox(root: any, parent_id: string) {
-  const [WIDTH, HEIGHT, BORDER] = getDims();
-  const inner_border = BORDER * 4;
+export function drawTitleBlock(
+  root: any,
+  parent_id: string,
+  width: number,
+  height: number,
+  border: number
+) {
+  const widthInnerBorder = border * 4;
 
-  const detail_box_height = HEIGHT / 10;
-  const detail_box_width = WIDTH / 4;
-  const logo_box_width = detail_box_width / 2.5;
+  const heightDetailBox = height / 10;
+  const widthDetailBox = width / 4;
+  const widthLogoBox = widthDetailBox / 2.5;
 
-  const text_row_height = detail_box_height / 3;
+  const text_row_height = heightDetailBox / 3;
 
-  const logo_box_pos_x = WIDTH - inner_border - detail_box_width;
-  const logo_box_pos_y = HEIGHT - inner_border - detail_box_height;
+  const logo_box_pos_x = width - widthInnerBorder - widthDetailBox;
+  const logo_box_pos_y = height - widthInnerBorder - heightDetailBox;
 
   const text_box_pos_x =
-    WIDTH - inner_border - detail_box_width + logo_box_width;
-  const text_box_pos_y = HEIGHT - inner_border - detail_box_height;
+    width - widthInnerBorder - widthDetailBox + widthLogoBox;
+  const text_box_pos_y = height - widthInnerBorder - heightDetailBox;
 
   const logo_box = {
-    width: logo_box_width.toString(),
-    height: detail_box_height.toString(),
+    width: widthLogoBox.toString(),
+    height: heightDetailBox.toString(),
     as: "geometry",
   };
   const text_box = {
-    width: (detail_box_width - logo_box_width).toString(),
+    width: (widthDetailBox - widthLogoBox).toString(),
     height: text_row_height.toString(),
     as: "geometry",
   };

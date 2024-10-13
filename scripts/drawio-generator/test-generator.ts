@@ -1,9 +1,11 @@
 import { generateDrawioTemplate } from "./index";
+import { PAPER_SIZES } from "./constants";
 import * as fs from "fs";
 
 function testDrawioTemplateGenerator() {
   console.log("Generating DrawIO template...");
-  const xmlString = generateDrawioTemplate();
+  const paperSize = PAPER_SIZES.A3;
+  const xmlString = generateDrawioTemplate(paperSize);
 
   console.log("Writing template to file...");
   fs.writeFileSync("output.drawio", xmlString, "utf8");

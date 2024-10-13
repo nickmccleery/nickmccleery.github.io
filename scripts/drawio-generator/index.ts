@@ -1,2 +1,2 @@
 export { generateDrawioTemplate } from "./main";
-export { PAPER_SIZE, DIMS, AUTHOR_BOX, GRID } from "./constants";
+export { SHEET_CONFIGS, AUTHOR_BOX } from "./constants";

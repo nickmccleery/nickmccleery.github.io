@@ -3,32 +3,36 @@
 import { create } from "xmlbuilder2";
 import { getUuid, getUtcTimestamp } from "./utils";
 import { computeGrid, computeGridLabelCoordinates } from "./grid";
-import { drawGridLabels, drawAuthorBox, drawBorder, drawGrid } from "./draw";
-import { PAPER_SIZE, DIMS } from "./constants";
+import { drawGridLabels, drawTitleBlock, drawBorder, drawGrid } from "./draw";
+import { SHEET_CONFIGS, PAPER_SIZES, BORDER_WIDTH } from "./constants";
 
-function buildDocument(): string {
+const AGENT =
+  "5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/17.2.4 Chrome/96.0.4664.174 Electron/16.1.0 Safari/537.36";
+
+export function generateDrawioTemplate(
+  paperSize: PAPER_SIZES = PAPER_SIZES.A3
+): string {
   const GRANDPARENT_ID = getUuid();
   const PARENT_ID = getUuid();
-  const dims = DIMS[PAPER_SIZE];
+  const SHEET_CONFIG = SHEET_CONFIGS[paperSize];
 
-  // Create custom DTD string
+  // Create DTD string with paper size.
   const dtd = `<!DOCTYPE mxfile [
     <!-- Units are 1/100ths of an inch.  -->
-    <!-- ${PAPER_SIZE} -->
-    <!ENTITY PAGE_WIDTH "${dims.width}">
-    <!ENTITY PAGE_HEIGHT "${dims.height}">
+    <!-- ${paperSize} -->
+    <!ENTITY PAGE_WIDTH "${SHEET_CONFIG.width}">
+    <!ENTITY PAGE_HEIGHT "${SHEET_CONFIG.height}">
     <!-- Border of 1/10th of an inch. -->
-    <!ENTITY xBorderStart "${dims.border}">
-    <!ENTITY xBorderEnd "${dims.width - dims.border}">
-    <!ENTITY yBorderStart "${dims.border}">
-    <!ENTITY yBorderEnd "${dims.height - dims.border}">
+    <!ENTITY xBorderStart "${BORDER_WIDTH}">
+    <!ENTITY xBorderEnd "${SHEET_CONFIG.width - BORDER_WIDTH}">
+    <!ENTITY yBorderStart "${BORDER_WIDTH}">
+    <!ENTITY yBorderEnd "${SHEET_CONFIG.height - BORDER_WIDTH}">
 ]>`;
 
   const xml = create({ version: "1.0", encoding: "UTF-8" }).ele("mxfile", {
     host: "Electron",
     modified: getUtcTimestamp(),
-    agent:
-      "5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/17.2.4 Chrome/96.0.4664.174 Electron/16.1.0 Safari/537.36",
+    agent: AGENT,
     etag: "97qwMRf_CjlpHfch55Ug",
     version: "17.2.4",
     type: "device",
@@ -62,23 +66,36 @@ function buildDocument(): string {
   root.ele("mxCell", { id: GRANDPARENT_ID });
   root.ele("mxCell", { id: PARENT_ID, parent: GRANDPARENT_ID });
 
-  const [axisxcoords, axisycoords] = computeGridLabelCoordinates();
-  drawGridLabels(root, PARENT_ID, axisxcoords, axisycoords);
+  const gridCoords = computeGrid(
+    SHEET_CONFIG.width,
+    SHEET_CONFIG.height,
+    BORDER_WIDTH,
+    SHEET_CONFIG.grid.rows,
+    SHEET_CONFIG.grid.cols
+  );
 
-  drawBorder(root, PARENT_ID);
+  const [axisXCoords, axisYCoords] = computeGridLabelCoordinates(
+    SHEET_CONFIG.width,
+    SHEET_CONFIG.height,
+    BORDER_WIDTH,
+    SHEET_CONFIG.grid.rows,
+    SHEET_CONFIG.grid.cols
+  );
 
-  const grid_coords = computeGrid();
-  drawGrid(root, PARENT_ID, grid_coords);
+  drawBorder(root, PARENT_ID); // Uses parameters inside the .drawio file.
+  drawGrid(root, PARENT_ID, gridCoords);
+  drawGridLabels(root, PARENT_ID, axisXCoords, axisYCoords);
+  drawTitleBlock(
+    root,
+    PARENT_ID,
+    SHEET_CONFIG.width,
+    SHEET_CONFIG.height,
+    BORDER_WIDTH
+  );
 
-  drawAuthorBox(root, PARENT_ID);
-
-  // Get XML string without declaration
+  // Get XML string without declaration.
   const xmlString = xml.end({ prettyPrint: true, headless: true });
 
-  // Combine XML declaration, DTD, and XML content
+  // Combine XML declaration, DTD, and XML content.
   return `<?xml version="1.0" encoding="UTF-8"?>\n${dtd}\n${xmlString}`;
-}
-
-export function generateDrawioTemplate(): string {
-  return buildDocument();
 }
