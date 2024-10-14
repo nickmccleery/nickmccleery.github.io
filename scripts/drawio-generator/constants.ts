@@ -1,6 +1,6 @@
 export const PAPER_SIZE = "A3";
-export const BORDER_WIDTH = 20; // 10/100ths of an inch.
-export const FRAME_WIDTH = 4 * BORDER_WIDTH; // Reference frame thickness.
+export const BORDER_WIDTH = 10; // 10/100ths of an inch.
+export const FRAME_WIDTH = 40; // Reference frame thickness.
 export const ALPHABET = "ABCDEFGHJKLMNPQRSTUVWXYZ";
 
 export enum PAPER_SIZES {
@@ -19,18 +19,24 @@ type GridConfig = {
 };
 
 // https://cadsetterout.com/drawing-standards/grid-reference-frame/
+// Also note that Draw.io paper sizes seem broadly wrong—they're always a
+// wee bit out.
 export const SHEET_CONFIGS: Record<
   PAPER_SIZES,
   { width: number; height: number; grid: GridConfig }
 > = {
   [PAPER_SIZES.A1]: {
-    width: 841 * MM_TO_HUNDREDTHS_OF_INCH,
-    height: 594 * MM_TO_HUNDREDTHS_OF_INCH,
+    // width: 841 * MM_TO_HUNDREDTHS_OF_INCH,
+    // height: 594 * MM_TO_HUNDREDTHS_OF_INCH,
+    width: 3300,
+    height: 2339,
     grid: { rows: 12, cols: 16 },
   },
   [PAPER_SIZES.A2]: {
-    width: 594 * MM_TO_HUNDREDTHS_OF_INCH,
-    height: 420 * MM_TO_HUNDREDTHS_OF_INCH,
+    // width: 594 * MM_TO_HUNDREDTHS_OF_INCH,
+    // height: 420 * MM_TO_HUNDREDTHS_OF_INCH,
+    width: 2336,
+    height: 1654,
     grid: { rows: 8, cols: 12 },
   },
   [PAPER_SIZES.A3]: {
