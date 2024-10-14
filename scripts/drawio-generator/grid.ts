@@ -90,8 +90,7 @@ export function computeGridLabelCoordinates(
 
   const xPositionTopBottomAxes = linspace(xFirst, xLast, nLinesVertical);
   const yPositionTopAxis = border + frameWidth / 2 - heightTextBox / 2;
-  const yPositionBottomAxis =
-    height - border - frameWidth / 2 - heightTextBox / 2;
+  const yPositionBottomAxis = yEnd - frameWidth / 2 - heightTextBox / 2;
 
   // Get the centers for the Y (left/right).
   const yFirst = yStart + frameWidth + yAxisGridOffset;
@@ -99,7 +98,7 @@ export function computeGridLabelCoordinates(
 
   const yPositionLeftRightAxes = linspace(yFirst, yLast, nLinesHorizontal);
   const xPositionLeftAxis = border + frameWidth / 2 - widthTextBox / 2;
-  const xPositionRightAxis = width - border - frameWidth / 2 - widthTextBox / 2;
+  const xPositionRightAxis = xEnd - frameWidth / 2 - widthTextBox / 2;
 
   // Get offsets for the label boxes.
   const heightLabel = parseInt(AXIS_GEOM.height);
