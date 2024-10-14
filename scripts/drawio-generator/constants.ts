@@ -1,5 +1,6 @@
 export const PAPER_SIZE = "A3";
 export const BORDER_WIDTH = 10; // 10/100ths of an inch.
+export const FRAME_WIDTH = 4 * BORDER_WIDTH; // Reference frame thickness.
 export const ALPHABET = "ABCDEFGHJKLMNPQRSTUVWXYZ";
 
 export enum PAPER_SIZES {

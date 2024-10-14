@@ -4,7 +4,12 @@ import { create } from "xmlbuilder2";
 import { getUuid, getUtcTimestamp } from "./utils";
 import { computeGrid, computeGridLabelCoordinates } from "./grid";
 import { drawGridLabels, drawTitleBlock, drawBorder, drawGrid } from "./draw";
-import { SHEET_CONFIGS, PAPER_SIZES, BORDER_WIDTH } from "./constants";
+import {
+  SHEET_CONFIGS,
+  PAPER_SIZES,
+  BORDER_WIDTH,
+  FRAME_WIDTH,
+} from "./constants";
 
 const AGENT =
   "5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/17.2.4 Chrome/96.0.4664.174 Electron/16.1.0 Safari/537.36";
@@ -12,21 +17,21 @@ const AGENT =
 export function generateDrawioTemplate(
   paperSize: PAPER_SIZES = PAPER_SIZES.A3
 ): string {
-  const GRANDPARENT_ID = getUuid();
-  const PARENT_ID = getUuid();
-  const SHEET_CONFIG = SHEET_CONFIGS[paperSize];
+  const sheetConfig = SHEET_CONFIGS[paperSize];
+  const grandparentID = getUuid();
+  const parentID = getUuid();
 
   // Create DTD string with paper size.
   const dtd = `<!DOCTYPE mxfile [
     <!-- Units are 1/100ths of an inch.  -->
     <!-- ${paperSize} -->
-    <!ENTITY PAGE_WIDTH "${SHEET_CONFIG.width}">
-    <!ENTITY PAGE_HEIGHT "${SHEET_CONFIG.height}">
+    <!ENTITY PAGE_WIDTH "${sheetConfig.width}">
+    <!ENTITY PAGE_HEIGHT "${sheetConfig.height}">
     <!-- Border of 1/10th of an inch. -->
     <!ENTITY xBorderStart "${BORDER_WIDTH}">
-    <!ENTITY xBorderEnd "${SHEET_CONFIG.width - BORDER_WIDTH}">
+    <!ENTITY xBorderEnd "${sheetConfig.width - BORDER_WIDTH}">
     <!ENTITY yBorderStart "${BORDER_WIDTH}">
-    <!ENTITY yBorderEnd "${SHEET_CONFIG.height - BORDER_WIDTH}">
+    <!ENTITY yBorderEnd "${sheetConfig.height - BORDER_WIDTH}">
 ]>`;
 
   const xml = create({ version: "1.0", encoding: "UTF-8" }).ele("mxfile", {
@@ -63,33 +68,35 @@ export function generateDrawioTemplate(
 
   const root = mx_graph_model.ele("root");
 
-  root.ele("mxCell", { id: GRANDPARENT_ID });
-  root.ele("mxCell", { id: PARENT_ID, parent: GRANDPARENT_ID });
+  root.ele("mxCell", { id: grandparentID });
+  root.ele("mxCell", { id: parentID, parent: grandparentID });
 
   const gridCoords = computeGrid(
-    SHEET_CONFIG.width,
-    SHEET_CONFIG.height,
+    sheetConfig.width,
+    sheetConfig.height,
+    sheetConfig.grid.rows,
+    sheetConfig.grid.cols,
     BORDER_WIDTH,
-    SHEET_CONFIG.grid.rows,
-    SHEET_CONFIG.grid.cols
+    FRAME_WIDTH
   );
 
   const [axisXCoords, axisYCoords] = computeGridLabelCoordinates(
-    SHEET_CONFIG.width,
-    SHEET_CONFIG.height,
+    sheetConfig.width,
+    sheetConfig.height,
+    sheetConfig.grid.rows,
+    sheetConfig.grid.cols,
     BORDER_WIDTH,
-    SHEET_CONFIG.grid.rows,
-    SHEET_CONFIG.grid.cols
+    FRAME_WIDTH
   );
 
-  drawBorder(root, PARENT_ID); // Uses parameters inside the .drawio file.
-  drawGrid(root, PARENT_ID, gridCoords);
-  drawGridLabels(root, PARENT_ID, axisXCoords, axisYCoords);
+  drawBorder(root, parentID); // Uses parameters inside the .drawio file.
+  drawGrid(root, parentID, gridCoords);
+  drawGridLabels(root, parentID, axisXCoords, axisYCoords);
   drawTitleBlock(
     root,
-    PARENT_ID,
-    SHEET_CONFIG.width,
-    SHEET_CONFIG.height,
+    parentID,
+    sheetConfig.width,
+    sheetConfig.height,
     BORDER_WIDTH
   );
 
