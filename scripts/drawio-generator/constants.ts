@@ -1,4 +1,5 @@
-export const PAPER_SIZE = "A3";
+// https://cadsetterout.com/drawing-standards/grid-reference-frame/
+
 export const BORDER_WIDTH = 10; // 10/100ths of an inch.
 export const FRAME_WIDTH = 40; // Reference frame thickness.
 export const ALPHABET = "ABCDEFGHJKLMNPQRSTUVWXYZ";
@@ -18,35 +19,33 @@ type GridConfig = {
   cols: number;
 };
 
-// https://cadsetterout.com/drawing-standards/grid-reference-frame/
 // Also note that Draw.io paper sizes seem broadly wrong—they're always a
-// wee bit out.
+// wee bit out. We should use the metric dimensions and convert, but just
+// use the Draw.io values so we're aligned. See:
+// https://github.com/jgraph/drawio/blob/acd938b1e42cff3be3b629e6239cdec9a9baddcc/src/main/webapp/js/grapheditor/Editor.js#L2320
+
 export const SHEET_CONFIGS: Record<
   PAPER_SIZES,
   { width: number; height: number; grid: GridConfig }
 > = {
   [PAPER_SIZES.A1]: {
-    // width: 841 * MM_TO_HUNDREDTHS_OF_INCH,
-    // height: 594 * MM_TO_HUNDREDTHS_OF_INCH,
     width: 3300,
     height: 2339,
     grid: { rows: 12, cols: 16 },
   },
   [PAPER_SIZES.A2]: {
-    // width: 594 * MM_TO_HUNDREDTHS_OF_INCH,
-    // height: 420 * MM_TO_HUNDREDTHS_OF_INCH,
     width: 2336,
     height: 1654,
     grid: { rows: 8, cols: 12 },
   },
   [PAPER_SIZES.A3]: {
-    width: 420 * MM_TO_HUNDREDTHS_OF_INCH,
-    height: 297 * MM_TO_HUNDREDTHS_OF_INCH,
+    width: 1654,
+    height: 1169,
     grid: { rows: 6, cols: 8 },
   },
   [PAPER_SIZES.A4]: {
-    width: 297 * MM_TO_HUNDREDTHS_OF_INCH,
-    height: 210 * MM_TO_HUNDREDTHS_OF_INCH,
+    width: 1169,
+    height: 827,
     grid: { rows: 4, cols: 6 },
   },
 };
