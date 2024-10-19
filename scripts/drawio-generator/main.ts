@@ -37,7 +37,7 @@ export function generateDrawioTemplate(
     <!-- ${paperSize} -->
     <!ENTITY PAGE_WIDTH "${sheetConfig.width}">
     <!ENTITY PAGE_HEIGHT "${sheetConfig.height}">
-    <!-- Border of 1/10th of an inch. -->
+    <!-- Border declared in 100ths of an inch. -->
     <!ENTITY xBorderStart "${BORDER_WIDTH}">
     <!ENTITY xBorderEnd "${sheetConfig.width - BORDER_WIDTH}">
     <!ENTITY yBorderStart "${BORDER_WIDTH}">
