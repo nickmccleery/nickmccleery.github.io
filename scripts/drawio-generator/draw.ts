@@ -134,7 +134,7 @@ export function drawLine(
   y1: number | string,
   x2: number | string,
   y2: number | string,
-  grid: boolean = false
+  width: number | string = 1
 ) {
   const TARGET = {
     as: "targetPoint",
@@ -143,9 +143,7 @@ export function drawLine(
     as: "sourcePoint",
   };
 
-  const style = grid
-    ? "endArrow=none;dashed=0;html=1;rounded=0;"
-    : "endArrow=none;dashed=0;html=1;rounded=0;";
+  const style = `endArrow=none;dashed=0;html=1;rounded=0;strokeWidth=${width};`;
 
   const cell = root.ele("mxCell", {
     id: getUuid(),
@@ -194,6 +192,6 @@ export function drawGrid(
   coords: [number, number, number, number][]
 ) {
   coords.forEach(([x1, y1, x2, y2]) => {
-    drawLine(root, parent_id, x1, y1, x2, y2, true);
+    drawLine(root, parent_id, x1, y1, x2, y2, 1);
   });
 }
