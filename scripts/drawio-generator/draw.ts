@@ -63,70 +63,6 @@ export function drawGridLabels(
   });
 }
 
-export function drawTitleBlock(
-  root: any,
-  parent_id: string,
-  width: number,
-  height: number,
-  border: number
-) {
-  const widthInnerBorder = border * 4;
-
-  const heightDetailBox = height / 10;
-  const widthDetailBox = width / 4;
-  const widthLogoBox = widthDetailBox / 2.5;
-
-  const text_row_height = heightDetailBox / 3;
-
-  const logo_box_pos_x = width - widthInnerBorder - widthDetailBox;
-  const logo_box_pos_y = height - widthInnerBorder - heightDetailBox;
-
-  const text_box_pos_x =
-    width - widthInnerBorder - widthDetailBox + widthLogoBox;
-  const text_box_pos_y = height - widthInnerBorder - heightDetailBox;
-
-  const logo_box = {
-    width: widthLogoBox.toString(),
-    height: heightDetailBox.toString(),
-    as: "geometry",
-  };
-  const text_box = {
-    width: (widthDetailBox - widthLogoBox).toString(),
-    height: text_row_height.toString(),
-    as: "geometry",
-  };
-
-  const mx_cell = root.ele("mxCell", {
-    id: getUuid(),
-    value: "",
-    style: "whiteSpace=wrap;html=1;",
-    vertex: "1",
-    parent: parent_id,
-  });
-  mx_cell.ele("mxGeometry", {
-    x: logo_box_pos_x.toString(),
-    y: logo_box_pos_y.toString(),
-    ...logo_box,
-  });
-
-  const labels = [AUTHOR_BOX.title, AUTHOR_BOX.author, AUTHOR_BOX.date];
-
-  for (let i = 0; i < 3; i++) {
-    const mx_cell = root.ele("mxCell", {
-      id: getUuid(),
-      value: labels[i],
-      style: TEXT_STYLE_TITLEBLOCK,
-      vertex: "1",
-      parent: parent_id,
-    });
-    mx_cell.ele("mxGeometry", {
-      x: text_box_pos_x.toString(),
-      y: (text_box_pos_y + i * text_row_height).toString(),
-      ...text_box,
-    });
-  }
-}
-
 export function drawLine(
   root: any,
   parent_id: string,
@@ -204,4 +140,68 @@ export function drawCenterLines(
   coords.forEach(([x1, y1, x2, y2]) => {
     drawLine(root, parent_id, x1, y1, x2, y2, 2);
   });
+}
+
+export function drawTitleBlock(
+  root: any,
+  parent_id: string,
+  width: number,
+  height: number,
+  border: number
+) {
+  const widthInnerBorder = border * 4;
+
+  const heightDetailBox = height / 10;
+  const widthDetailBox = width / 4;
+  const widthLogoBox = widthDetailBox / 2.5;
+
+  const text_row_height = heightDetailBox / 3;
+
+  const logo_box_pos_x = width - widthInnerBorder - widthDetailBox;
+  const logo_box_pos_y = height - widthInnerBorder - heightDetailBox;
+
+  const text_box_pos_x =
+    width - widthInnerBorder - widthDetailBox + widthLogoBox;
+  const text_box_pos_y = height - widthInnerBorder - heightDetailBox;
+
+  const logo_box = {
+    width: widthLogoBox.toString(),
+    height: heightDetailBox.toString(),
+    as: "geometry",
+  };
+  const text_box = {
+    width: (widthDetailBox - widthLogoBox).toString(),
+    height: text_row_height.toString(),
+    as: "geometry",
+  };
+
+  const mx_cell = root.ele("mxCell", {
+    id: getUuid(),
+    value: "",
+    style: "whiteSpace=wrap;html=1;",
+    vertex: "1",
+    parent: parent_id,
+  });
+  mx_cell.ele("mxGeometry", {
+    x: logo_box_pos_x.toString(),
+    y: logo_box_pos_y.toString(),
+    ...logo_box,
+  });
+
+  const labels = [AUTHOR_BOX.title, AUTHOR_BOX.author, AUTHOR_BOX.date];
+
+  for (let i = 0; i < 3; i++) {
+    const mx_cell = root.ele("mxCell", {
+      id: getUuid(),
+      value: labels[i],
+      style: TEXT_STYLE_TITLEBLOCK,
+      vertex: "1",
+      parent: parent_id,
+    });
+    mx_cell.ele("mxGeometry", {
+      x: text_box_pos_x.toString(),
+      y: (text_box_pos_y + i * text_row_height).toString(),
+      ...text_box,
+    });
+  }
 }
