@@ -1,4 +1,4 @@
-import { generateDrawioTemplate } from "./index";
+import { generateDrawioTemplate } from "./main";
 import { PAPER_SIZES } from "./constants";
 import * as fs from "fs";
 
