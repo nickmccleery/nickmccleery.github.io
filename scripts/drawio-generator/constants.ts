@@ -2,6 +2,7 @@
 
 export const BORDER_WIDTH = 10; // 10/100ths of an inch.
 export const FRAME_WIDTH = 30; // Reference frame thickness.
+export const CENTERMARK_WIDTH = 30; // Center mark width.
 export const ALPHABET = "ABCDEFGHJKLMNPQRSTUVWXYZ";
 export const TEXT_STYLE =
   "text;html=1;align=center;verticalAlign=middle;fontSize=14;fontFamily=Monospace;";

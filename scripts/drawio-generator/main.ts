@@ -2,7 +2,11 @@
 
 import { create } from "xmlbuilder2";
 import { getUuid, getUtcTimestamp } from "./utils";
-import { computeGrid, computeGridLabelCoordinates } from "./grid";
+import {
+  computeGrid,
+  computeGridLabelCoordinates,
+  computeCenterLines,
+} from "./grid";
 import { drawGridLabels, drawTitleBlock, drawBorder, drawGrid } from "./draw";
 import {
   SHEET_CONFIGS,
@@ -80,6 +84,13 @@ export function generateDrawioTemplate(
     FRAME_WIDTH
   );
 
+  const centerLineCoords = computeCenterLines(
+    sheetConfig.width,
+    sheetConfig.height,
+    BORDER_WIDTH,
+    FRAME_WIDTH
+  );
+
   const [axisXCoords, axisYCoords] = computeGridLabelCoordinates(
     sheetConfig.width,
     sheetConfig.height,
@@ -90,7 +101,8 @@ export function generateDrawioTemplate(
   );
 
   drawBorder(root, parentID); // Uses parameters inside the .drawio file.
-  drawGrid(root, parentID, gridCoords);
+  drawGrid(root, parentID, gridCoords); // Draw the main grid.
+  drawGrid(root, parentID, centerLineCoords); // Draw the center lines.
   drawGridLabels(root, parentID, axisXCoords, axisYCoords);
   drawTitleBlock(
     root,

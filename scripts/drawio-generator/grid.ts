@@ -1,5 +1,5 @@
 import { linspace } from "./utils";
-import { AXIS_GEOM } from "./constants";
+import { AXIS_GEOM, CENTERMARK_WIDTH } from "./constants";
 
 export function computeGrid(
   width: number,
@@ -14,8 +14,8 @@ export function computeGrid(
   const yStart = border;
   const yEnd = height - border;
 
-  const nLinesVertical = nCols;
-  const nLinesHorizontal = nRows;
+  const nLinesVertical = nCols + 1;
+  const nLinesHorizontal = nRows + 1;
 
   const xVerticalLines = linspace(
     xStart + frameWidth,
@@ -56,6 +56,36 @@ export function computeGrid(
   return coords;
 }
 
+export function computeCenterLines(
+  width: number,
+  height: number,
+  border: number,
+  frameWidth: number
+): [number, number, number, number][] {
+  // Get centers.
+  const xCenter = width / 2;
+  const yCenter = height / 2;
+
+  // Handle vertical center marks.
+  const xStartLeft = border + frameWidth;
+  const xEndLeft = border + frameWidth + CENTERMARK_WIDTH;
+  const xStartRight = width - border - frameWidth - CENTERMARK_WIDTH;
+  const xEndRight = width - border - frameWidth;
+
+  // Handle horizontal center marks.
+  const yStartTop = border;
+  const yEndTop = border + frameWidth + CENTERMARK_WIDTH;
+  const yStartBottom = height - border - frameWidth - CENTERMARK_WIDTH;
+  const yEndBottom = height - border;
+
+  return [
+    [xStartLeft, yCenter, xEndLeft, yCenter],
+    [xStartRight, yCenter, xEndRight, yCenter],
+    [xCenter, yStartTop, xCenter, yEndTop],
+    [xCenter, yStartBottom, xCenter, yEndBottom],
+  ];
+}
+
 export function computeGridLabelCoordinates(
   width: number,
   height: number,
@@ -74,10 +104,9 @@ export function computeGridLabelCoordinates(
   const yStart = border;
   const yEnd = height - border;
 
-  // Typical fencepost problem would warrant n+1 vertical lines, but we have a
-  // border already - so we can work with n-1.
-  const nLinesVertical = nCols - 1;
-  const nLinesHorizontal = nRows - 1;
+  // We're just labelling the rows and columns, so no fencepost issues.
+  const nLinesVertical = nCols;
+  const nLinesHorizontal = nRows;
 
   // Get cell width/height.
   const sizeColCell = widthRegion / nLinesVertical;
