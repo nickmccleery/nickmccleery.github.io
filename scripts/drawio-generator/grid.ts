@@ -67,10 +67,10 @@ export function computeCenterLines(
   const yCenter = height / 2;
 
   // Handle vertical center marks.
-  const xStartLeft = border + frameWidth;
+  const xStartLeft = border;
   const xEndLeft = border + frameWidth + CENTERMARK_WIDTH;
   const xStartRight = width - border - frameWidth - CENTERMARK_WIDTH;
-  const xEndRight = width - border - frameWidth;
+  const xEndRight = width - border;
 
   // Handle horizontal center marks.
   const yStartTop = border;

@@ -195,3 +195,13 @@ export function drawGrid(
     drawLine(root, parent_id, x1, y1, x2, y2, 1);
   });
 }
+
+export function drawCenterLines(
+  root: any,
+  parent_id: string,
+  coords: [number, number, number, number][]
+) {
+  coords.forEach(([x1, y1, x2, y2]) => {
+    drawLine(root, parent_id, x1, y1, x2, y2, 2);
+  });
+}

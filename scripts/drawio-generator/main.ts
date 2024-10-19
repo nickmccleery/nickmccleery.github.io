@@ -7,7 +7,13 @@ import {
   computeGridLabelCoordinates,
   computeCenterLines,
 } from "./grid";
-import { drawGridLabels, drawTitleBlock, drawBorder, drawGrid } from "./draw";
+import {
+  drawGridLabels,
+  drawTitleBlock,
+  drawBorder,
+  drawGrid,
+  drawCenterLines,
+} from "./draw";
 import {
   SHEET_CONFIGS,
   PAPER_SIZES,
@@ -101,8 +107,8 @@ export function generateDrawioTemplate(
   );
 
   drawBorder(root, parentID); // Uses parameters inside the .drawio file.
-  drawGrid(root, parentID, gridCoords); // Draw the main grid.
-  drawGrid(root, parentID, centerLineCoords); // Draw the center lines.
+  drawGrid(root, parentID, gridCoords);
+  drawCenterLines(root, parentID, centerLineCoords);
   drawGridLabels(root, parentID, axisXCoords, axisYCoords);
   drawTitleBlock(
     root,
