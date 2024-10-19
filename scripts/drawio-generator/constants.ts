@@ -1,8 +1,12 @@
 // https://cadsetterout.com/drawing-standards/grid-reference-frame/
 
 export const BORDER_WIDTH = 10; // 10/100ths of an inch.
-export const FRAME_WIDTH = 40; // Reference frame thickness.
+export const FRAME_WIDTH = 30; // Reference frame thickness.
 export const ALPHABET = "ABCDEFGHJKLMNPQRSTUVWXYZ";
+export const TEXT_STYLE =
+  "text;html=1;align=center;verticalAlign=middle;fontSize=14;fontFamily=Monospace;";
+export const TEXT_STYLE_TITLEBLOCK =
+  TEXT_STYLE + "whiteSpace=wrap;strokeColor=default;fillColor=default;";
 
 export enum PAPER_SIZES {
   A1 = "A1",

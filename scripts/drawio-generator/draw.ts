@@ -1,5 +1,12 @@
 import { getUuid } from "./utils";
-import { AXIS_GEOM, DEFAULT_GEOM, AUTHOR_BOX, ALPHABET } from "./constants";
+import {
+  AXIS_GEOM,
+  DEFAULT_GEOM,
+  AUTHOR_BOX,
+  ALPHABET,
+  TEXT_STYLE,
+  TEXT_STYLE_TITLEBLOCK,
+} from "./constants";
 
 export function drawGridLabels(
   root: any,
@@ -17,7 +24,7 @@ export function drawGridLabels(
     const mx_cell = root.ele("mxCell", {
       id: getUuid(),
       value: (rowAxisNumber + 1).toString(),
-      style: "text;html=1;align=center;verticalAlign=middle;fontSize=12",
+      style: TEXT_STYLE,
       vertex: "1",
       parent: parent_id,
     });
@@ -38,7 +45,7 @@ export function drawGridLabels(
     const mx_cell = root.ele("mxCell", {
       id: getUuid(),
       value: ALPHABET[colAxisLetterIndex],
-      style: "text;html=1;align=center;verticalAlign=middle;fontSize=12",
+      style: TEXT_STYLE,
       vertex: "1",
       parent: parent_id,
     });
@@ -108,8 +115,7 @@ export function drawTitleBlock(
     const mx_cell = root.ele("mxCell", {
       id: getUuid(),
       value: labels[i],
-      style:
-        "text;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fontSize=14;strokeColor=default;fillColor=default;fontFamily=Lucida Console;",
+      style: TEXT_STYLE_TITLEBLOCK,
       vertex: "1",
       parent: parent_id,
     });

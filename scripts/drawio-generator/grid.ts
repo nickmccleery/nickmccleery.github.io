@@ -1,5 +1,3 @@
-// grid.ts
-
 import { linspace } from "./utils";
 import { AXIS_GEOM } from "./constants";
 
@@ -17,6 +15,7 @@ export function computeGrid(
   const yEnd = height - border;
 
   const nLinesVertical = nCols;
+  const nLinesHorizontal = nRows;
 
   const xVerticalLines = linspace(
     xStart + frameWidth,
@@ -24,7 +23,6 @@ export function computeGrid(
     nLinesVertical
   );
 
-  const nLinesHorizontal = nRows;
   const yHorizontalLines = linspace(
     yStart + frameWidth,
     yEnd - frameWidth,
@@ -33,6 +31,9 @@ export function computeGrid(
 
   const coords: [number, number, number, number][] = [];
 
+  // For our left and right-most we draw a full height line. For all
+  // intermediate lines, we draw a line that is frameWidth tall at
+  // the top and bottom.
   xVerticalLines.forEach((x, i) => {
     if (i === 0 || i === xVerticalLines.length - 1) {
       coords.push([x, yStart, x, yEnd]);
@@ -42,6 +43,7 @@ export function computeGrid(
     }
   });
 
+  // As above but for horizontal lines.
   yHorizontalLines.forEach((y, i) => {
     if (i === 0 || i === yHorizontalLines.length - 1) {
       coords.push([xStart, y, xEnd, y]);
