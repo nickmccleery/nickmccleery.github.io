@@ -9,6 +9,18 @@ import {
   FRAME_WIDTH,
 } from "./constants";
 
+enum VerticalAlign {
+  Top = "top",
+  Middle = "middle",
+  Bottom = "bottom",
+}
+
+enum HorizontalAlign {
+  Left = "left",
+  Center = "center",
+  Right = "right",
+}
+
 export function drawGridLabels(
   root: any,
   parent_id: string,
@@ -178,8 +190,8 @@ function addText(
   value: string,
   fontSize: number,
   isBold: boolean,
-  verticalAlign: "top" | "middle" | "bottom" = "middle",
-  horizontalAlign: "left" | "center" | "right" = "left",
+  verticalAlign: VerticalAlign = VerticalAlign.Middle,
+  horizontalAlign: HorizontalAlign = HorizontalAlign.Left,
   spacingTop: number = 0,
   spacingLeft: number = 0
 ) {
@@ -229,6 +241,16 @@ export function drawTitleBlock(
     revision: string;
   }
 ) {
+  // Constants for labels.
+  const LABELS = {
+    DRAWN_BY: "DRAWN BY:",
+    DRAWN_DATE: "DRAWN DATE:",
+    REVIEWED_BY: "REVIEWED BY:",
+    REVIEWED_DATE: "REVIEWED DATE:",
+    SIZE: "SIZE:",
+    SHEET: "SHEET:",
+  };
+
   // Dimensions and layout.
   const BLOCK_WIDTH = 650;
   const BLOCK_HEIGHT = 150;
@@ -244,7 +266,7 @@ export function drawTitleBlock(
   const SIZE_FIELD = 10;
 
   // Additional constants.
-  const LABEL_OFFSET = -2;
+  const LABEL_OFFSET = -3;
 
   // Calculate the position of the title block.
   const blockX = sheetWidth - BORDER_WIDTH - FRAME_WIDTH - BLOCK_WIDTH;
@@ -315,8 +337,8 @@ export function drawTitleBlock(
     params.companyName,
     SIZE_TITLE,
     true,
-    "middle",
-    "center"
+    VerticalAlign.Middle,
+    HorizontalAlign.Center
   );
 
   // Drawing title.
@@ -334,8 +356,8 @@ export function drawTitleBlock(
     params.drawingTitle,
     SIZE_TITLE,
     true,
-    "middle",
-    "center"
+    VerticalAlign.Middle,
+    HorizontalAlign.Center
   );
 
   // Author and date.
@@ -350,11 +372,11 @@ export function drawTitleBlock(
     textY,
     textWidth,
     textHeight,
-    "DRAWN BY:",
+    LABELS.DRAWN_BY,
     SIZE_LABEL,
     true,
-    "top",
-    "left",
+    VerticalAlign.Top,
+    HorizontalAlign.Left,
     LABEL_OFFSET
   );
 
@@ -368,8 +390,8 @@ export function drawTitleBlock(
     params.authorName,
     SIZE_FIELD,
     false,
-    "middle",
-    "left"
+    VerticalAlign.Middle,
+    HorizontalAlign.Left
   );
 
   textY = blockY + DRAWING_TITLE_HEIGHT + INFO_ROW_HEIGHT;
@@ -380,24 +402,25 @@ export function drawTitleBlock(
     textY,
     textWidth,
     textHeight,
-    "DRAWN DATE:",
+    LABELS.DRAWN_DATE,
     SIZE_LABEL,
     true,
-    "top",
-    "left",
+    VerticalAlign.Top,
+    HorizontalAlign.Left,
     LABEL_OFFSET
   );
   addText(
     root,
     parentID,
     textX,
-    textY + textHeight / 4,
+    textY,
     textWidth,
     textHeight,
     params.dateDrawn,
     SIZE_FIELD,
     false,
-    "top"
+    VerticalAlign.Middle,
+    HorizontalAlign.Left
   );
 
   // Reviewed by and review date.
@@ -410,11 +433,11 @@ export function drawTitleBlock(
     textY,
     textWidth,
     textHeight,
-    "REVIEWED BY:",
+    LABELS.REVIEWED_BY,
     SIZE_LABEL,
     true,
-    "top",
-    "left",
+    VerticalAlign.Top,
+    HorizontalAlign.Left,
     LABEL_OFFSET
   );
   addText(
@@ -427,7 +450,8 @@ export function drawTitleBlock(
     params.reviewedBy,
     SIZE_FIELD,
     false,
-    "middle"
+    VerticalAlign.Middle,
+    HorizontalAlign.Left
   );
 
   textY = blockY + DRAWING_TITLE_HEIGHT + INFO_ROW_HEIGHT;
@@ -438,11 +462,11 @@ export function drawTitleBlock(
     textY,
     textWidth,
     textHeight,
-    "REVIEWED DATE:",
+    LABELS.REVIEWED_DATE,
     SIZE_LABEL,
     true,
-    "top",
-    "left",
+    VerticalAlign.Top,
+    HorizontalAlign.Left,
     LABEL_OFFSET
   );
   addText(
@@ -455,7 +479,8 @@ export function drawTitleBlock(
     params.reviewDate,
     SIZE_FIELD,
     false,
-    "middle"
+    VerticalAlign.Middle,
+    HorizontalAlign.Left
   );
 
   // Page size, sheet number.
@@ -468,11 +493,11 @@ export function drawTitleBlock(
     textY,
     textWidth,
     textHeight,
-    "SIZE:",
+    LABELS.SIZE,
     SIZE_LABEL,
     true,
-    "top",
-    "left",
+    VerticalAlign.Top,
+    HorizontalAlign.Left,
     LABEL_OFFSET
   );
   addText(
@@ -485,7 +510,8 @@ export function drawTitleBlock(
     params.pageSize,
     SIZE_FIELD,
     false,
-    "middle"
+    VerticalAlign.Middle,
+    HorizontalAlign.Left
   );
 
   textY = blockY + DRAWING_TITLE_HEIGHT + INFO_ROW_HEIGHT;
@@ -496,11 +522,11 @@ export function drawTitleBlock(
     textY,
     textWidth,
     textHeight,
-    "SHEET:",
+    LABELS.SHEET,
     SIZE_LABEL,
     true,
-    "top",
-    "left",
+    VerticalAlign.Top,
+    HorizontalAlign.Left,
     LABEL_OFFSET
   );
   addText(
@@ -513,6 +539,7 @@ export function drawTitleBlock(
     params.sheetNumber,
     SIZE_FIELD,
     false,
-    "middle"
+    VerticalAlign.Middle,
+    HorizontalAlign.Left
   );
 }

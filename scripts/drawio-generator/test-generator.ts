@@ -4,7 +4,7 @@ import * as fs from "fs";
 
 function testDrawioTemplateGenerator() {
   console.log("Generating DrawIO template...");
-  const paperSize = PAPER_SIZES.A3;
+  const paperSize = PAPER_SIZES.A2;
   const xmlString = generateDrawioTemplate(paperSize);
 
   console.log("Writing template to file...");
