@@ -118,8 +118,8 @@ export function generateDrawioTemplate(
     dateDrawn: "2023-10-19",
     reviewedBy: "JANE SMITH",
     reviewDate: "2023-10-20",
-    pageSize: "A3",
-    sheetNumber: "1 of 2",
+    pageSize: paperSize,
+    sheetNumber: "1 of 1",
     revision: "A",
   });
 
