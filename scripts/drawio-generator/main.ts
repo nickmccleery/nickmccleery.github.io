@@ -110,13 +110,18 @@ export function generateDrawioTemplate(
   drawGrid(root, parentID, gridCoords);
   drawCenterLines(root, parentID, centerLineCoords);
   drawGridLabels(root, parentID, axisXCoords, axisYCoords);
-  drawTitleBlock(
-    root,
-    parentID,
-    sheetConfig.width,
-    sheetConfig.height,
-    BORDER_WIDTH
-  );
+
+  drawTitleBlock(root, parentID, sheetConfig.width, sheetConfig.height, {
+    companyName: "ACME INC.",
+    drawingTitle: "WIDGET GENERAL ARRANGEMENT",
+    authorName: "JOHN DOE",
+    dateDrawn: "2023-10-19",
+    reviewedBy: "JANE SMITH",
+    reviewDate: "2023-10-20",
+    pageSize: "A3",
+    sheetNumber: "1 of 2",
+    revision: "A",
+  });
 
   // Get XML string without declaration.
   const xmlString = xml.end({ prettyPrint: true, headless: true });

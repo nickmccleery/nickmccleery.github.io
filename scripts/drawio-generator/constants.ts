@@ -6,8 +6,7 @@ export const CENTERMARK_WIDTH = 30; // Center mark width.
 export const ALPHABET = "ABCDEFGHJKLMNPQRSTUVWXYZ";
 export const TEXT_STYLE =
   "text;html=1;align=center;verticalAlign=middle;fontSize=14;fontFamily=Monospace;";
-export const TEXT_STYLE_TITLEBLOCK =
-  TEXT_STYLE + "whiteSpace=wrap;strokeColor=default;fillColor=default;";
+export const TEXT_STYLE_TITLEBLOCK = TEXT_STYLE + "whiteSpace=wrap;";
 
 export enum PAPER_SIZES {
   A1 = "A1",
@@ -66,10 +65,4 @@ export const AXIS_GEOM = {
   width: "50",
   height: "50",
   as: "geometry",
-};
-
-export const AUTHOR_BOX = {
-  title: "DOCUMENT TITLE",
-  author: "AUTHOR NAME",
-  date: "YYYY-MM-DD",
 };
