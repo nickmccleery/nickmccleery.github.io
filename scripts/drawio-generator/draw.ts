@@ -179,11 +179,21 @@ function addText(
   fontSize: number,
   isBold: boolean,
   verticalAlign: "top" | "middle" | "bottom" = "middle",
-  horizontalAlign: "left" | "center" | "right" = "left"
+  horizontalAlign: "left" | "center" | "right" = "left",
+  spacingTop: number = 0,
+  spacingLeft: number = 0
 ) {
-  const cellStyle = `${TEXT_STYLE_TITLEBLOCK};align=${horizontalAlign};verticalAlign=${verticalAlign};fontSize=${fontSize};${
+  let cellStyle = `${TEXT_STYLE_TITLEBLOCK};align=${horizontalAlign};verticalAlign=${verticalAlign};fontSize=${fontSize};${
     isBold ? "fontStyle=1;" : ""
   }`;
+
+  if (spacingTop !== 0) {
+    cellStyle += `spacingTop=${spacingTop};`;
+  }
+
+  if (spacingLeft !== 0) {
+    cellStyle += `spacingLeft=${spacingLeft};`;
+  }
 
   const cell = root.ele("mxCell", {
     id: getUuid(),
@@ -219,9 +229,22 @@ export function drawTitleBlock(
     revision: string;
   }
 ) {
+  // Dimensions and layout.
   const BLOCK_WIDTH = 650;
   const BLOCK_HEIGHT = 150;
-  const margin = 5;
+  const MARGIN = 5;
+
+  const COMPANY_NAME_WIDTH = BLOCK_WIDTH * 0.3;
+  const DRAWING_TITLE_HEIGHT = BLOCK_HEIGHT / 2;
+  const INFO_ROW_HEIGHT = BLOCK_HEIGHT / 4;
+
+  // Font sizes.
+  const SIZE_TITLE = 16;
+  const SIZE_LABEL = 6;
+  const SIZE_FIELD = 10;
+
+  // Additional constants.
+  const LABEL_OFFSET = -2;
 
   // Calculate the position of the title block.
   const blockX = sheetWidth - BORDER_WIDTH - FRAME_WIDTH - BLOCK_WIDTH;
@@ -230,53 +253,47 @@ export function drawTitleBlock(
   // Draw the main outline of the title block.
   drawRectangle(root, parentID, blockX, blockY, BLOCK_WIDTH, BLOCK_HEIGHT);
 
-  // Define the layout
-  const companyNameWidth = BLOCK_WIDTH * 0.3;
-  const drawingTitleHeight = BLOCK_HEIGHT / 2;
-  const infoRowHeight = BLOCK_HEIGHT / 4;
-  const labelWidth = 60;
-
   // Draw internal lines.
   drawLine(
     root,
     parentID,
-    blockX + companyNameWidth,
+    blockX + COMPANY_NAME_WIDTH,
     blockY,
-    blockX + companyNameWidth,
+    blockX + COMPANY_NAME_WIDTH,
     blockY + BLOCK_HEIGHT
   );
   drawLine(
     root,
     parentID,
-    blockX + companyNameWidth,
-    blockY + drawingTitleHeight,
+    blockX + COMPANY_NAME_WIDTH,
+    blockY + DRAWING_TITLE_HEIGHT,
     blockX + BLOCK_WIDTH,
-    blockY + drawingTitleHeight
+    blockY + DRAWING_TITLE_HEIGHT
   );
   drawLine(
     root,
     parentID,
-    blockX + companyNameWidth,
-    blockY + drawingTitleHeight + infoRowHeight,
+    blockX + COMPANY_NAME_WIDTH,
+    blockY + DRAWING_TITLE_HEIGHT + INFO_ROW_HEIGHT,
     blockX + BLOCK_WIDTH,
-    blockY + drawingTitleHeight + infoRowHeight
+    blockY + DRAWING_TITLE_HEIGHT + INFO_ROW_HEIGHT
   );
 
-  const infoColumnWidth = (BLOCK_WIDTH - companyNameWidth) / 3;
+  const infoColumnWidth = (BLOCK_WIDTH - COMPANY_NAME_WIDTH) / 3;
   drawLine(
     root,
     parentID,
-    blockX + companyNameWidth + infoColumnWidth,
-    blockY + drawingTitleHeight,
-    blockX + companyNameWidth + infoColumnWidth,
+    blockX + COMPANY_NAME_WIDTH + infoColumnWidth,
+    blockY + DRAWING_TITLE_HEIGHT,
+    blockX + COMPANY_NAME_WIDTH + infoColumnWidth,
     blockY + BLOCK_HEIGHT
   );
   drawLine(
     root,
     parentID,
-    blockX + companyNameWidth + 2 * infoColumnWidth,
-    blockY + drawingTitleHeight,
-    blockX + companyNameWidth + 2 * infoColumnWidth,
+    blockX + COMPANY_NAME_WIDTH + 2 * infoColumnWidth,
+    blockY + DRAWING_TITLE_HEIGHT,
+    blockX + COMPANY_NAME_WIDTH + 2 * infoColumnWidth,
     blockY + BLOCK_HEIGHT
   );
 
@@ -284,10 +301,10 @@ export function drawTitleBlock(
   let textX, textY, textWidth, textHeight;
 
   // Company name.
-  textX = blockX + margin;
-  textY = blockY + margin;
-  textWidth = companyNameWidth - 2 * margin;
-  textHeight = BLOCK_HEIGHT - 2 * margin;
+  textX = blockX + MARGIN;
+  textY = blockY + MARGIN;
+  textWidth = COMPANY_NAME_WIDTH - 2 * MARGIN;
+  textHeight = BLOCK_HEIGHT - 2 * MARGIN;
   addText(
     root,
     parentID,
@@ -296,17 +313,17 @@ export function drawTitleBlock(
     textWidth,
     textHeight,
     params.companyName,
-    14,
+    SIZE_TITLE,
     true,
     "middle",
     "center"
   );
 
   // Drawing title.
-  textX = blockX + companyNameWidth + margin;
-  textY = blockY + margin;
-  textWidth = BLOCK_WIDTH - companyNameWidth - 2 * margin;
-  textHeight = drawingTitleHeight - 2 * margin;
+  textX = blockX + COMPANY_NAME_WIDTH + MARGIN;
+  textY = blockY + MARGIN;
+  textWidth = BLOCK_WIDTH - COMPANY_NAME_WIDTH - 2 * MARGIN;
+  textHeight = DRAWING_TITLE_HEIGHT - 2 * MARGIN;
   addText(
     root,
     parentID,
@@ -315,26 +332,17 @@ export function drawTitleBlock(
     textWidth,
     textHeight,
     params.drawingTitle,
-    16,
+    SIZE_TITLE,
     true,
     "middle",
     "center"
   );
 
   // Author and date.
-  drawLine(
-    root,
-    parentID,
-    blockX + companyNameWidth + labelWidth,
-    blockY + drawingTitleHeight,
-    blockX + companyNameWidth + labelWidth,
-    blockY + drawingTitleHeight + infoRowHeight * 2
-  );
-
-  textX = blockX + companyNameWidth + margin;
-  textY = blockY + drawingTitleHeight;
-  textWidth = labelWidth - 2 * margin;
-  textHeight = infoRowHeight;
+  textX = blockX + COMPANY_NAME_WIDTH + MARGIN;
+  textY = blockY + DRAWING_TITLE_HEIGHT;
+  textWidth = infoColumnWidth - 2 * MARGIN;
+  textHeight = INFO_ROW_HEIGHT;
   addText(
     root,
     parentID,
@@ -342,187 +350,168 @@ export function drawTitleBlock(
     textY,
     textWidth,
     textHeight,
-    "DRAWN",
-    8,
+    "DRAWN BY:",
+    SIZE_LABEL,
     true,
-    "middle"
+    "top",
+    "left",
+    LABEL_OFFSET
   );
 
-  textX = blockX + companyNameWidth + labelWidth + margin;
   addText(
     root,
     parentID,
     textX,
     textY,
-    infoColumnWidth - labelWidth - 2 * margin,
+    textWidth,
     textHeight,
     params.authorName,
-    8,
+    SIZE_FIELD,
     false,
-    "middle"
+    "middle",
+    "left"
   );
 
-  textY = blockY + drawingTitleHeight + infoRowHeight;
-  textX = blockX + companyNameWidth + margin;
+  textY = blockY + DRAWING_TITLE_HEIGHT + INFO_ROW_HEIGHT;
   addText(
     root,
     parentID,
     textX,
     textY,
-    labelWidth - 2 * margin,
+    textWidth,
     textHeight,
-    "DRAWN DATE",
-    8,
+    "DRAWN DATE:",
+    SIZE_LABEL,
     true,
-    "middle"
+    "top",
+    "left",
+    LABEL_OFFSET
   );
-
-  textX = blockX + companyNameWidth + labelWidth + margin;
   addText(
     root,
     parentID,
     textX,
-    textY,
-    infoColumnWidth - labelWidth - 2 * margin,
+    textY + textHeight / 4,
+    textWidth,
     textHeight,
     params.dateDrawn,
-    8,
+    SIZE_FIELD,
     false,
-    "middle"
+    "top"
   );
 
   // Reviewed by and review date.
-  drawLine(
-    root,
-    parentID,
-    blockX + companyNameWidth + infoColumnWidth + labelWidth,
-    blockY + drawingTitleHeight,
-    blockX + companyNameWidth + infoColumnWidth + labelWidth,
-    blockY + drawingTitleHeight + infoRowHeight * 2
-  );
-
-  textX = blockX + companyNameWidth + infoColumnWidth + margin;
-  textY = blockY + drawingTitleHeight;
+  textX = blockX + COMPANY_NAME_WIDTH + infoColumnWidth + MARGIN;
+  textY = blockY + DRAWING_TITLE_HEIGHT;
   addText(
     root,
     parentID,
     textX,
     textY,
-    labelWidth - 2 * margin,
+    textWidth,
     textHeight,
-    "REVIEWED",
-    8,
+    "REVIEWED BY:",
+    SIZE_LABEL,
     true,
-    "middle"
+    "top",
+    "left",
+    LABEL_OFFSET
   );
-
-  textX = blockX + companyNameWidth + infoColumnWidth + labelWidth + margin;
   addText(
     root,
     parentID,
     textX,
     textY,
-    infoColumnWidth - labelWidth - 2 * margin,
+    textWidth,
     textHeight,
     params.reviewedBy,
-    8,
+    SIZE_FIELD,
     false,
     "middle"
   );
 
-  textY = blockY + drawingTitleHeight + infoRowHeight;
-  textX = blockX + companyNameWidth + infoColumnWidth + margin;
+  textY = blockY + DRAWING_TITLE_HEIGHT + INFO_ROW_HEIGHT;
   addText(
     root,
     parentID,
     textX,
     textY,
-    labelWidth - 2 * margin,
+    textWidth,
     textHeight,
-    "REVIEWED DATE",
-    8,
+    "REVIEWED DATE:",
+    SIZE_LABEL,
     true,
-    "middle"
+    "top",
+    "left",
+    LABEL_OFFSET
   );
-
-  textX = blockX + companyNameWidth + infoColumnWidth + labelWidth + margin;
   addText(
     root,
     parentID,
     textX,
     textY,
-    infoColumnWidth - labelWidth - 2 * margin,
+    textWidth,
     textHeight,
     params.reviewDate,
-    8,
+    SIZE_FIELD,
     false,
     "middle"
   );
 
-  // Page size, sheet number, revision.
-  drawLine(
-    root,
-    parentID,
-    blockX + companyNameWidth + 2 * infoColumnWidth + labelWidth,
-    blockY + drawingTitleHeight,
-    blockX + companyNameWidth + 2 * infoColumnWidth + labelWidth,
-    blockY + drawingTitleHeight + infoRowHeight * 2
-  );
-
-  textX = blockX + companyNameWidth + 2 * infoColumnWidth + margin;
-  textY = blockY + drawingTitleHeight;
+  // Page size, sheet number.
+  textX = blockX + COMPANY_NAME_WIDTH + 2 * infoColumnWidth + MARGIN;
+  textY = blockY + DRAWING_TITLE_HEIGHT;
   addText(
     root,
     parentID,
     textX,
     textY,
-    labelWidth - 2 * margin,
+    textWidth,
     textHeight,
-    "SIZE",
-    8,
+    "SIZE:",
+    SIZE_LABEL,
     true,
-    "middle"
+    "top",
+    "left",
+    LABEL_OFFSET
   );
-
-  textX = blockX + companyNameWidth + 2 * infoColumnWidth + labelWidth + margin;
   addText(
     root,
     parentID,
     textX,
     textY,
-    infoColumnWidth - labelWidth - 2 * margin,
+    textWidth,
     textHeight,
     params.pageSize,
-    8,
+    SIZE_FIELD,
     false,
     "middle"
   );
 
-  textY = blockY + drawingTitleHeight + infoRowHeight;
-  textX = blockX + companyNameWidth + 2 * infoColumnWidth + margin;
+  textY = blockY + DRAWING_TITLE_HEIGHT + INFO_ROW_HEIGHT;
   addText(
     root,
     parentID,
     textX,
     textY,
-    labelWidth - 2 * margin,
+    textWidth,
     textHeight,
     "SHEET:",
-    8,
+    SIZE_LABEL,
     true,
-    "middle"
+    "top",
+    "left",
+    LABEL_OFFSET
   );
-
-  textX = blockX + companyNameWidth + 2 * infoColumnWidth + labelWidth + margin;
   addText(
     root,
     parentID,
     textX,
     textY,
-    infoColumnWidth - labelWidth - 2 * margin,
+    textWidth,
     textHeight,
     params.sheetNumber,
-    8,
+    SIZE_FIELD,
     false,
     "middle"
   );
