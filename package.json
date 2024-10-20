@@ -7,6 +7,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "generate-og": "node --loader ts-node/esm scripts/opengraph-generator/src/generate-opengraph-images.ts",
+    "compile-drawio": "tsc --project scripts/drawio-generator/tsconfig.json",
     "generate-drawio": "npx ts-node scripts/drawio-generator/test-generator.ts",
     "build": "npm run generate-og && hugo"
   },
