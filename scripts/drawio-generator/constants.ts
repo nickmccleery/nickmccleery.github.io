@@ -7,7 +7,7 @@ export const ALPHABET = "ABCDEFGHJKLMNPQRSTUVWXYZ";
 export const TEXT_STYLE =
   "text;html=1;align=center;verticalAlign=middle;fontSize=14;fontFamily=Monospace;";
 export const TEXT_STYLE_TITLEBLOCK =
-  "text;html=1;align=center;fontFamily=Monospace;whiteSpace=wrap;";
+  "text;html=1;align=center;fontSize=14;fontFamily=Monospace;whiteSpace=wrap;";
 
 export enum PAPER_SIZES {
   A1 = "A1",
