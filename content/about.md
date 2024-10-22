@@ -1,11 +1,9 @@
 ---
 title: About
-description: A short 'about me' page.
+description: Engineer who likes working at the intersection of hardware and software.
 date: 2023-09-03
 images: [/images/og/about.png]
 ---
-
-Engineer who likes working at the intersection of hardware and software.
 
 ## Professional Interests
 

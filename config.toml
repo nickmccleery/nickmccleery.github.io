@@ -10,7 +10,6 @@ pygmentscodefences = true
 [markup.goldmark.renderer]
 unsafe = true
 
-
 [params]
 mode = "toggle"
 useCDN = false
