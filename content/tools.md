@@ -2,7 +2,7 @@
 title: Tools
 description: Tools and utilities.
 date: 2024-11-14
-images: [/images/og/resources.png]
+images: [/images/og/tools.png]
 ---
 
 ## 1: Draw.io diagram/drawing template generator
