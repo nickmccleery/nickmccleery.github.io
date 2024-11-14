@@ -9,7 +9,7 @@
     "generate-og": "node --loader ts-node/esm scripts/opengraph-generator/src/generate-opengraph-images.ts",
     "bundle:drawio": "esbuild ./scripts/drawio-generator/*.ts --bundle --outdir=static/js/drawio-generator --format=esm --sourcemap",
     "bundle:drawio:prod": "esbuild ./scripts/drawio-generator/*.ts --bundle --outdir=static/js/drawio-generator --format=esm --minify",
-    "dev": "npm run bundle:drawio -- --watch & hugo server",
+    "dev": "npm run bundle:drawio && npm run generate-og && hugo server",
     "build": "npm run bundle:drawio:prod && npm run generate-og && hugo"
   },
   "repository": {

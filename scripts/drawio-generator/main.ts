@@ -42,6 +42,12 @@ export function generateDrawioTemplate(
   const grandparentID = getUuid();
   const parentID = getUuid();
 
+  // Check for empty strings and assign default values if necessary.
+  companyName = companyName || DEFAULT_LABELS.companyName;
+  drawingTitle = drawingTitle || DEFAULT_LABELS.drawingTitle;
+  authorName = authorName || DEFAULT_LABELS.authorName;
+  reviewedBy = reviewedBy || DEFAULT_LABELS.reviewedBy;
+
   // Create DTD string with paper size.
   const dtd = `<!DOCTYPE mxfile [
     <!-- Units are 1/100ths of an inch.  -->
