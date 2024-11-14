@@ -51,8 +51,8 @@ url = "/posts"
 weight = 2
 
 [[menu.main]]
-name = "Tags"
-url = "/tags"
+name = "Tools"
+url = "/tools"
 weight = 3
 
 [[menu.main]]

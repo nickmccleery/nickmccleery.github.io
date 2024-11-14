@@ -7,7 +7,10 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "generate-og": "node --loader ts-node/esm scripts/opengraph-generator/src/generate-opengraph-images.ts",
-    "build": "npm run generate-og && hugo"
+    "bundle:drawio": "esbuild ./scripts/drawio-generator/*.ts --bundle --outdir=static/js/drawio-generator --format=esm --sourcemap",
+    "bundle:drawio:prod": "esbuild ./scripts/drawio-generator/*.ts --bundle --outdir=static/js/drawio-generator --format=esm --minify",
+    "dev": "npm run bundle:drawio && hugo server",
+    "build": "npm run bundle:drawio:prod && hugo"
   },
   "repository": {
     "type": "git",
@@ -23,12 +26,16 @@
   "devDependencies": {
     "@types/js-yaml": "^4.0.9",
     "@types/node": "^18.15.11",
+    "@types/uuid": "^10.0.0",
+    "esbuild": "^0.24.0",
     "ts-node": "^10.9.2",
     "typescript": "^5.6.2"
   },
   "dependencies": {
     "canvas": "^2.9.0",
     "js-yaml": "^4.1.0",
-    "sharp": "^0.32.0"
+    "sharp": "^0.32.0",
+    "uuid": "^10.0.0",
+    "xmlbuilder2": "^3.1.1"
   }
 }
