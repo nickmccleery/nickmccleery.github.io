@@ -16,9 +16,6 @@ export enum PAPER_SIZES {
   A4 = "A4",
 }
 
-// Dimensions have units of 1/100th of an inch.
-const MM_TO_HUNDREDTHS_OF_INCH = (1 / 25.4) * 100;
-
 type GridConfig = {
   rows: number;
   cols: number;

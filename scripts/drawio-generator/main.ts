@@ -1,7 +1,7 @@
 // main.ts
 
 import { create } from "xmlbuilder2";
-import { getUuid, getUtcTimestamp } from "./utils";
+import { getUuid, getUtcTimestamp, getTodayDate } from "./utils";
 import {
   computeGrid,
   computeGridLabelCoordinates,
@@ -24,8 +24,19 @@ import {
 const AGENT =
   "5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/17.2.4 Chrome/96.0.4664.174 Electron/16.1.0 Safari/537.36";
 
+const DEFAULT_LABELS = {
+  companyName: "ACME INC.",
+  drawingTitle: "WIDGET GENERAL ARRANGEMENT",
+  authorName: "JOHN DOE",
+  reviewedBy: "JANE SMITH",
+};
+
 export function generateDrawioTemplate(
-  paperSize: PAPER_SIZES = PAPER_SIZES.A3
+  paperSize: PAPER_SIZES = PAPER_SIZES.A3,
+  companyName: string = DEFAULT_LABELS.companyName,
+  drawingTitle: string = DEFAULT_LABELS.drawingTitle,
+  authorName: string = DEFAULT_LABELS.authorName,
+  reviewedBy: string = DEFAULT_LABELS.reviewedBy
 ): string {
   const sheetConfig = SHEET_CONFIGS[paperSize];
   const grandparentID = getUuid();
@@ -112,12 +123,12 @@ export function generateDrawioTemplate(
   drawGridLabels(root, parentID, axisXCoords, axisYCoords);
 
   drawTitleBlock(root, parentID, sheetConfig.width, sheetConfig.height, {
-    companyName: "ACME INC.",
-    drawingTitle: "WIDGET GENERAL ARRANGEMENT",
-    authorName: "JOHN DOE",
-    dateDrawn: "2023-10-19",
-    reviewedBy: "JANE SMITH",
-    reviewDate: "2023-10-20",
+    companyName: companyName,
+    drawingTitle: drawingTitle,
+    authorName: authorName,
+    dateDrawn: getTodayDate(),
+    reviewedBy: reviewedBy,
+    reviewDate: "YYYY-MM-DD",
     pageSize: paperSize,
     sheetNumber: "1 of 1",
     revision: "A",
