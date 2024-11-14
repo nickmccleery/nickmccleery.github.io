@@ -1,11 +1,11 @@
 ---
-title: Resources
+title: Tools
 description: Tools and utilities.
 date: 2024-11-14
 images: [/images/og/resources.png]
 ---
 
-## Draw.io diagram/drawing template generator
+## 1: Draw.io diagram/drawing template generator
 
 Generates a [Draw.io](https://app.diagrams.net/) template that broadly follows the
 [BS EN ISO 5457:1999](https://knowledge.bsigroup.com/products/technical-product-documentation-sizes-and-layout-of-drawing-sheets?version=standard)
