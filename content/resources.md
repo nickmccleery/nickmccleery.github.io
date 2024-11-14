@@ -1,44 +1,86 @@
 ---
 title: Resources
 description: Tools and utilities.
-date: 2024-10-20
+date: 2024-11-14
 images: [/images/og/resources.png]
 ---
 
-## Draw.io drawing template
+## Draw.io diagram/drawing template generator
 
-Select a paper size and click "Generate" to create your Draw.IO template.
+Generates a [Draw.io](https://app.diagrams.net/) template that broadly follows the
+[BS EN ISO 5457:1999](https://knowledge.bsigroup.com/products/technical-product-documentation-sizes-and-layout-of-drawing-sheets?version=standard)
+standard for technical product documentation.
+
+To generate a template, fill in the form below and click the "Generate Template" button. Note that the template is
+generated in the Draw.io XML format, with all non-text elements locked.
 
 <div id="generator" class="form-container">
   <div class="form-row">
-    <label for="companyName">Company Name:</label>
-    <input type="text" id="companyName" value="ACME INC">
+    <label for="companyName" class="form-label">Company:</label>
+    <div class="form-input">
+      <input type="text" id="companyName" value="ACME INC" >
+    </div>
   </div>
   <div class="form-row">
-    <label for="drawingTitle">Drawing Title:</label>
-    <input type="text" id="drawingTitle" value="WIDGET GENERAL ARRANGEMENT">
+    <label for="drawingTitle" class="form-label">Drawing Title:</label>
+    <div class="form-input">
+      <input type="text" id="drawingTitle" value="WIDGET GENERAL ARRANGEMENT" >
+    </div>
   </div>
   <div class="form-row">
-    <label for="authorName">Author:</label>
-    <input type="text" id="authorName" value="JOHN DOE">
+    <label for="authorName" class="form-label">Author:</label>
+    <div class="form-input">
+      <input type="text" id="authorName" value="JOHN DOE" >
+    </div>
   </div>
   <div class="form-row">
-    <label for="reviewedBy">Reviewer:</label>
-    <input type="text" id="reviewedBy" value="JANE SMITH">
+    <label for="reviewedBy" class="form-label">Reviewer:</label>
+    <div class="form-input">
+      <input type="text" id="reviewedBy" value="JANE SMITH" >
+    </div>
   </div>
   <div class="form-row">
-    <label for="paperSize">Sheet Size:</label>
-    <select id="paperSize">
-      <option value="A4">A4</option>
-      <option value="A3">A3</option>
-      <option value="A2" selected>A2</option>
-      <option value="A1">A1</option>
-    </select>
+    <label for="paperSize" class="form-label">Sheet Size:</label>
+    <div class="form-input">
+      <select id="paperSize">
+        <option value="A4">A4</option>
+        <option value="A3">A3</option>
+        <option value="A2" selected>A2</option>
+        <option value="A1">A1</option>
+      </select>
+    </div>
   </div>
   <div class="form-row">
-    <button id="generateBtn">Generate Template</button>
+    <div class="form-input-offset">
+      <button id="generateBtn">Generate Template</button>
+    </div>
   </div>
 </div>
+<style>
+.form-container {
+  max-width: 600px;
+}
+.form-row {
+  display: flex;
+  align-items: center;
+}
+.form-label {
+  width: 120px;
+  padding-right: 15px;
+  font-size: 0.9em;
+  flex-shrink: 0;
+}
+.form-input {
+  flex-grow: 1;
+}
+.form-input input, .form-input select {
+  width: 100%;
+}
+button {
+  padding: 2px;
+}
+
+</style>
 <script src="/js/drawio-generator/constants.js" type="module"></script>
 <script src="/js/drawio-generator/utils.js" type="module"></script>
 <script src="/js/drawio-generator/grid.js" type="module"></script>

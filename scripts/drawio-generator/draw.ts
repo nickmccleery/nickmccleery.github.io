@@ -9,6 +9,9 @@ import {
   FRAME_WIDTH,
 } from "./constants";
 
+const LOCKED =
+  "movable=0;resizable=0;rotatable=0;deletable=0;editable=0;connectable=0;";
+
 enum VerticalAlign {
   Top = "top",
   Middle = "middle",
@@ -37,7 +40,7 @@ export function drawGridLabels(
     const mx_cell = root.ele("mxCell", {
       id: getUuid(),
       value: (rowAxisNumber + 1).toString(),
-      style: TEXT_STYLE,
+      style: TEXT_STYLE + LOCKED,
       vertex: "1",
       parent: parent_id,
     });
@@ -58,7 +61,7 @@ export function drawGridLabels(
     const mx_cell = root.ele("mxCell", {
       id: getUuid(),
       value: ALPHABET[colAxisLetterIndex],
-      style: TEXT_STYLE,
+      style: TEXT_STYLE + LOCKED,
       vertex: "1",
       parent: parent_id,
     });
@@ -97,7 +100,7 @@ export function drawLine(
   const cell = root.ele("mxCell", {
     id: getUuid(),
     value: "",
-    style: style,
+    style: style + LOCKED,
     edge: "1",
     parent: parent_id,
   });
@@ -166,7 +169,7 @@ function drawRectangle(
   const cell = root.ele("mxCell", {
     id: getUuid(),
     value: "",
-    style: "rounded=0;whiteSpace=wrap;html=1;",
+    style: "rounded=0;whiteSpace=wrap;html=1;" + LOCKED,
     vertex: "1",
     parent: parentID,
   });
