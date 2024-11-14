@@ -43,10 +43,10 @@ export function generateDrawioTemplate(
   const parentID = getUuid();
 
   // Check for empty strings and assign default values if necessary.
-  companyName = companyName || DEFAULT_LABELS.companyName;
-  drawingTitle = drawingTitle || DEFAULT_LABELS.drawingTitle;
-  authorName = authorName || DEFAULT_LABELS.authorName;
-  reviewedBy = reviewedBy || DEFAULT_LABELS.reviewedBy;
+  companyName = (companyName || DEFAULT_LABELS.companyName).toUpperCase();
+  drawingTitle = (drawingTitle || DEFAULT_LABELS.drawingTitle).toUpperCase();
+  authorName = (authorName || DEFAULT_LABELS.authorName).toUpperCase();
+  reviewedBy = (reviewedBy || DEFAULT_LABELS.reviewedBy).toUpperCase();
 
   // Create DTD string with paper size.
   const dtd = `<!DOCTYPE mxfile [
