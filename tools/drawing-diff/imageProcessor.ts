@@ -1,3 +1,4 @@
+const RESET_MATCHING_PIXELS = false;
 interface Colors {
   SOURCE: string;
   TARGET: string;
@@ -74,25 +75,27 @@ async function generateDiff(
   ctx.globalAlpha = 0.6;
   drawImage(ctx, targetImageScreened, width, height);
 
-  // After diff is complete, restore original pixels where they match.
-  const diffData = ctx.getImageData(0, 0, width, height);
+  if (RESET_MATCHING_PIXELS) {
+    // After diff is complete, restore original pixels where they match.
+    const diffData = ctx.getImageData(0, 0, width, height);
 
-  for (let i = 0; i < sourceData.data.length; i += 4) {
-    const pixelsMatch =
-      Math.abs(sourceData.data[i] - targetData.data[i]) <= 5 &&
-      Math.abs(sourceData.data[i + 1] - targetData.data[i + 1]) <= 5 &&
-      Math.abs(sourceData.data[i + 2] - targetData.data[i + 2]) <= 5 &&
-      Math.abs(sourceData.data[i + 3] - targetData.data[i + 3]) <= 5;
+    for (let i = 0; i < sourceData.data.length; i += 4) {
+      const pixelsMatch =
+        Math.abs(sourceData.data[i] - targetData.data[i]) <= 5 &&
+        Math.abs(sourceData.data[i + 1] - targetData.data[i + 1]) <= 5 &&
+        Math.abs(sourceData.data[i + 2] - targetData.data[i + 2]) <= 5 &&
+        Math.abs(sourceData.data[i + 3] - targetData.data[i + 3]) <= 5;
 
-    if (pixelsMatch) {
-      diffData.data[i] = sourceData.data[i];
-      diffData.data[i + 1] = sourceData.data[i + 1];
-      diffData.data[i + 2] = sourceData.data[i + 2];
-      diffData.data[i + 3] = sourceData.data[i + 3];
+      if (pixelsMatch) {
+        diffData.data[i] = sourceData.data[i];
+        diffData.data[i + 1] = sourceData.data[i + 1];
+        diffData.data[i + 2] = sourceData.data[i + 2];
+        diffData.data[i + 3] = sourceData.data[i + 3];
+      }
     }
-  }
 
-  ctx.putImageData(diffData, 0, 0);
+    ctx.putImageData(diffData, 0, 0);
+  }
 
   await Promise.all(
     renderElements.map(async (element) => {
