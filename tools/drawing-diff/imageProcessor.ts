@@ -3,11 +3,6 @@ interface Colors {
   TARGET: string;
 }
 
-interface ImageDimensions {
-  width: number;
-  height: number;
-}
-
 type RenderElement = HTMLImageElement;
 
 async function generateDiff(
@@ -66,7 +61,7 @@ async function generateDiff(
   ctx.globalCompositeOperation = "source-over";
   drawImage(ctx, sourceImageScreened, width, height);
   ctx.save();
-  ctx.globalAlpha = 0.6;
+  ctx.globalAlpha = 0.5;
   drawImage(ctx, targetImageScreened, width, height);
 
   // Update render elements
