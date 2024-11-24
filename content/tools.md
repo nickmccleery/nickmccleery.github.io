@@ -187,6 +187,7 @@ generateElement.onclick = function(event) {
         wrapper.href = imageUrl;
         wrapper.onclick = function(e) {
             e.preventDefault();
+            
             // Create a new blob from the data URL for Chrome.
             fetch(imageUrl)
                 .then(res => res.blob())
