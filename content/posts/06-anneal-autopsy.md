@@ -4,7 +4,7 @@ description: Post-mortem reflections on a failed engineering software start-up.
 date: 2024-04-23
 draft: false
 images: [/images/og/06-anneal-autopsy.png]
-tags: [start-ups, business]
+tags: [startups, business]
 ---
 
 ## _Preface_
@@ -179,7 +179,7 @@ theory, saving us from having to impose desktop app installation on future users
 
 #### Pre-accelerator, coronavirus, and tech stack selection
 
-The Propel 'pre-accelerator' was really like a start-ups 101 course; the sort of thing designed to poke and prod first
+The Propel 'pre-accelerator' was really like a startups 101 course; the sort of thing designed to poke and prod first
 time founders and get them thinking about their business more broadly. It provided a lot of exposure to people who'd
 been through the process before, and helped educate us on the mechanics of raising capital, running customer discovery,
 thinking about sales, ensuring we had global outlook etc. The programme kicked off in the middle of COVID-19. We started
@@ -309,7 +309,7 @@ these sorts of folks for them to put that predatory deal in front of us, so sure
 interested...
 
 After we'd bagged a few F1 and America's Cup teams, the idea was to move into the younger parts of the aerospace and
-automotive markets—targeting EV companies, NewSpace start-ups, and the teams building electric aircraft. After that? The
+automotive markets—targeting EV companies, NewSpace startups, and the teams building electric aircraft. After that? The
 rest of the world.
 
 For context, here's a little snippet from the contents page of the business plan I put together for our pre-seed round:
@@ -362,11 +362,11 @@ there was just nobody close to home who was really a relevant prospect for us. T
 not take us seriously.
 
 We attended dedicated aerospace innovation events where the aerospace primes told us they were very interested in
-working with start-ups, then sat there as they gave multiple hour-long presentations about the history of the companies
-half the room had already worked at, then they all disappeared before bothering to speak with any of the start-ups.
+working with startups, then sat there as they gave multiple hour-long presentations about the history of the companies
+half the room had already worked at, then they all disappeared before bothering to speak with any of the startups.
 
 Over and over, I tried variations on this set of engagement channels as we swept through different target customers,
-from mid-market aerospace companies to primes, and back down to three man start-ups. We covered everything from
+from mid-market aerospace companies to primes, and back down to three man startups. We covered everything from
 motorsport and aerospace to medical devices and e-mobility. We tried to get in touch with everyone from engineers to
 CTOs, and with PLM managers, CFOs, and even founders themselves.
 
@@ -407,7 +407,7 @@ probably the second most successful private rocket company in the world—becaus
 
 In addition, the people who responded to the cold outbound were amazing—whatever they were working on. Literally every
 single person I spoke to was incredibly helpful, open, polite, and courteous; these people are saints, and I think
-start-ups of all varieties probably owe a lot to these folks.
+startups of all varieties probably owe a lot to these folks.
 
 This is in pretty stark contrast with the experiences I tended to have when trying to engage local companies and
 educational institutions—though there are two firms who were absolutely great. In the end, we even wound up helping a
@@ -451,11 +451,11 @@ going. At the same time, some funding that I had been expecting to come through 
 investigation, and we were forced to jump through some significant hoops with no timeline or certainty of outcome
 provided.
 
-The plan we'd opted to take was effectively a _burn the boats_ focus on hardware start-ups. If we could get a few
+The plan we'd opted to take was effectively a _burn the boats_ focus on hardware startups. If we could get a few
 half-decent customers from this space, we might catch a fortunate bounce with the funding we were expecting—or be able
 to raise a round, or even a bridge to keep us afloat.
 
-Unfortunately, that didn't work either. Just like the bigger players, we again found hardware start-ups generally
+Unfortunately, that didn't work either. Just like the bigger players, we again found hardware startups generally
 wouldn't speak to us, except where intros were made by their investors. We had a few of these, some of them incredible
 companies, but the culture and approach to tool adoption was largely equivalent to that of the larger companies we had
 managed to speak to.
@@ -499,7 +499,7 @@ spam filter, maybe they're on holiday, maybe they don't feel they're allowed to 
 The system has so many unknowns that if you aren't getting some reliable feedback, it's hard to get better.
 
 I still think diving in is broadly the right way to go, but despite my fondness for being chucked right into the deep
-end, I do wish I'd spent literally a few weeks reading about start-ups more broadly before I did anything else. Read
+end, I do wish I'd spent literally a few weeks reading about startups more broadly before I did anything else. Read
 [Traction](https://www.amazon.co.uk/Traction-Startup-Achieve-Explosive-Customer/dp/1591848369),
 [Zero to One](https://www.amazon.co.uk/Zero-One-Notes-Start-Future/dp/0753555204), and
 [The Mom Test](https://www.momtestbook.com/).
@@ -785,8 +785,8 @@ Firstly, I think I should have taken a more serial approach to the product devel
 should have put bounds on the dates where customer discovery was to take place, batch up our learning, then schedule
 however many sprints to deliver on what we'd decided. Then, we should have gone again, showing the new bits to the
 market. Instead, I was always context switching—jumping back and forth between ad-hoc customer discovery and developing
-new product concepts. It felt somewhat unplanned and unstructured, and we could have done a better job, even if
-start-ups are always chaotic.
+new product concepts. It felt somewhat unplanned and unstructured, and we could have done a better job, even if startups
+are always chaotic.
 
 Secondly, I think I would have placed more of a cultural focus on the importance of speed. I am very supportive of the
 idea that good engineering work is often exploratory, and it often takes a couple of days and a few stabs to work out

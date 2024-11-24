@@ -4,7 +4,7 @@ description: Sudden realisations, blind spots, and commercial naivety.
 date: 2023-12-12
 draft: false
 images: [/images/og/02-lobbying-not-marketing.png]
-tags: [marketing, start-ups, opinion]
+tags: [marketing, startups, opinion]
 ---
 
 ## I'm not naive... right?

@@ -136,7 +136,7 @@ everything from geometry constraint system kernel through to the PLM, then you s
 
 ### Option D: Something different
 
-This is where we come in—and there are also a couple of other start-ups playing in the space, so hopefully you'll start
+This is where we come in—and there are also a couple of other startups playing in the space, so hopefully you'll start
 to see more of the 'something different' approach in the near future.
 
 In our case, we wanted a tool that:
