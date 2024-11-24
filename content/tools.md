@@ -145,7 +145,9 @@ Generates a visual comparison between the first pages of any two PDF documents. 
     <span class="target">⯀</span> Revision
   </div>
   <div class="col">
+  <a id="diff-display-wrapper" href="" target="_blank">
       <img id="diff-display" />
+  </a>
   </div>
 </div>
 
@@ -173,6 +175,7 @@ generateElement.onclick = function(event) {
     const targetImage = document.getElementById("image-target");
     const workingCanvas = document.getElementById("working-canvas");
     const renderElements = [document.getElementById("diff-display")];
+    const wrapper = document.getElementById("diff-display-wrapper");
     
     generateDiff(
         sourceImage,
@@ -180,6 +183,20 @@ generateElement.onclick = function(event) {
         workingCanvas,
         renderElements
     ).then(() => {
+        const imageUrl = renderElements[0].src;
+        wrapper.href = imageUrl;
+        wrapper.onclick = function(e) {
+            e.preventDefault();
+            // Create a new blob from the data URL for Chrome.
+            fetch(imageUrl)
+                .then(res => res.blob())
+                .then(blob => {
+                    const blobUrl = URL.createObjectURL(blob);
+                    window.open(blobUrl, '_blank');
+                    // Clean up the blob URL after opening.
+                    setTimeout(() => URL.revokeObjectURL(blobUrl), 100);
+                });
+        };
         document.getElementById("legend").style.display = "block";
         document.getElementById("difftitle").style.display = "block";
     });

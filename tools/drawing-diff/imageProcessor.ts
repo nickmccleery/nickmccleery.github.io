@@ -11,13 +11,11 @@ async function generateDiff(
   workingCanvas: HTMLCanvasElement,
   renderElements: RenderElement[]
 ): Promise<void> {
-  // Configure colors.
   const COLORS: Colors = {
     SOURCE: "#0000FF",
     TARGET: "#F28522",
   };
 
-  // Use source image dimensions for diff.
   const width: number = sourceImage.naturalWidth;
   const height: number = sourceImage.naturalHeight;
   initializeCanvas(workingCanvas, width, height);
@@ -27,12 +25,26 @@ async function generateDiff(
     throw new Error("Failed to get canvas context");
   }
 
-  clear(workingCanvas, ctx);
+  // Create temporary canvas for original pixel comparison.
+  const sourceCanvas = document.createElement("canvas");
+  const targetCanvas = document.createElement("canvas");
+  initializeCanvas(sourceCanvas, width, height);
+  initializeCanvas(targetCanvas, width, height);
 
+  const sourceCtx = sourceCanvas.getContext("2d")!;
+  const targetCtx = targetCanvas.getContext("2d")!;
+
+  // Get original pixel data for comparison.
+  drawImage(sourceCtx, sourceImage, width, height);
+  drawImage(targetCtx, targetImage, width, height);
+  const sourceData = sourceCtx.getImageData(0, 0, width, height);
+  const targetData = targetCtx.getImageData(0, 0, width, height);
+
+  // Process the diff as normal.
+  clear(workingCanvas, ctx);
   ctx.globalCompositeOperation = "screen";
 
-  // Draw and screen source.
-  const sourceImageScreened: HTMLImageElement = await screenImage(
+  const sourceImageScreened = await screenImage(
     workingCanvas,
     ctx,
     sourceImage,
@@ -44,8 +56,7 @@ async function generateDiff(
 
   clear(workingCanvas, ctx);
 
-  // Draw and screen target.
-  const targetImageScreened: HTMLImageElement = await screenImage(
+  const targetImageScreened = await screenImage(
     workingCanvas,
     ctx,
     targetImage,
@@ -57,14 +68,32 @@ async function generateDiff(
 
   clear(workingCanvas, ctx);
 
-  // Set opacity and redraw.
   ctx.globalCompositeOperation = "source-over";
   drawImage(ctx, sourceImageScreened, width, height);
   ctx.save();
-  ctx.globalAlpha = 0.5;
+  ctx.globalAlpha = 0.6;
   drawImage(ctx, targetImageScreened, width, height);
 
-  // Update render elements
+  // After diff is complete, restore original pixels where they match.
+  const diffData = ctx.getImageData(0, 0, width, height);
+
+  for (let i = 0; i < sourceData.data.length; i += 4) {
+    const pixelsMatch =
+      Math.abs(sourceData.data[i] - targetData.data[i]) <= 5 &&
+      Math.abs(sourceData.data[i + 1] - targetData.data[i + 1]) <= 5 &&
+      Math.abs(sourceData.data[i + 2] - targetData.data[i + 2]) <= 5 &&
+      Math.abs(sourceData.data[i + 3] - targetData.data[i + 3]) <= 5;
+
+    if (pixelsMatch) {
+      diffData.data[i] = sourceData.data[i];
+      diffData.data[i + 1] = sourceData.data[i + 1];
+      diffData.data[i + 2] = sourceData.data[i + 2];
+      diffData.data[i + 3] = sourceData.data[i + 3];
+    }
+  }
+
+  ctx.putImageData(diffData, 0, 0);
+
   await Promise.all(
     renderElements.map(async (element) => {
       element.src = workingCanvas.toDataURL("image/png");
