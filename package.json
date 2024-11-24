@@ -6,11 +6,14 @@
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "generate-og": "node --loader ts-node/esm scripts/opengraph-generator/src/generate-opengraph-images.ts",
-    "bundle:drawio": "esbuild ./scripts/drawio-generator/*.ts --bundle --outdir=static/js/drawio-generator --format=esm --sourcemap",
-    "bundle:drawio:prod": "esbuild ./scripts/drawio-generator/*.ts --bundle --outdir=static/js/drawio-generator --format=esm --minify",
-    "dev": "npm run bundle:drawio && hugo server",
-    "build": "npm run bundle:drawio:prod && hugo"
+    "generate-og": "node --loader ts-node/esm tools/opengraph-generator/src/generate-opengraph-images.ts",
+    "bundle:drawio": "esbuild ./tools/drawio-generator/*.ts --bundle --outdir=static/js/drawio-generator --format=esm --sourcemap",
+    "bundle:drawio:prod": "esbuild ./tools/drawio-generator/*.ts --bundle --outdir=static/js/drawio-generator --format=esm --minify",
+    "copy:pdfworker": "cp node_modules/pdfjs-dist/build/pdf.worker.mjs static/js/pdf.worker.mjs",
+    "bundle:drawdiff": "npm run copy:pdfworker && esbuild ./tools/drawing-diff/*.ts --bundle --outdir=static/js/drawing-diff --format=esm --sourcemap",
+    "bundle:drawdiff:prod": "npm run copy:pdfworker && esbuild ./tools/drawing-diff/*.ts --bundle --outdir=static/js/drawing-diff --format=esm --minify",
+    "dev": "npm run bundle:drawio && npm run bundle:drawdiff && hugo server",
+    "build": "npm run bundle:drawio:prod && npm run bundle:drawdiff:prod && hugo"
   },
   "repository": {
     "type": "git",
@@ -34,6 +37,7 @@
   "dependencies": {
     "canvas": "^2.9.0",
     "js-yaml": "^4.1.0",
+    "pdfjs-dist": "^4.8.69",
     "sharp": "^0.32.0",
     "uuid": "^10.0.0",
     "xmlbuilder2": "^3.1.1"

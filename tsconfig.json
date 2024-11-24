@@ -10,7 +10,7 @@
         "forceConsistentCasingInFileNames": true
     },
     "include": [
-        "scripts/**/*"
+        "tools/**/*"
     ],
     "ts-node": {
         "esm": true,

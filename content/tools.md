@@ -135,3 +135,124 @@ document.getElementById('generateBtn').addEventListener('click', () => {
   );
 });
 </script>
+
+## 2: Drawing/PDF diff tool
+
+Generates a visual comparison between the first pages of any two PDF documents.
+
+This tool generates the diff by:
+
+1. Extracting the first page from each document and converting it to a raster image.
+2. Desaturating each image to yield a grayscale version.
+3. Using screen blending modes to apply a blue screen (`#0000FF`) to the original image and an orange screen (`#F28522`)
+   to the revision image.
+4. Overlaying the revised image with the original image at partial opacity.
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <label for="custom-file-source">Original</label>
+            <input type="file" accept=".pdf" id="custom-file-source" />
+            <img id="image-source" class="shadow" />
+        </div>
+        <div class="col">
+            <label for="custom-file-target">Revision</label>
+            <input type="file" accept=".pdf" id="custom-file-target" />
+            <img id="image-target" class="shadow" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col" style="text-align: right;">
+            <button id="generate">Generate Diff</button>
+        </div>
+    </div>
+    <canvas id="pdf" class="hidden"></canvas>
+    <canvas id="working-canvas" class="hidden"></canvas>
+    <div class="legend shadow" style="width: 25%;" id="legend">
+        <span class="source">⯀</span> Original
+        <br />
+        <span class="target">⯀</span> Revision
+    </div>
+    <div class="row">
+        <div class="col">
+            <img id="diff-display" class="shadow w-100 mb-2" />
+        </div>
+    </div>
+</div>
+
+<style>
+.hidden {
+    display: none;
+}
+.shadow {
+    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+    border-radius: 8px;
+}
+.source {
+    color: #0000FF;
+}
+.target {
+    color: #F28522;
+}
+.legend {
+    padding: 10px;
+    border: 1px dashed #00000020;
+    display: none;
+}
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+.row {
+    display: flex;
+    gap: 20px;
+    margin: 20px 0;
+}
+.col {
+    flex: 1;
+    text-align: center;
+}
+.w-100 {
+    width: 100%;
+}
+.mb-2 {
+    margin-bottom: 0.5rem;
+}
+</style>
+
+<script type="module">
+import { readFileTo, loadAndRender, generateDiff } from '/js/drawing-diff/main.js';
+
+// Set up source document preview
+const inputElementSource = document.getElementById("custom-file-source");
+const renderElementSource = document.getElementById("image-source");
+inputElementSource.onchange = function(event) {
+    readFileTo(event, renderElementSource);
+};
+
+// Set up target document preview
+const inputElementTarget = document.getElementById("custom-file-target");
+const renderElementTarget = document.getElementById("image-target");
+inputElementTarget.onchange = function(event) {
+    readFileTo(event, renderElementTarget);
+};
+
+// Attach diff generator function to button
+const generateElement = document.getElementById("generate");
+generateElement.onclick = function(event) {
+    const sourceImage = document.getElementById("image-source");
+    const targetImage = document.getElementById("image-target");
+    const workingCanvas = document.getElementById("working-canvas");
+    const renderElements = [document.getElementById("diff-display")];
+    
+    generateDiff(
+        sourceImage,
+        targetImage,
+        workingCanvas,
+        renderElements
+    ).then(() => {
+        document.getElementById("legend").style.display = "block";
+    });
+};
+</script>
