@@ -56,31 +56,7 @@ generated in the Draw.io XML format, with all non-text elements locked.
     </div>
   </div>
 </div>
-<style>
-.form-container {
-  max-width: 600px;
-}
-.form-row {
-  display: flex;
-  align-items: center;
-}
-.form-label {
-  width: 120px;
-  padding-right: 15px;
-  font-size: 0.9em;
-  flex-shrink: 0;
-}
-.form-input {
-  flex-grow: 1;
-}
-.form-input input, .form-input select {
-  width: 100%;
-}
-button {
-  padding: 2px;
-}
 
-</style>
 <script src="/js/drawio-generator/constants.js" type="module"></script>
 <script src="/js/drawio-generator/utils.js" type="module"></script>
 <script src="/js/drawio-generator/grid.js" type="module"></script>
@@ -135,3 +111,141 @@ document.getElementById('generateBtn').addEventListener('click', () => {
   );
 });
 </script>
+
+## 2: Drawing/PDF diff tool
+
+Generates a visual comparison between the first pages of any two PDF documents. This tool generates the diff by:
+
+1. Extracting the first page from each document and converting it to a raster image.
+2. Desaturating each image to yield a grayscale version.
+3. Using screen blending modes to apply a blue screen (`#0000FF`) to the original image and an orange screen (`#F28522`)
+   to the revision image.
+4. Overlaying the revised image with the original image at partial opacity.
+
+---
+
+<div>
+  <div class="form-row">
+      <label for="custom-file-source" class="form-label">Original:</label>
+      <input type="file" accept=".pdf" id="custom-file-source" />
+  </div>
+  <img id="image-source" class="shadow" />
+  <div class="form-row col">
+      <label for="custom-file-target" class="form-label">Revision:</label>
+      <input type="file" accept=".pdf" id="custom-file-target" />
+  </div>
+  <img id="image-target" class="shadow" />
+  <button id="generate">Generate Diff</button>
+  <canvas id="pdf" class="hidden"></canvas>
+  <canvas id="working-canvas" class="hidden"></canvas>
+  <h3 id="difftitle" class="hidden">Diff output</h3>
+  <div class="legend shadow" style="width: 25%;" id="legend">
+    <span class="source">⯀</span> Original
+    <br />
+    <span class="target">⯀</span> Revision
+  </div>
+  <div class="col">
+  <a id="diff-display-wrapper" href="" target="_blank">
+      <img id="diff-display" />
+  </a>
+  </div>
+</div>
+
+<script type="module">
+import { readFileTo, loadAndRender, generateDiff } from '/js/drawing-diff/main.js';
+
+// Set up source document preview
+const inputElementSource = document.getElementById("custom-file-source");
+const renderElementSource = document.getElementById("image-source");
+inputElementSource.onchange = function(event) {
+    readFileTo(event, renderElementSource);
+};
+
+// Set up target document preview
+const inputElementTarget = document.getElementById("custom-file-target");
+const renderElementTarget = document.getElementById("image-target");
+inputElementTarget.onchange = function(event) {
+    readFileTo(event, renderElementTarget);
+};
+
+// Attach diff generator function to button
+const generateElement = document.getElementById("generate");
+generateElement.onclick = function(event) {
+    const sourceImage = document.getElementById("image-source");
+    const targetImage = document.getElementById("image-target");
+    const workingCanvas = document.getElementById("working-canvas");
+    const renderElements = [document.getElementById("diff-display")];
+    const wrapper = document.getElementById("diff-display-wrapper");
+    
+    generateDiff(
+        sourceImage,
+        targetImage,
+        workingCanvas,
+        renderElements
+    ).then(() => {
+        const imageUrl = renderElements[0].src;
+        wrapper.href = imageUrl;
+        wrapper.onclick = function(e) {
+            e.preventDefault();
+
+            // Create a new blob from the data URL for Chrome.
+            fetch(imageUrl)
+                .then(res => res.blob())
+                .then(blob => {
+                    const blobUrl = URL.createObjectURL(blob);
+                    window.open(blobUrl, '_blank');
+                    // Clean up the blob URL after opening.
+                    setTimeout(() => URL.revokeObjectURL(blobUrl), 100);
+                });
+        };
+        document.getElementById("legend").style.display = "block";
+        document.getElementById("difftitle").style.display = "block";
+    });
+};
+</script>
+
+<!-- All CSS -->
+<style>
+button {
+  padding: 2px;
+}
+
+/* Forms */
+.form-container {
+  max-width: 600px;
+}
+.form-row {
+  display: flex;
+  align-items: center;
+}
+.form-label {
+  width: 120px;
+  padding-right: 15px;
+  font-size: 0.9em;
+  flex-shrink: 0;
+}
+.form-input {
+  flex-grow: 1;
+}
+.form-input input, .form-input select {
+  width: 100%;
+}
+
+/*  Drawing diff */
+.hidden {
+    display: none;
+}
+.source {
+    color: #0000FF;
+}
+.target {
+    color: #F28522;
+}
+.legend {
+    margin-bottom: 5px;
+    padding: 5px;
+    border: 1px solid #dddddd;
+    display: none;
+    border-radius: 5px;
+}
+</style>
