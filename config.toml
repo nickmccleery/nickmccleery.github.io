@@ -18,6 +18,7 @@ mathjax = true
 katex = true
 favicon = "https://img.icons8.com/ios-filled/500w/gears.png"
 customcss = ["css/overrides.css"]
+images = ["/images/og/home.png"]
 
 [[params.social]]
 name = "Email"

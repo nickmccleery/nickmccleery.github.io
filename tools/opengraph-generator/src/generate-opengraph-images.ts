@@ -93,4 +93,42 @@ async function processDirectory(dirPath: string) {
   }
 }
 
+async function generateHomeOpenGraphImage() {
+  const outputPath = path.join(outputDir, `home.png`);
+  const title = "Home";
+  const description =
+    "Engineer who likes working at the intersection of hardware and software.";
+
+  await generateOpenGraphImage({
+    templatePath: path.join(__dirname, "..", globalConfig.template_path),
+    outputPath,
+    title: {
+      text: title,
+      font: globalConfig.title_font,
+      position: { x: 150, y: 230 },
+      maxWidth: 900,
+      lineHeight: 65,
+    },
+    description: {
+      text: description,
+      font: globalConfig.description_font,
+      position: { x: 150, y: 0 },
+      maxWidth: 900,
+      lineHeight: 40,
+    },
+    domain: {
+      text: globalConfig.domain,
+      font: globalConfig.domain_font,
+      position: { x: 150, y: 150 },
+    },
+    descriptionOffset: 30,
+  });
+
+  console.log(`Generated OpenGraph image for home page.`);
+}
+
+// Run the generation over our content directory.
 processDirectory(contentDir).catch(console.error);
+
+// Run the generation for the home page.
+generateHomeOpenGraphImage().catch(console.error);
