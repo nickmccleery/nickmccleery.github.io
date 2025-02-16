@@ -1,0 +1,3 @@
+- git submodule update --init --recursive
+- brew install pkg-config cairo pango libpng jpeg giflib librsvg vips
+- npm install

@@ -226,6 +226,12 @@ div .site-description {
   border-top: 1px solid var(--grey);
   border-bottom: 1px solid var(--grey);
   font-family: "Space Mono", sans-serif;
+
+  /* Override some updates to the Archie theme. */
+  background-color: #ffffff00;
+  position: static;
+  border-top: none;
+  border-bottom: none;
 }
 
 .toc-header {
