@@ -35,7 +35,7 @@
     "typescript": "^5.6.2"
   },
   "dependencies": {
-    "canvas": "^2.9.0",
+    "canvas": "^3.1.0",
     "js-yaml": "^4.1.0",
     "pdfjs-dist": "^4.8.69",
     "sharp": "^0.32.0",
