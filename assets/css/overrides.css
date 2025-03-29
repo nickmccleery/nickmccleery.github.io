@@ -232,6 +232,7 @@ div .site-description {
   position: static;
   border-top: none;
   border-bottom: none;
+  max-width: none;
 }
 
 .toc-header {
