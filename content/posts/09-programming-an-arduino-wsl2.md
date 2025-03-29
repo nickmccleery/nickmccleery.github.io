@@ -3,7 +3,7 @@ title: How to program an Arduino from WSL2
 description: Forcing cooperation between PlatformIO, Windows, WSL2, and a USB-connected Arduino.
 date: 2025-03-29
 draft: false
-images: [/images/og/08-kanban-indexing.png]
+images: [/images/og/09-programming-an-arduino-wsl2.png]
 tags: [software, hardware, arduino, wsl2]
 ---
 
