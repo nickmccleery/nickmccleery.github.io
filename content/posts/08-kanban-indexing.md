@@ -7,6 +7,12 @@ images: [/images/og/08-kanban-indexing.png]
 tags: [software, kanban, indexing, sorting, lists, data structures, algorithms]
 ---
 
+## Notes
+
+_This post was updated on 2025-03-31 to reflect changes made to the package in January 2025. These changes brought the
+package in line with the original approach used for the Anneal project, and addressed an issue with the
+`compute_intermediate_index` function that was introduced when packaging the utility for external consumption._
+
 ## TL;DR
 
 We used strings to track the positions of cards in a Kanban board column. This allowed for easy insertions, deletions,
