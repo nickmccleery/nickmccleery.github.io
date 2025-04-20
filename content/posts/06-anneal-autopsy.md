@@ -37,20 +37,20 @@ Also, [here are some rules I'd set myself if I had my time again](#what-i-would-
 ### Background
 
 I think it's hard to accurately identify where a concept truly originates, and it's easy to get so wrapped up in the
-narrative crafted around a start-up that you can forget what ground truth actually looks like—but I do think the idea
+narrative crafted around a start-up that you can forget what ground truth actually looks like, but I do think the idea
 behind Anneal is a relatively direct product of my experiences as an engineer prior to starting the company.
 
 For context, the first six years of my career were spent in Formula One. My experience there, though mostly rooted in
 data analysis, simulation, and performance optimisation, was pretty wide ranging. Beyond the thousands of hours spent
 wringing performance out of now ancient versions of MATLAB in ultimate search of marginally faster lap times, I've
 devised procedures for inspecting components, overseen the installation of imaging equipment, designed custom (physical)
-tools to support product assembly, and served time doing more traditional mechanical design work—covering everything
+tools to support product assembly, and served time doing more traditional mechanical design work; covering everything
 from the most minor washer chamfer detail through to wholesale redesign of big chunks of critical systems.
 
 Across all of these roles, a common theme in my work was what I refer to as _process focus_. As an engineer with a
 deep-seated aversion to grunt work, distaste for unnecessary complexity, and a fondness for getting the computer to do
-the work for me, a chunk of my contribution tended to lie in trying to improve process and procedure—often leaning on
-the fact that I'd learned to write code fairly early on, so could actually build little tools to help.
+the work for me, a chunk of my contribution tended to lie in trying to improve process and procedure, often leaning on
+the fact that I'd learned to write code fairly early on, and so could actually build little tools to help.
 
 ### Problem
 
@@ -113,20 +113,20 @@ The high level view of the timeline of some significant milestones is as shown b
 The vision comes from my experience as an engineer. I didn't grow up idolising Steve Jobs, I'd never heard of Sequoia,
 and nobody in my family had ever run a business. This sounds so myopic in hindsight that I'm almost embarrassed by it,
 but, at the outset, I didn't even have a view on whether or not I should pursue venture investment, and I had no real
-concept for how I wanted to design a business—at least not beyond its engineering function. I was just an engineer who
+concept for how I wanted to design a business; at least not beyond its engineering function. I was just an engineer who
 wanted to build a tool that I thought could make engineering teams more effective, and that I thought they'd be willing
 to pay for.
 
-So, after deciding I wanted to have a go at pursuing the idea, I sat down and schemed out the application I
-envisaged—and I applied for the January 2021 intake of [Ignite's](https://www.ignite.io/) 'Propel' pre-accelerator
-programme. There was no searching for co-founders, no market research, no customer discovery, no market size analysis;
-just product. Perhaps not all, but some of this I now know to be broadly typical of a somewhat cavalier first time
-technical founder with no commercial experience.
+So, after deciding I wanted to have a go at pursuing the idea, I sat down and schemed out the application I envisaged,
+then I applied for the January 2021 intake of [Ignite's](https://www.ignite.io/) 'Propel' pre-accelerator programme.
+There was no searching for co-founders, no market research, no customer discovery, no market size analysis; just
+product. Perhaps not all, but some of this I now know to be broadly typical of a somewhat cavalier first time technical
+founder with no commercial experience.
 
-Unfortunately, I can't actually access the one remaining Adobe XD file I have—because XD is now ~dead. At any rate, the
-scope here was relatively large—everything from drawing review tools to engineering-oriented CI/CD and decision support.
-Some of the intended functionality overlaps with the more fully featured PLM tools, but you can see the origin of the
-_Engineering OS_ vision from the file preview image:
+Unfortunately, I can't actually access the one remaining Adobe XD file I have because XD is now ~dead. At any rate, the
+scope here was relatively large. It included everything from drawing review tools to engineering-oriented CI/CD and
+decision support. Some of the intended functionality overlaps with the more fully featured PLM tools, but you can see
+the origin of the _Engineering OS_ vision from the file preview image:
 
 {{< figure src="/images/blog/06/AppDesign.png" title="Anneal initial designs." class="rounded margin" >}}
 
@@ -174,8 +174,8 @@ solutions. We have:
 | Decision support tools              | ❌           | ✅                    |
 
 In terms of how the product was actually to be built and deployed, the vision was always to build a web app. This was to
-allow for cross-platform compatibility, and to make it easier to deploy updates and new features—while also, at least in
-theory, saving us from having to impose desktop app installation on future users.
+allow for cross-platform compatibility, and to make it easier to deploy updates and new features while also, at least
+theoretically, saving us from having to impose desktop app installation on future users.
 
 #### Pre-accelerator, coronavirus, and tech stack selection
 
@@ -188,7 +188,7 @@ remotely in January 2021, and never really got going with office-based activity.
 The impact of coronavirus aside, and with the XD mockup in hand, I set about starting to build the actual app. I'd just
 spend the past year and a bit handling cloud architecture and backend development, so I started there. I went for a
 Flask/SQLAlchemy/Postgres stack, which wasn't too far removed from the Chalice/PonyORM/MySQL tech stack at my previous
-job. I also began experimenting with frontend frameworks, working through React, Angular, and Vue—and deciding that Vue
+job. I also began experimenting with frontend frameworks, working through React, Angular, and Vue, and deciding that Vue
 was the least bad option. We went first for Vue 2, then later upgraded to Vue 3.
 
 I laid out the architecture, starting writing some backend code, then the Propel guys convinced me to down tools and try
@@ -237,14 +237,14 @@ We hit those first two quickly, but the third just dragged on and on. Frankly, w
 #### Hiring
 
 After raising some capital, I started to build out the team. Given my lack of frontend skills, I was keen to get some
-dev expertise in that area. Initially, I'd also planned to hire a designer—seeing UX as a critical part of
-differentiation, particularly in a world where the incumbent tools are just so horrible to use. However, what quickly
+dev expertise in that area. Initially, I'd also planned to hire a designer, seeing UX as a critical part of
+differentiation; particularly in a world where the incumbent tools are just so horrible to use. However, what quickly
 became obvious is that hiring is _hard_, hiring for a start-up is even harder, and trying to do both of these things in
 a corner of the world that has suffered decades of brain drain is harder still.
 
 After a couple of months of posting ads and doing direct outreach, I'd got basically nowhere and decided to bring in a
-recruitment agency. I had a strong preference for getting people who were local, because I wanted the company to—at
-least at some point—operate from an office 100% of the time.
+recruitment agency. I had a strong preference for getting people who were local, because I wanted the company to, at
+least at some point, operate from an office 100% of the time.
 
 Recruiters cost a fortune. They have a weird monopoly on the market, for reasons I don't quite understand, and their
 incentives are not really aligned with either candidate or employer. The cost component meant I had to revise hiring
@@ -261,7 +261,7 @@ electrical infrastructure company, latterly developing internal tools for them u
 With a team in place, we started to build out the product. Most of my initial frontend work was eventually ripped out
 and replaced as we migrated from Vue 2 to Vue 3, and moved away from using the options API in favour of the composition
 API. My technical contribution eventually fell back to being mostly backend oriented, as I was the only one with any
-real experience with cloud architecture, relational databases, and the like—but the team eventually picked this up as
+real experience with cloud architecture, relational databases, and the like, but the team eventually picked this up as
 well.
 
 By Q3 of 2022, we'd deployed an alpha version of the product and onboarded some users. We had university projects, a
@@ -309,7 +309,7 @@ these sorts of folks for them to put that predatory deal in front of us, so sure
 interested...
 
 After we'd bagged a few F1 and America's Cup teams, the idea was to move into the younger parts of the aerospace and
-automotive markets—targeting EV companies, NewSpace startups, and the teams building electric aircraft. After that? The
+automotive markets, targeting EV companies, NewSpace startups, and the teams building electric aircraft. After that? The
 rest of the world.
 
 For context, here's a little snippet from the contents page of the business plan I put together for our pre-seed round:
@@ -330,8 +330,8 @@ So, I realised we had to start from cold. Biting the bullet, I sent thousands up
 messages, and LinkedIn connection requests. I sent enough snail mail that the post office staff asked what I was up to.
 I had countless introductions that were ignored.
 
-Long term, our response rate to cold outbound was on the order of 1%—though we did eventually manage to get this up into
-the 15% or so range for doing discovery work with engineers.
+Long term, our response rate to cold outbound was on the order of 1%, though we did eventually manage to get this up
+into the 15% or so range for doing discovery work with engineers.
 
 Thinking we might have better luck if people had perhaps heard of us before I came knocking, I tried to get a content
 marketing strategy going. I started a company blog where I wrote about engineering process, and about the history of
@@ -357,7 +357,7 @@ _This is the launch carousel that went out on LinkedIn when we went to public be
 
 <hr/>
 
-Beyond the ads and cold outbound, we joined a relevant trade body who were genuinely incredible at trying to help—but
+Beyond the ads and cold outbound, we joined a relevant trade body who were genuinely incredible at trying to help, but
 there was just nobody close to home who was really a relevant prospect for us. The ones who did take the intro tended to
 not take us seriously.
 
@@ -401,11 +401,11 @@ easier to deal with.
 
 We had an incredibly positive, helpful set of calls with probably the most advanced driving simulator company on the
 planet. They took a cold message, got people involved, understood the problem, and were willing to engage with us. I had
-a former F1 technical director—who, for the avoidance of doubt, couldn't remember me—give me an hour of his time to talk
+a former F1 technical director who, for the avoidance of doubt couldn't remember me, give me an hour of his time to talk
 through the concept and give me his view on where bottlenecks tended to be. I still have a positive relationship with
-probably the second most successful private rocket company in the world—because they responded to a tweet.
+probably the second most successful private rocket company in the world because they responded to a tweet.
 
-In addition, the people who responded to the cold outbound were amazing—whatever they were working on. Literally every
+In addition, the people who responded to the cold outbound were amazing, whatever they were working on. Literally every
 single person I spoke to was incredibly helpful, open, polite, and courteous; these people are saints, and I think
 startups of all varieties probably owe a lot to these folks.
 
@@ -452,7 +452,7 @@ investigation, and we were forced to jump through some significant hoops with no
 provided.
 
 The plan we'd opted to take was effectively a _burn the boats_ focus on hardware startups. If we could get a few
-half-decent customers from this space, we might catch a fortunate bounce with the funding we were expecting—or be able
+half-decent customers from this space, we might catch a fortunate bounce with the funding we were expecting, or be able
 to raise a round, or even a bridge to keep us afloat.
 
 Unfortunately, that didn't work either. Just like the bigger players, we again found hardware startups generally
@@ -465,15 +465,15 @@ pretty brutal decision to make the team redundant right before Christmas. I'd ta
 from generally low value users and no real volume in our pipeline, we were unlikely to be able to raise further capital.
 So, as we got towards the end of our runway, there really weren't any other options.
 
-In the end, if the team had stayed on, we'd have been insolvent in January—the funding we were expecting was still
+In the end, if the team had stayed on, we'd have been insolvent in January. The funding we were expecting was still
 nowhere to be seen, so we wouldn't have been able to make payroll.
 
 #### Shutdown
 
 In February 2024, after conversations with our investors, with a couple of bills hanging over our heads, and with AWS
-starting to charge us for our now relatively significant infrastructure costs—at least compared with the few thousand
-dollars remaining in the bank—we made the decision to shut things down. I sat down and wrote an open letter, then
-started tearing down infrastructure.
+starting to charge us for our now relatively significant infrastructure costs, at least as compared with the few
+thousand dollars remaining in the bank, we made the decision to shut things down. I sat down and wrote an open letter,
+then started tearing down infrastructure.
 
 The open letter that I put out at the end of February 2024 is available [here](/documents/240228-Shutdown.pdf).
 
@@ -492,8 +492,8 @@ can learn from. You write some code that errors out and you can interrogate the 
 the system and each time you do something different you get more information back, and your understanding of the system
 grows and you get better.
 
-But, if you try five different variants of outreach copy and nobody responds to any of them—or you're so close to zero
-that you can't trust comparison between the stats you're getting back—then you're not really learning much from that
+But, if you try five different variants of outreach copy and nobody responds to any of them, or you're so close to zero
+that you can't trust comparison between the stats you're getting back, then you're not really learning much from that
 except that nobody's interested. Plus, people are legitimately often busy, and maybe your message got caught in their
 spam filter, maybe they're on holiday, maybe they don't feel they're allowed to talk to outside companies... whatever.
 The system has so many unknowns that if you aren't getting some reliable feedback, it's hard to get better.
@@ -525,8 +525,8 @@ anyone who'd built and scaled a start-up beyond seed stage. So, when I started i
 effort to try and listen to the advice of others—on the grounds that many of these people have done this stuff before,
 so they might be worth listening to.
 
-In general, this is fine—but you really have to take what everyone says with a pinch of salt. In particular, I think a
-lot of the advice that's dished out—the received wisdom—is either now out of date, or simply never would have been
+In general, this is fine, but you really have to take what everyone says with a pinch of salt. In particular, I think a
+lot of the advice that's dished out, the received wisdom, is either now out of date or simply never would have been
 applicable to our target sector.
 
 The basic template advice is generally along the lines of:
@@ -546,13 +546,13 @@ offer to make their life a million times easier by building some technology for 
 I view this as consultancy-style product development by committee. There isn't necessarily a deep initial product vision
 driven by personal experience or lifelong ambition; you're just trying to solve a problem for someone who is well aware
 of the problem, but doesn't have the technical capability to do it themselves. You build that solution once, then you
-sell it over and over to similar looking customers—of which there are many.
+sell it over and over to similar looking customers, of which there are many.
 
 However, if you're targeting extremely technical people within a relatively small number of large, high-capability
 hardware organisations, you'll probably find that they tend to be a bit secretive, that they're often subject to
 restrictive NDAs, and that they are generally challenging to engage with. These orgs also often have in-house software
 teams who are dedicated to building internal tools to address business need. So, not only are they difficult to access,
-they are also conditioned to believe that they can identify and address their own problems. This is often true—but not
+they are also conditioned to believe that they can identify and address their own problems. This is often true, but not
 always.
 
 This poses a whole host of challenges:
@@ -577,10 +577,10 @@ this quote is always worth bearing in mind:
 Coming back to the received wisdom on this, I'm left wondering if a different approach might have been better advised.
 As I see it, you basically have two extremes in approach:
 
-- A) You go consultative—you emulate McKinsey. You leverage credibility/network/charisma/whatever to get in the room,
+- A) You go consultative. You emulate McKinsey. You leverage credibility/network/charisma/whatever to get in the room,
   you do a bunch of discovery work, you feed that into a product plan, you build some MVP, you validate it, you expand
   the product, then you sell it to the customer.
-- B) You adopt supreme confidence in your own vision—you emulate Rick Rubin. You basically decide that your business is
+- B) You adopt supreme confidence in your own vision. You emulate Rick Rubin. You basically decide that your business is
   driven by you having identified something you think everyone else has missed, and you lean into building the product
   that _you_ wanted. You develop it to a reasonable level of maturity, and then you start seriously thinking about
   sales.
@@ -608,14 +608,14 @@ Look back a century and you can find more of the same thing:
 
 In the end, I think I now take the view that there's value in not suppressing your contrarianism, and instead doing
 whatever the hell it is you wanted to at the outset. It might not be the standard playbook, and it might even adversely
-impact the probability of a moderately successful outcome—but the big outcomes are always outliers anyway.
+impact the probability of a moderately successful outcome... but the big outcomes are always outliers anyway.
 
 ### Launch now
 
 "Launch now" is the first item in
 [YC's essential startup advice](https://www.ycombinator.com/library/4D-yc-s-essential-startup-advice).
 
-Launching immediately is obviously at odds with the Figma-style, build-your-vision approach above—but there's some
+Launching immediately is obviously at odds with the Figma-style, build-your-vision approach above, but there's some
 engineering-specific insight I now have on this.
 
 As far as I can tell, engineers generally like _things_. They like products they can see and test and play with. What
@@ -623,8 +623,8 @@ engineers generally don't like is sales. They don't like talking to people when 
 think the other party is non-technical. They don't like bullshit, and they don't buy hype.
 
 This is probably a good argument for making sure you recruit one or two of the grandmaster salespeople that Peter Thiel
-describes; the ones who can do sales without anyone noticing—but it's also a good argument for launching as early as you
-can.
+describes; the ones who can do sales without anyone noticing, but it's also a good argument for launching as early as
+you can.
 
 For a long time after founding the company, our website was just a vanilla HTML landing page with a contact e-mail
 address on there. The copy was a bit non-specific, the design was basic, and there were no screenshots or demo videos or
@@ -667,15 +667,15 @@ engaging with people—I think largely because of appearances.
 
 At events, when I was introduced to new people, I'd often face either dismissive responses or enthusiastic but
 patronising ones. I had more than a few comments about 'going back to the boss', and several instances where the
-introduction mentioned my motorsport background—which then resulted in questions about whether or not I was working on
+introduction mentioned my motorsport background, which then resulted in questions about whether or not I was working on
 this project as part of a Formula Student team<sup>†</sup>.
 
 This point brings us back to the possible advantage to be had from ignoring received wisdom, which here states that
 founders should be the people running sales during the early days. I get the argument, but I think there's nuance here:
 if you don't look the way the market expects you to look, and you don't have the network or the brand to compensate, I
 think it's worth thinking up a different approach. That could be professional sales staff, a puppet CEO, or just sending
-your most grownup-looking team member to do the talking—which is exactly what Microsoft did when they signed their first
-contract with MITS for Altair BASIC.
+your most grownup-looking team member to do the talking, which is exactly what Microsoft did when they signed their
+first contract with MITS for Altair BASIC.
 
 Alternatively, _lean in_. Rock up to those events in shorts and flip-flops, and just embody the stereotype of the tech
 world. The early adopters you're looking for are probably sick of having to don that navy polyester blend suit and pair
@@ -695,14 +695,14 @@ This follows on from the challenges we faced with establishing credibility. If I
 another business from scratch, I would be thinking about distribution above all else. No matter how fantastic you think
 your idea is, or how great your product may be, it's all moot if you can't work out how to distribute it.
 
-In our case, we had such a hard time just getting conversations going—even the discovery calls with engineers were hard
-to secure—that I began thinking about other ways we might be able to go about distribution, given that direct sales
+In our case, we had such a hard time just getting conversations going, even the discovery calls with engineers were hard
+to secure, that I began thinking about other ways we might be able to go about distribution given that direct sales
 wasn't looking too promising. In hindsight, this thinking came too late; working out how we were going to handle
 distribution should have been one of the top priorities from day one.
 
 Working through the options I was able to think up, I first set up calls with some of the big CAE vendors, trying to
 explore whether integration and partnership might be a viable route. These guys were good: responsive, understood the
-concept, and were willing to engage—but they wanted us to be serving their existing customers before they'd really
+concept, and were willing to engage, but they wanted us to be serving their existing customers before they'd really
 consider anything. This was a bit of a Catch-22, as we were hoping to piggyback their distribution in order to get in
 front of their customers, but they weren't willing to support that until we already had some customers in common. I
 tried to get in touch with the big CAD and PLM vendors too, but was unable to get a response from any of them.
@@ -776,7 +776,7 @@ One thing I felt pretty acutely while focusing on customer work was a lack of pr
 justified, as our weekly retros would always demonstrate week on week progress, and when I showed people our product,
 the scope of the thing was often commented on. That said, if you're a technical founder who's used to getting a lot done
 on the product front, just be aware that pulling yourself out of the product development cycle will make it _feel_ like
-you're losing speed. In fact, you probably are losing speed—but velocity is about speed and direction, so it is
+you're losing speed. In fact, you probably are losing speed, but velocity is about speed and direction, so it is
 important to gather that data that helps keep you pointing the right way.
 
 Looking back, however, I do think we would have benefitted from a couple of changes.
@@ -784,7 +784,7 @@ Looking back, however, I do think we would have benefitted from a couple of chan
 Firstly, I think I should have taken a more serial approach to the product development and customer discovery piece. We
 should have put bounds on the dates where customer discovery was to take place, batch up our learning, then schedule
 however many sprints to deliver on what we'd decided. Then, we should have gone again, showing the new bits to the
-market. Instead, I was always context switching—jumping back and forth between ad-hoc customer discovery and developing
+market. Instead, I was always context switching; jumping back and forth between ad-hoc customer discovery and developing
 new product concepts. It felt somewhat unplanned and unstructured, and we could have done a better job, even if startups
 are always chaotic.
 
@@ -808,24 +808,24 @@ or who just don't have a good home-working setup, I think you lose out on so muc
 sharing of ideas, griping about common problems, relationship building, and so on. Above all of that, I think WFH is
 incredibly unfair on junior staff. If every single request for help or guidance has to be formalised, then they'll be
 more inclined to resist reaching out until they're really stuck or they have a batch of questions to ask all at once. If
-they're in the office next to you, a casual question might be answered in five seconds—and the junior team member up and
-running again.
+they're in the office next to you, a casual question might be answered in five seconds, and the junior team member up
+and running again.
 
 Beyond the requirement for formalised requests for help and support, junior staff are also deprived of the opportunity
 to overhear a conversation from which they might learn something. They're deprived of the ability to absorb knowledge by
 osmosis, and they're deprived of incidental exposure to what other teams and departments are working on. Given that they
 might well discover that they would be better suited to a different role by overhearing another team's discussions, it
-may be the case that your organisation would benefit from supporting that move—and that win-win opportunity would simply
-never present itself with your team all working from home.
+may be the case that your organisation would benefit from supporting that move, and that win-win opportunity would
+simply never present itself with your team all working from home.
 
 I also think there's something positive to be said for the act of getting out of bed, getting showered, and _going
 somewhere else_. I've lost count of the number of times that solutions to intractable problems have come to me on the
 drive home from work, but there's also something about physically separate spaces that seems to help with focus and
 productivity.
 
-In our case, our hand was forced by COVID, so we started out remote—doing remote interviews and remote onboarding.
+In our case, our hand was forced by COVID. We started out remote, doing remote interviews and remote onboarding.
 Eventually we rented a small office, but most of the team wanted to be in the office somewhere in the 1-3 days a week
-range, which I appreciate makes sense for many people. When we were all in the office together, it was great—and I wish
+range, which I appreciate makes sense for many people. When we were all in the office together, it was great, and I wish
 we'd have been able to manage that every day without it causing logistical headaches or costing anyone a fortune in
 fuel. Given my time again, I think I would try and actively select for a team who want to be in the office every day.
 There's a reason why Peter Thiel
@@ -834,7 +834,7 @@ There's a reason why Peter Thiel
 ### Geography
 
 My thinking here is pretty similar to that on remote working: you absolutely can build a unicorn anywhere, and there are
-some great examples of companies in unexpected places—and remote-first ones—that have done exactly that. However, I do
+some great examples of companies in unexpected places, and remote-first ones, that have done exactly that. However, I do
 think geography is worth some relatively considered thought. As with Thiel and his desire to get people in the office,
 there are some very valid reasons why the US has produced 645 unicorns, the UK 46, and Ireland just 6[^1].
 
@@ -845,13 +845,14 @@ California, not ended.
 I should caveat the above by saying my experience of American openness may involve a bit of path dependence, given that
 I didn't set foot on Californian soil until nearly three years into the company's life. At this point, I _maybe_ had a
 tiny bit of profile to help with things, but even so, I don't think I could have spent a Friday evening drinking beers
-in a satellite factory with engineers I'd never met anywhere in Europe—it just wouldn't happen.
+in a satellite factory with engineers I'd never met anywhere in Europe; it just wouldn't happen.
 
 If I were to go again, I think I would just find a way to set up shop in California. It feels like voluntarily eating a
 massive competitive disadvantage to do anything else. It's a bigger market, with better access to capital, talent, and
-customers—and they all speak the same language, so it makes sense to focus your energy there. If a move isn't possible,
-spend as much time as you possibly can there—people care about their work, they want to meet people who've flown
-thousands of miles to be there, and they don't care about what your accent says about your socioeconomic background.
+customers. Plus, they all speak the same language, so it makes sense to focus your energy there. If a move isn't
+possible, spend as much time as you possibly can there; people care about their work, they want to meet people who've
+flown thousands of miles to be there, and they don't care about what your accent says about your socioeconomic
+background.
 
 ### Just business, my friend
 
@@ -875,7 +876,7 @@ have pushed for a simpler, crisp document that people would be confident they'd 
 
 This pre-prepared document concept would probably be worth having for a few situations; pilot contracts, NDAs,
 investment agreements, and so on. You don't have to wait for someone else to set the terms of whatever deal—you can take
-the lead and try and force an outcome—whether that's terms, timeline, or whatever else.
+the lead and try and force an outcome, whether that's terms, timeline, or whatever else.
 
 ### Death by half-measure
 
@@ -895,7 +896,7 @@ raise enough to give yourself some headroom. If you're going to do content, buil
 you're using your experience to drive product development, lean into that and build the product you envisage.
 
 In general, I think I now prefer the approach of considering your options, making a plan, then committing to that with
-all of your resources. If it doesn't work out, you reassess and go again—but the attractiveness of the half-measure
+all of your resources. If it doesn't work out, you reassess and go again, but the attractiveness of the half-measure
 should be resisted; by trying to do a little bit of everything, you might end up not doing anything particularly well.
 
 ### A note on 'entrepreneurial' activity
@@ -910,7 +911,7 @@ As mentioned above, we tried to get around the not knowing people bit in other w
 things like crafting relatively nice, personalised letters, printing them on nice paper, and sending them all over the
 world asking for some guidance and feedback. Everyone gets a thousand e-mails a day; how many hand-signed letters do you
 get at work anymore? We also did things like having nice scale rules printed up, then sent those out to teams who might
-still work with printed drawings. Everyone gets branded pens, but pens run out—and my dad has some promotional scale
+still work with printed drawings. Everyone gets branded pens, but pens run out, and my dad has some promotional scale
 rules lying around that are as old as me.
 
 Somewhere in the middle, I worked through the notion of varying my job title across my internet presence to see if that
@@ -921,7 +922,7 @@ disguised sales pitch. I also swept through profile picture variants, different 
 website copy... all of it.
 
 At the more wiley end of things, at one point I went to the effort of identifying executives who were in charge of
-English speaking, engineering-heavy teams, but whose native language was not English—and whose EA did not speak their
+English speaking, engineering-heavy teams, but whose native language was not English, and whose EA did not speak their
 native language. I then wrote up a nice letter, had it translated to their native language, and sent it to them. The
 thinking here was that the EA is likely to filter out any comms that they think are not worth the executive's time, but
 if presented with one in their boss's native language, they might just balk, shrug, and pass it over.
@@ -948,13 +949,13 @@ of these other facets of running a business that I had previously neglected.
 
 That development of interest in the non-technical aspects of trying to run the company, I think, came a little too late.
 Had I had that interest earlier, I might have read more and learned more and had better background knowledge, and I
-might have been able to make some better decisions—or at least have leveraged the interest and energy to drive myself to
-do a better job.
+might have been able to make some better decisions, or at least have leveraged the interest and energy to drive myself
+to do a better job.
 
 Maybe this overlaps with [what I said about being thrown in the deep end](#on-fondness-for-the-deep-end), but I take
 some solace in the fact that not only do I now think I'd do a much better job at twice the speed if I were to start
 again, but I also have a newfound depth of respect and admiration for just about every function of every business out
-there—it's all hard.
+there; it's all hard.
 
 ## What I would do differently
 
@@ -974,8 +975,8 @@ the rules I'd set myself:
    - I would probably go straight to the US; west coast for most things, east coast for medical. Risk appetite is
      higher, people are more open, equity-based compensation is better understood, and the market is enormous. I think
      this makes it a better place to raise capital, find talent, and find customers.
-   - In Europe, I would be thinking London, Paris, or Berlin—though Germany sounds like a procedurally challenging place
-     to start a business.
+   - In Europe, I would be thinking London, Paris, or Berlin, though Germany sounds like a procedurally challenging
+     place to start a business.
 1. Invest in your first impression: part 1.
    - Spend a week or two designing a brand, producing guidelines and template assets, building a relatively high quality
      website etc.
@@ -998,20 +999,20 @@ the rules I'd set myself:
 1. Do what you can to bias situations in your favour.
    - Have pre-prepared pilot and early customer contracts ready to go. Leverage these to set the starting point for any
      negotiation.
-   - Don't wait for someone else to propose the terms of a deal—you can take the lead and try and force an outcome.
-   - There are no rules beyond the law. You don't have to follow the normal playbook for anything—from fundraising to
-     sales; you may be able to tilt the situation to your advantage by doing things differently.
+   - Don't wait for someone else to propose the terms of a deal. You can take the lead and try and force an outcome.
+   - There are no rules beyond the law. You don't have to follow the normal playbook for anything. From fundraising to
+     sales, you may be able to tilt the situation to your advantage by doing things differently.
 1. Avoid shiny object syndrome; choose simple tools where possible.
    - I chased my tail a bit trying to decide between MacOS, Ubuntu, and Windows. I tried a bunch of fancy CRMs and
      e-mail tools. In the end, I settled on Windows/WSL2, and did a whole bunch of things with Word, Excel, and
      PowerPoint.
-   - You can run e-mail campaigns with Word and Excel; you don't need a fancy CRM at the start—plus they all suck.
+   - You can run e-mail campaigns with Word and Excel. You don't need a fancy CRM at the start. Plus, they all suck.
    - You can also just use Dropbox to keep your data room live at all times; you don't need a separate, ad-hoc updated
      data room for investors.
 1. Track everything.
    - Your whole business is an experiment, not just the product.
-   - When you change _anything_—profile pictures, branding, taglines, copy, layout, whatever—try track the impact on
-     response rates, engagement, etc..
+   - When you change _anything_: profile pictures, branding, taglines, copy, layout, whatever... try track the impact on
+     response rates, engagement, etc.
 1. Launch now; ship early and often.
    - Once your product is interesting and of reasonably high quality, ship it<sup>‡</sup>. Get it in front of people.
    - Once it's out, ship updates regularly. Invest some time in designing a a CI/CD strategy that enables this.
@@ -1022,8 +1023,8 @@ the rules I'd set myself:
 think I would only consider it if I had supreme confidence that I'd already absolutely nailed the go-to-market strategy,
 and had some incredibly compelling evidence that we were going to be able to sell the product at scale.
 
-<sup>‡</sup>I think the days of shipping a hacked together, piece-of-shit MVP are broadly over. You should ship
-early—but the bar is higher than the received wisdom says, particularly if you're targeting a technical customer base.
+<sup>‡</sup>I think the days of shipping a hacked together, piece-of-shit MVP are broadly over. You should ship early,
+but the bar is higher than the received wisdom says; particularly if you're targeting a technical customer base.
 
 ## References
 
