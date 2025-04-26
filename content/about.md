@@ -78,7 +78,16 @@ signal processing, and that experience was incredibly helpful in more than one a
 One track of mine has been pressed by [Fundamental](https://fundamentalrecords.bandcamp.com/merch), but it's been a long
 time since I fired up Ableton or twiddled a filter.
 
-### Contact
+## Contact
 
 Some of my social media profiles are linked in the footer, but you can also e-mail me directly at
 [contact@nickmccleery.com](mailto:contact@nickmccleery.com).
+
+## Media
+
+- [The Analog, Interview](https://www.theanalog.io/interview-details/q-a-nick-mccleery/r/rec5VlnUdCLmQqbc7)
+- [Business Post, Feature](https://www.businesspost.ie/tech/anneal-engineers-virtual-workspaces-to-aid-collaboration/)
+- [Belfast Telegraph, Feature](https://www.belfasttelegraph.co.uk/business/ulsterbusiness/features/nick-mccleery-of-anneal-from-formula-one-engineering-to-building-a-tech-start-up/42278332.html)
+- [Belfast Telegraph, Regional Awards](https://www.belfasttelegraph.co.uk/business/northern-ireland/30-under-30-meet-the-best-and-brightest-ni-entrepreneurs-who-dont-let-fear-hold-them-back/41319724.html)
+- [Motion by Electronomous, Speaker](https://www.electronomous.com/motion-speaker/nick-mccleery/)
+- [Catalyst Invent, Speaker](https://wearecatalyst.org/2021/09/27/invent-2021-finalist-profile-anneal/)
