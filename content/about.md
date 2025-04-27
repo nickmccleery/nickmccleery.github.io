@@ -1,7 +1,7 @@
 ---
 title: About
-description:
-  Founder of a failed startup and former F1 engineer. Good with squiggly lines, likes writing code to solve problems.
+description: |
+  Founder of a failed startup, former F1 engineer, and reformed 'MATLAB savant'. Good with squiggly lines, likes writing code to solve problems.
 images: [/images/og/about.png]
 ---
 
