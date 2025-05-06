@@ -13,7 +13,7 @@ unsafe = true
 [params]
 mode = "toggle"
 useCDN = false
-subtitle = "This website is an irregularly updated collection of things that I've written. Most of these articles relate to software, engineering, and startups. <br/><br/> _Aut inveniam viam aut faciam._"
+subtitle = "An irregularly updated collection of notes on software, engineering, and startups. <br/><br/> _Aut inveniam viam aut faciam._"
 mathjax = true
 katex = true
 favicon = "https://img.icons8.com/ios-filled/500w/gears.png"
