@@ -35,7 +35,7 @@
     "typescript": "^5.6.2"
   },
   "dependencies": {
-    "canvas": "^3.1.0",
+    "@napi-rs/canvas": "^0.1.70",
     "js-yaml": "^4.1.0",
     "pdfjs-dist": "^4.8.69",
     "sharp": "^0.32.0",

@@ -1,10 +1,5 @@
 import sharp from "sharp";
-import {
-  registerFont,
-  createCanvas,
-  loadImage,
-  CanvasRenderingContext2D as NodeCanvasRenderingContext2D,
-} from "canvas";
+import { GlobalFonts, createCanvas, loadImage } from "@napi-rs/canvas";
 import { FontConfig } from "./opengraph-config.mjs";
 import path from "path";
 
@@ -28,9 +23,10 @@ interface OpenGraphOptions {
   descriptionOffset?: number;
 }
 
-// Function to wrap text
+import type { SKRSContext2D } from "@napi-rs/canvas";
+
 function wrapText(
-  ctx: NodeCanvasRenderingContext2D,
+  ctx: SKRSContext2D,
   text: string,
   maxWidth: number
 ): string[] {
@@ -52,10 +48,7 @@ function wrapText(
   return lines;
 }
 
-function drawText(
-  ctx: NodeCanvasRenderingContext2D,
-  options: TextOptions
-): number {
+function drawText(ctx: SKRSContext2D, options: TextOptions): number {
   const fontFamily = options.font.name.split(".")[0];
   ctx.font = `${options.font.size}px "${fontFamily}"`;
   ctx.fillStyle = options.font.color;
@@ -63,7 +56,6 @@ function drawText(
   let x = options.position.x;
   let y = options.position.y;
 
-  // Draw prefix symbol, if required.
   if (options.font.prefix_symbol) {
     const prefixWidth = ctx.measureText(options.font.prefix_symbol).width;
     ctx.fillStyle = options.font.prefix_symbol_color || options.font.color;
@@ -74,18 +66,16 @@ function drawText(
     );
   }
 
-  // Draw main text.
   ctx.fillStyle = options.font.color;
   const lines = options.maxWidth
     ? wrapText(ctx, options.text, options.maxWidth)
     : [options.text];
 
-  lines.forEach((line, index) => {
+  lines.forEach((line) => {
     ctx.fillText(line, x, y);
     y += options.lineHeight || options.font.size;
   });
 
-  // Return the y-coordinate of the bottom of the text.
   return y;
 }
 
@@ -93,38 +83,32 @@ export async function generateOpenGraphImage(
   options: OpenGraphOptions
 ): Promise<void> {
   const fontsPath = path.join(process.cwd(), "fonts");
-  registerFont(path.join(fontsPath, options.title.font.name), {
-    family: options.title.font.name.split(".")[0],
-  });
-  registerFont(path.join(fontsPath, options.description.font.name), {
-    family: options.description.font.name.split(".")[0],
-  });
-  registerFont(path.join(fontsPath, options.domain.font.name), {
-    family: options.domain.font.name.split(".")[0],
-  });
 
-  // Load the template image.
+  GlobalFonts.registerFromPath(
+    path.join(fontsPath, options.title.font.name),
+    options.title.font.name.split(".")[0]
+  );
+  GlobalFonts.registerFromPath(
+    path.join(fontsPath, options.description.font.name),
+    options.description.font.name.split(".")[0]
+  );
+  GlobalFonts.registerFromPath(
+    path.join(fontsPath, options.domain.font.name),
+    options.domain.font.name.split(".")[0]
+  );
+
   const image = await loadImage(options.templatePath);
-
-  // Create a canvas with the same dimensions as the template
   const canvas = createCanvas(image.width, image.height);
-  const ctx = canvas.getContext("2d") as NodeCanvasRenderingContext2D;
+  const ctx = canvas.getContext("2d");
 
-  // Draw the template image onto the canvas.
   ctx.drawImage(image, 0, 0);
 
-  // Draw domain.
   drawText(ctx, options.domain);
-
-  // Draw title and get its bottom y-coordinate.
   const titleBottom = drawText(ctx, options.title);
-
-  // Update description position based on title's bottom then draw.
   const descriptionOffset = options.descriptionOffset || DEFAULT_OFFSET;
   options.description.position.y = titleBottom + descriptionOffset;
   drawText(ctx, options.description);
 
-  // Save.
   const buffer = canvas.toBuffer("image/png");
   console.log("Saving image to:", options.outputPath);
   await sharp(buffer).toFile(options.outputPath);
