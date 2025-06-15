@@ -170,6 +170,10 @@ img[src$="#margin"] {
   margin-top: 20px;
 }
 
+.max-w-75 {
+  max-width: 75%;
+}
+
 figure {
   display: block;
   margin: auto;
