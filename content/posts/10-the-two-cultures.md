@@ -186,7 +186,7 @@ software team. The relative lack of regulatory burden in the software space may 
 teams to hit the throttle, while also attracting the sort of engineer who wants to hit the throttle, but I think it is
 also cultural.
 
-Speed and urgency is critically important to startups, and many of the cultural heavyweights of the technical world
+Speed and urgency are critically important to startups, and many of the cultural heavyweights of the technical world
 really are (or were) startups, from Google and Facebook to Amazon and Stripe—and I think the cultural ripple effect from
 these companies has been large enough to influence the space more widely.
 
@@ -219,7 +219,7 @@ aircraft system with Simulink, that version of Simulink Coder will likely have g
 Even without regulatory imperative, 'technical baseline' management and tracking may be imposed. NASA has run a
 [CFD validation programme](https://ntrs.nasa.gov/citations/19910001532) since the 1980s. When an upgrade is available,
 it isn't automatically rolled out to the user base; it's validated against some prior version in an attempt to ensure
-there has been no intended regression in functionality, and this goes through some kind of formal change control
+there has been no unintended regression in functionality, and this goes through some kind of formal change control
 process.
 
 These seemingly conservative, bureaucratic approaches to things arise from a very legitimate desire _not_ to kill
@@ -363,6 +363,6 @@ The divide between these two cultures is not fixed. When I've seen mechanical te
 it's obvious that they have much more in common than that separates them.
 
 However, in the context of engineering software, neither camp has the luxury of ignoring the other's priorities or
-constraints, and both could to gain from observing the other's approach to their craft. Treating speed, stability, and
-safety, and whatever else they disagree on, as design variables that exist on some continuum, and not as cultural
-tenets, will make life easier for everyone.
+constraints, and both could stand to gain from observing the other's approach to their craft. Treating speed, stability,
+and safety, and whatever else they disagree on, as design variables that exist on some continuum, and not as
+disciplinary axioms, will make life easier for everyone.
