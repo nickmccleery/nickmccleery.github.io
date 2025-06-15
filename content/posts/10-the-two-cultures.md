@@ -1,7 +1,7 @@
 ---
 title: The Two Cultures and the Engineering Revolution
 description: "Risk, shiny objects, speed, and ego: notes from the valley of a cultural divide"
-date: 2025-06-06
+date: 2025-06-15
 draft: false
 images: [/images/og/10-the-two-cultures.png]
 tags: [engineering, software, hardware, culture]
