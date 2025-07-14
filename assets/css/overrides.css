@@ -1,5 +1,6 @@
-@import url("https://fonts.googleapis.com/css?family=Space+Mono&display=swap");
-@import url("https://fonts.googleapis.com/css?family=Space+Grotesk&display=swap");
+/* @import url("https://fonts.googleapis.com/css?family=Space+Mono&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Space+Grotesk&display=swap"); */
+@import url("https://fonts.googleapis.com/css?family=Geist+Mono&display=swap");
 
 :root {
   --green: #00f681;
@@ -20,8 +21,8 @@
 
 html {
   color: #232333;
-  font-family: "Space Grotesk", monospace;
-  font-size: 16px;
+  font-family: "Geist Mono", monospace;
+  font-size: 15px;
   line-height: var(--lineheight);
 }
 
@@ -41,7 +42,7 @@ html {
 }
 
 p {
-  font-family: "Space Grotesk", sans-serif;
+  font-family: "Geist Mono", sans-serif;
   line-height: var(--lineheight);
 }
 
@@ -51,7 +52,7 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: "Space Mono", sans-serif;
+  font-family: "Geist Mono", sans-serif;
   font-weight: 500;
 }
 
@@ -84,7 +85,7 @@ a:hover {
 }
 
 code {
-  font-family: "Space Mono", monospace, sans-serif;
+  font-family: "Geist Mono", monospace, sans-serif;
   background-color: var(--lightgrey);
   color: var(--pink);
   text-decoration: bold;
@@ -92,7 +93,7 @@ code {
 }
 
 table {
-  font-family: "Space Mono", monospace, sans-serif;
+  font-family: "Geist Mono", monospace, sans-serif;
   margin-left: auto;
   margin-right: auto;
   font-size: smaller;
@@ -183,7 +184,7 @@ figcaption {
   display: block;
   margin: auto;
   text-align: center;
-  font-family: "Space Mono", sans-serif;
+  font-family: "Geist Mono", sans-serif;
   font-size: small;
 }
 
@@ -208,7 +209,7 @@ blockquote {
 
 .description {
   margin-bottom: 30px !important;
-  font-family: "Space Mono", sans-serif;
+  font-family: "Geist Mono", sans-serif;
   color: var(--grey);
   font-style: italic;
 }
@@ -220,7 +221,7 @@ blockquote {
 
 div .site-description {
   p {
-    font-family: "Space Mono", sans-serif;
+    font-family: "Geist Mono", sans-serif;
   }
 }
 
@@ -229,7 +230,7 @@ div .site-description {
   margin-bottom: 20px;
   border-top: 1px solid var(--grey);
   border-bottom: 1px solid var(--grey);
-  font-family: "Space Mono", sans-serif;
+  font-family: "Geist Mono", sans-serif;
 
   /* Override some updates to the Archie theme. */
   background-color: #ffffff00;
@@ -244,7 +245,7 @@ div .site-description {
   font-size: 1.1rem;
   margin-bottom: 10px;
   margin-top: 10px;
-  font-family: "Space Mono", sans-serif;
+  font-family: "Geist Mono", sans-serif;
 }
 
 .footnotes p {
