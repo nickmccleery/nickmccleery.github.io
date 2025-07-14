@@ -53,7 +53,7 @@ h4,
 h5,
 h6 {
   font-family: "Geist Mono", sans-serif;
-  font-weight: 500;
+  font-weight: 600;
 }
 
 h1 {
@@ -124,7 +124,7 @@ ul > li::before {
 
 ::selection {
   background: var(--maincolor);
-  color: vaR(--offblack);
+  color: var(--offblack);
   text-shadow: none;
 }
 
