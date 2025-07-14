@@ -17,21 +17,21 @@ export interface OpenGraphConfig {
 
 const config: OpenGraphConfig = {
   title_font: {
-    name: "SpaceMono-Regular.ttf",
+    name: "GeistMono-Medium.ttf",
     size: 150 * 0.375,
     color: "#000000",
     prefix_symbol: "#",
     prefix_symbol_color: "#ff59bd",
   },
   description_font: {
-    name: "SpaceMono-Italic.ttf",
+    name: "GeistMono-Regular.ttf",
     size: 80 * 0.375,
     color: "#737679",
     prefix_symbol: "//",
     prefix_symbol_color: "#ff59bd",
   },
   domain_font: {
-    name: "SpaceMono-Regular.ttf",
+    name: "GeistMono-Regular.ttf",
     size: 70 * 0.375,
     color: "#737679",
   },
