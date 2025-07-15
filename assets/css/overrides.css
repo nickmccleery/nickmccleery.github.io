@@ -16,11 +16,11 @@
   --maincolor: var(--pink);
   --bordercl: var(--grey);
 
-  --lineheight: 1.9em;
+  --lineheight: 1.7em;
 }
 
 html {
-  color: #232333;
+  color: var(--darkgrey);
   font-family: "Geist Mono", monospace;
   font-size: 15px;
   line-height: var(--lineheight);
@@ -53,17 +53,36 @@ h4,
 h5,
 h6 {
   font-family: "Geist Mono", sans-serif;
-  font-weight: 600;
+  font-weight: normal;
+}
+
+h1::before {
+  letter-spacing: 0.05em;
+}
+h2::before {
+  letter-spacing: 0.05em;
+}
+h3::before {
+  letter-spacing: 0.05em;
+}
+h4::before {
+  letter-spacing: 0.05em;
+}
+h5::before {
+  letter-spacing: 0.05em;
+}
+h6::before {
+  letter-spacing: 0.05em;
 }
 
 h1 {
   font-size: 1.3rem;
-  margin-top: 2em;
+  margin-top: 2.5em;
 }
 
 h2 {
   font-size: 1.2rem;
-  margin-top: 2em;
+  margin-top: 2.5em;
 }
 
 h3,
@@ -71,7 +90,7 @@ h4,
 h5,
 h6 {
   font-size: 1.1rem;
-  margin-top: 2em;
+  margin-top: 2.5em;
 }
 
 a {
@@ -207,8 +226,12 @@ blockquote {
   margin-left: 0.4ch;
 }
 
+.title {
+  font-weight: normal;
+}
+
 .description {
-  margin-bottom: 30px !important;
+  margin-bottom: 20px !important;
   font-family: "Geist Mono", sans-serif;
   color: var(--grey);
   font-style: italic;
