@@ -27,10 +27,8 @@ my [CV](/cv), but I've had the pleasure of working on some very cool projects wi
 
 The short version is:
 
-- 2012 - 2013: [Mercedes AMG High Performance Powertrains](https://www.mercedes-amg-hpp.com/), Performance Development
-  Engineer, Intern
-- 2014 - 2016: [Mercedes AMG High Performance Powertrains](https://www.mercedes-amg-hpp.com/), Mechanical Engineer,
-  Graduate
+- 2012 - 2013: [Mercedes AMG HPP](https://www.mercedes-amg-hpp.com/), Performance Development Engineer, Intern
+- 2014 - 2016: [Mercedes AMG HPP](https://www.mercedes-amg-hpp.com/), Mechanical Engineer, Graduate
 - 2016 - 2017: [Force India/Racing Point F1](https://www.astonmartinf1.com/)<sup>†</sup>: Junior Strategy & Performance
   Engineer
 - 2017 - 2019: [Force India/Racing Point F1](https://www.astonmartinf1.com/)<sup>†</sup>: Vehicle Science Engineer
